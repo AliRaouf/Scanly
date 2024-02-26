@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "839390457504",
+    "project_id": "scanly-6ac17",
+    "storage_bucket": "scanly-6ac17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839390457504:android:f084e4646b07ec7ab1e3c5",
+        "android_client_info": {
+          "package_name": "com.example.scanly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839390457504-5jku582i9fu04k1to2ib84kutnodcqqp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.scanly",
+            "certificate_hash": "e46ca9f89fa43ec1032b6723bdf9ae8a8034a175"
+          }
+        },
+        {
+          "client_id": "839390457504-1knc22mv13hifn3325akham16gsteerf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjNyx_bF_GSjiR6qSsbaq5CA2eDHV_zEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839390457504-1knc22mv13hifn3325akham16gsteerf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "839390457504-v0sn6agdjckjvovqhq44fvpqpnadrfal.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.scanly"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scanly</string>
+    <string name="facebook_app_id">1703104033432196</string>
+    <string name="fb_login_protocol_scheme">fb1703104033432196</string>
+    <string name="facebook_client_token">349b608260d63d6e59c8d4de074397e1</string>
+</resources>
