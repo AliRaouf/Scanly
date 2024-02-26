@@ -32,7 +32,23 @@ class TestCubit extends Cubit<TestState> {
     'Human Immunodeficiency Virus (HIV)',
     'Hepatitis B and C',
     'Iron Studies',
-    'Rheumatoid Factor (RF)'
+    'Rheumatoid Factor (RF)',
+    'Urinalysis',
+    'Dipstick test',
+    'Urine culture and sensitivity',
+    'Microscopy',
+    '24-hour urine collection',    'Carrier screening',
+    'Prenatal genetic testing',
+    'Chorionic villus sampling (CVS)',
+    'Amniocentesis',
+    'Newborn screening',
+    'Non-invasive prenatal testing (NIPT)',
+    'Cystic fibrosis (CF)',
+    'Fragile X',
+    'BRCA1 and BRCA2',
+    'Alpha-fetoprotein (AFP)',
+    'Karyotyping',
+    'Whole genome sequencing (WGS)',
   ];
   List<String> bloodTests = [
     'Complete Blood Count (CBC)',
@@ -53,6 +69,28 @@ class TestCubit extends Cubit<TestState> {
     'Hepatitis B and C',
     'Iron Studies',
     'Rheumatoid Factor (RF)',
+  ];
+
+  List<String> urineTests = [
+    'Urinalysis',
+    'Dipstick test',
+    'Urine culture and sensitivity',
+    'Microscopy',
+    '24-hour urine collection',
+  ];
+  List<String> geneticTests = [
+    'Carrier screening',
+    'Prenatal genetic testing',
+    'Chorionic villus sampling (CVS)',
+    'Amniocentesis',
+    'Newborn screening',
+    'Non-invasive prenatal testing (NIPT)',
+    'Cystic fibrosis (CF)',
+    'Fragile X',
+    'BRCA1 and BRCA2',
+    'Alpha-fetoprotein (AFP)',
+    'Karyotyping',
+    'Whole genome sequencing (WGS)',
   ];
   List<String> filteredTests = [];
   updateFilteredTests(String searchText) {

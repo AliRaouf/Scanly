@@ -7,6 +7,9 @@ import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/bottom_appbar.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
 import 'package:scanly/components/scan_bottomsheet_popup.dart';
+import 'package:scanly/screens/blood_screen.dart';
+import 'package:scanly/screens/genetic_screen.dart';
+import 'package:scanly/screens/urine_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -143,7 +146,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(20)),
                                         child: ElevatedButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) => BloodScreen()));
+                                          },
                                           style: ButtonStyle(
                                               padding: MaterialStatePropertyAll(
                                                   EdgeInsets.zero),
@@ -186,7 +194,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           borderRadius:
                                               BorderRadius.circular(20)),
                                       child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => GeneticScreen()));
+                                        },
                                         style: ButtonStyle(
                                             padding: MaterialStatePropertyAll(
                                                 EdgeInsets.zero),
@@ -226,7 +239,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: Color(0xfffafafa),
                                           borderRadius:
                                               BorderRadius.circular(20)),
-                                      child: ElevatedButton(onPressed: (){},style: ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero),
+                                      child: ElevatedButton(onPressed: (){
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => UrineScreen()));
+                                      },style: ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero),
                                           shape: MaterialStatePropertyAll(
                                               RoundedRectangleBorder(
                                                   borderRadius:
