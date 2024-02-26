@@ -19,10 +19,9 @@ class UserCubit extends Cubit<UserState> {
   int? height;
   int? weight;
   int? phoneNumber;
-
   getUserData() {
     user = FirebaseAuth.instance.currentUser;
-    print(user?.email ?? "de7k a");
+    print(user?.email ?? "de7ka");
     emit(GetUserDataState());
   }
 

@@ -22,7 +22,7 @@ class CustomTextFormField extends StatefulWidget {
         this.icon,
         this.iconColor,
         this.validate,
-        this.onTap});
+        this.onTap,});
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -39,7 +39,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         .of(context)
         .size
         .width;
-    return TextFormField(keyboardType:widget.type,
+    return TextFormField(
+      keyboardType:widget.type,
       onTap:widget.onTap,
       readOnly: widget.readOnly,
       autovalidateMode: AutovalidateMode.onUserInteraction,

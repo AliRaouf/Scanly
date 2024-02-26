@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scanly/bloc/login/login_cubit.dart';
 import 'package:scanly/bloc/register/register_cubit.dart';
+import 'package:scanly/bloc/test/test_cubit.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/screens/start_screen.dart';
 
@@ -14,7 +15,9 @@ class AppRoot extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => RegisterCubit()),
           BlocProvider(create: (context) => LoginCubit()..loadUserEmailPassword()),
-          BlocProvider(create: (context) => UserCubit())
+          BlocProvider(create: (context) => UserCubit()),
+          BlocProvider(create: (context) => TestCubit()),
+
         ],
         child: const MaterialApp(debugShowCheckedModeBanner: false,
           home: StartScreen(),
