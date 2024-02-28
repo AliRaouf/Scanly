@@ -6,6 +6,7 @@ class CustomTextFormField extends StatefulWidget {
   TextEditingController? controller;
   bool? obscureText;
   IconButton? icon;
+  Icon? preIcon;
   Color? iconColor;
   String? Function(String?)? validate;
   bool readOnly;
@@ -22,7 +23,8 @@ class CustomTextFormField extends StatefulWidget {
         this.icon,
         this.iconColor,
         this.validate,
-        this.onTap,});
+        this.onTap,
+      this.preIcon});
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -47,7 +49,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       controller: widget.controller,
       obscureText: widget.obscureText!,
       validator: widget.validate,
-      decoration: InputDecoration(alignLabelWithHint: true,
+      decoration: InputDecoration(alignLabelWithHint: true,prefixIcon: widget.preIcon,prefixIconColor: Color(0xff179BE8),
           contentPadding:
           EdgeInsets.symmetric(vertical:screenWidth*0.03819444444 , horizontal: screenWidth*0.03819444444),
           hintText: widget.hint,

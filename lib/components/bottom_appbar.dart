@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scanly/screens/home_screen.dart';
+import 'package:scanly/screens/profile_screen.dart';
 
 class AppBottomAppBar extends StatelessWidget {
   AppBottomAppBar({
@@ -24,6 +26,8 @@ class AppBottomAppBar extends StatelessWidget {
               width: screenWidth * 0.28,
               child: ElevatedButton(
                 onPressed: () {
+    Navigator.push(context,
+    MaterialPageRoute(builder: (context) => HomeScreen()));
                 },
                 style: ButtonStyle(
                     backgroundColor:
@@ -72,7 +76,10 @@ class AppBottomAppBar extends StatelessWidget {
             Container(
               width: screenWidth * 0.28,
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProfileScreen()));
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(Colors.transparent),
                   elevation: MaterialStatePropertyAll(0),

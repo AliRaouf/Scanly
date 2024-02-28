@@ -13,7 +13,7 @@ class BottomTestAppBar extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: screenHeight * 0.101,
+      height: screenHeight * 0.1,
       width: screenWidth * 0.9,
       decoration: BoxDecoration(
           color: Color(0xffD9D9D9).withOpacity(0.4),
@@ -45,7 +45,7 @@ class BottomTestAppBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                          width: screenWidth * 0.09,
+                          width: screenWidth * 0.08,
                           child: Image.asset("assets/images/blood.png")),
                       Text(
                         "Blood",
@@ -80,7 +80,7 @@ class BottomTestAppBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
-                          width: screenWidth * 0.09,
+                          width: screenWidth * 0.08,
                           child: Image.asset("assets/images/gene.png")),
                       Text(
                         "Genetic",
@@ -114,7 +114,7 @@ class BottomTestAppBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
-                          width: screenWidth * 0.08,
+                          width: screenWidth * 0.075,
                           margin: EdgeInsets.only(left: screenWidth * 0.02),
                           child: Image.asset("assets/images/urine.png")),
                       Text(
