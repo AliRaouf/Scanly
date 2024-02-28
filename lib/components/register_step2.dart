@@ -30,7 +30,7 @@ class RegisterStep2 extends StatelessWidget {
         .size
         .width;
     return Container(
-      height: screenHeight * 0.4,
+      height: screenHeight * 0.37,
       child: Form(
         key: formKey2,
         child: SingleChildScrollView(
@@ -56,7 +56,7 @@ class RegisterStep2 extends StatelessWidget {
                       onTap:onTap),
                 ],
               ),
-              Container(height: screenHeight*0.175,
+              Container(height: screenHeight*0.12,
                 child: ListView(
                   children: [
                     Row(

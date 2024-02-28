@@ -289,8 +289,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ],
                       controlsBuilder: (context, details) {
                         return Container(
-                          margin:
-                          EdgeInsets.symmetric(vertical: screenHeight * 0.03),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
