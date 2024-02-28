@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,7 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
     TestCubit.get(context).updateFilteredTests(searchController.text);
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state is PickFileSuccess) {
+          setState(() {});
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -64,6 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   backgroundColor: Colors.transparent,
                                   child: ClipOval(
                                     child: CachedNetworkImage(
+                                      errorWidget: (context, url, error) =>
+                                          const Image(
+                                              image: NetworkImage(
+                                                  'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg')),
                                       imageUrl: cubit.imageUrl,
                                       fit: BoxFit.cover,
                                       width: double.infinity,
@@ -150,7 +157,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) => BloodScreen()));
+                                                    builder: (context) =>
+                                                        BloodScreen()));
                                           },
                                           style: ButtonStyle(
                                               padding: MaterialStatePropertyAll(
@@ -198,7 +206,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => GeneticScreen()));
+                                                  builder: (context) =>
+                                                      GeneticScreen()));
                                         },
                                         style: ButtonStyle(
                                             padding: MaterialStatePropertyAll(
@@ -239,22 +248,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: Color(0xfffafafa),
                                           borderRadius:
                                               BorderRadius.circular(20)),
-                                      child: ElevatedButton(onPressed: (){
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => UrineScreen()));
-                                      },style: ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero),
-                                          shape: MaterialStatePropertyAll(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      20))),
-                                          elevation:
-                                          MaterialStatePropertyAll(0),
-                                          backgroundColor:
-                                          MaterialStatePropertyAll(
-                                              Color(0xfffafafa))),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      UrineScreen()));
+                                        },
+                                        style: ButtonStyle(
+                                            padding: MaterialStatePropertyAll(
+                                                EdgeInsets.zero),
+                                            shape: MaterialStatePropertyAll(
+                                                RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20))),
+                                            elevation:
+                                                MaterialStatePropertyAll(0),
+                                            backgroundColor:
+                                                MaterialStatePropertyAll(
+                                                    Color(0xfffafafa))),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
@@ -268,7 +282,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Text(
                                               "Urine",
                                               style: GoogleFonts.openSans(
-                                                  fontSize: screenWidth * 0.04442,
+                                                  fontSize:
+                                                      screenWidth * 0.04442,
                                                   color: Color(0xff232425),
                                                   fontWeight: FontWeight.w600),
                                             )
@@ -297,9 +312,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       Container(
                         height: screenHeight * 0.45,
                         child: ListView.builder(
-                            key:
-                                ValueKey<String>(TestCubit.get(context).filteredTests.join(',')),
-                            itemCount: TestCubit.get(context).filteredTests.length,
+                            key: ValueKey<String>(
+                                TestCubit.get(context).filteredTests.join(',')),
+                            itemCount:
+                                TestCubit.get(context).filteredTests.length,
                             padding: EdgeInsets.symmetric(
                                 vertical: 4, horizontal: 16),
                             itemBuilder: (context, index) {
@@ -307,7 +323,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 4),
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 8),
                                   decoration: BoxDecoration(
                                       color: Color(0xfffafafa),
                                       borderRadius: BorderRadius.circular(10)),
@@ -319,15 +336,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          TestCubit.get(context).filteredTests[index],
+                                          TestCubit.get(context)
+                                              .filteredTests[index],
                                           style: GoogleFonts.openSans(
                                               fontSize: screenWidth * 0.04,
                                               color: Color(0xff232425),
                                               fontWeight: FontWeight.w600),
                                         ),
                                       ),
-                                      ScanBottomSheetPopup(
-                                          testName: TestCubit.get(context).filteredTests[index])
+                                      BlocBuilder<UserCubit, UserState>(
+                                        builder: (context, state) {
+                                          return ScanBottomSheetPopup(
+                                              testName: TestCubit.get(context)
+                                                  .filteredTests[index]);
+                                        },
+                                      )
                                     ],
                                   ),
                                 ),

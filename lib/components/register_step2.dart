@@ -43,8 +43,11 @@ class RegisterStep2 extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left:screenWidth*0.02037037037),
-                        child: Text("Date Of Birth",style: GoogleFonts.openSans(fontSize: screenWidth*0.04,color: Color(0xff232425)),),
+                        padding: EdgeInsets.only(
+                            left: screenWidth * 0.02037037037),
+                        child: Text("Date Of Birth",
+                          style: GoogleFonts.openSans(fontSize: screenWidth *
+                              0.04, color: Color(0xff232425)),),
                       ),
                     ],
                   ),
@@ -53,17 +56,20 @@ class RegisterStep2 extends StatelessWidget {
                       readOnly: false,
                       hint: "DD/M/YYYY",
                       obscureText: false,
-                      onTap:onTap),
+                      onTap: onTap),
                 ],
               ),
-              Container(height: screenHeight*0.12,
+              Container(height: screenHeight * 0.12,
                 child: ListView(
                   children: [
                     Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: screenWidth*0.02037037037),
-                          child: Text("Password",style: GoogleFonts.openSans(fontSize: screenWidth*0.04,color: Color(0xff232425)),),
+                          padding: EdgeInsets.only(left: screenWidth *
+                              0.02037037037),
+                          child: Text("Password", style: GoogleFonts.openSans(
+                              fontSize: screenWidth * 0.04,
+                              color: Color(0xff232425)),),
                         ),
                       ],
                     ),
@@ -78,9 +84,10 @@ class RegisterStep2 extends StatelessWidget {
                       uppercaseCharCount: 1,
                       numericCharCount: 1,
                       width: screenWidth,
-                      height: screenHeight*0.14, onSuccess: (){
-                      print("Success");
-                    },
+                      height: screenHeight * 0.14,
+                      onSuccess: () {
+                        print("Success");
+                      },
                     )
                   ],
                 ),
@@ -90,12 +97,16 @@ class RegisterStep2 extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left:screenWidth*0.02037037037),
-                        child: Text("Confirm Password",style: GoogleFonts.openSans(fontSize: screenWidth*0.04,color: Color(0xff232425)),),
+                        padding: EdgeInsets.only(
+                            left: screenWidth * 0.02037037037),
+                        child: Text("Confirm Password",
+                          style: GoogleFonts.openSans(fontSize: screenWidth *
+                              0.04, color: Color(0xff232425)),),
                       ),
                     ],
-                  ),CustomTextFormField(validate: (data){
-                    if(confirmPasswordController.text != passwordController.text){
+                  ), CustomTextFormField(validate: (data) {
+                    if (confirmPasswordController.text !=
+                        passwordController.text) {
                       return 'Passwords do not match';
                     }
                   },

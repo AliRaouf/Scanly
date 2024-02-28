@@ -1,14 +1,24 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/gradient_button.dart';
 
-class ScanBottomSheetPopup extends StatelessWidget {
+class ScanBottomSheetPopup extends StatefulWidget {
   ScanBottomSheetPopup({super.key,required this.testName});
 String testName;
+
+  @override
+  State<ScanBottomSheetPopup> createState() => _ScanBottomSheetPopupState();
+}
+
+class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
+  late File? selectedTestFile;
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    var cubit = UserCubit.get(context);
     return GradientButton(
         screenWidth: screenWidth * 0.2,
         screenHeight: screenHeight * 0.0375,
@@ -25,38 +35,53 @@ String testName;
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Text(
-                        testName,
+                        widget.testName,
                         style: GoogleFonts.openSans(
                             fontSize: screenWidth * 0.06,
                             color: Color(0xff232425),
                             fontWeight: FontWeight.w600),
                       ),
-                      Container(
-                        width: screenWidth * 0.86,
-                        height: screenHeight * 0.2,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xff179BE8)),
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color(0xfffafafa)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.file_upload_outlined,
-                              size: screenWidth*0.11666666666,
-                              color: Color(0xff179BE8),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(screenWidth*0.01944444444),
-                              child: Text(
-                                "Upload your test",
-                                style: GoogleFonts.openSans(
-                                    fontSize: screenWidth * 0.04,
-                                    color: Color(0xff232425),
-                                    fontWeight: FontWeight.w600),
+                      GestureDetector(
+                        onTap: (){
+                          cubit.pickFile();
+                          setState(() {});
+                        },
+                        child: cubit.pickedFile != null?
+                            cubit.extension=="pdf"?Container()
+                                :Container(width: screenWidth * 0.86,
+                              height: screenHeight * 0.2,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0xff179BE8)),
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Color(0xfffafafa)),
+                            child: Image.file(cubit.fileToDisplay!,fit: BoxFit.fitHeight,))
+                            :Container(
+                          width: screenWidth * 0.86,
+                          height: screenHeight * 0.2,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Color(0xff179BE8)),
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0xfffafafa)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.file_upload_outlined,
+                                size: screenWidth*0.11666666666,
+                                color: Color(0xff179BE8),
                               ),
-                            )
-                          ],
+                              Padding(
+                                padding: EdgeInsets.all(screenWidth*0.01944444444),
+                                child: Text(
+                                  "Upload your test",
+                                  style: GoogleFonts.openSans(
+                                      fontSize: screenWidth * 0.04,
+                                      color: Color(0xff232425),
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       Row(

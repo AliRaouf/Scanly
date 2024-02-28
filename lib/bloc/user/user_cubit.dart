@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -19,6 +21,11 @@ class UserCubit extends Cubit<UserState> {
   int? height;
   int? weight;
   int? phoneNumber;
+  File? fileToDisplay;
+  FilePickerResult? result;
+  String? fileName;
+  PlatformFile? pickedFile;
+  String? extension;
   getUserData() {
     user = FirebaseAuth.instance.currentUser;
     print(user?.email ?? "de7ka");
@@ -51,6 +58,27 @@ class UserCubit extends Cubit<UserState> {
     } catch (e) {
       emit(ReceiveUserNameErrorState());
       print(e);
+    }
+  }
+  pickFile() async {
+    emit(PickFileLoading());
+    try{
+      result= await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['png','pdf','jpeg','jpg']
+      );
+      if(result!=null){
+        fileName=result!.files.first.name;
+        extension=result!.files.first.extension;
+        pickedFile = result!.files.first;
+        fileToDisplay=File(pickedFile!.path.toString());
+        print("$fileName \n$extension");
+        emit(PickFileSuccess());
+      }emit(PickFileSuccess());
+    }
+    catch (e){
+      print(e);
+      emit(PickFileError());
     }
   }
 }
