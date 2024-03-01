@@ -9,6 +9,7 @@ class GradientButton extends StatelessWidget {
     required this.text,
     required this.onpressed,
     required this.fontSize,
+    required this.border,
   });
 
   final double screenWidth;
@@ -16,6 +17,7 @@ class GradientButton extends StatelessWidget {
   final String text;
   final void Function()? onpressed;
   final double fontSize;
+  final double border;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class GradientButton extends StatelessWidget {
       width: screenWidth,
       height: screenHeight,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(border),
         gradient: const LinearGradient(
           colors: [Color(0xff00D1FF), Color(0xff04657A)],
           begin: Alignment.centerLeft,
@@ -35,7 +37,7 @@ class GradientButton extends StatelessWidget {
             backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
             shadowColor: const MaterialStatePropertyAll(Colors.transparent),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6)))),
+                borderRadius: BorderRadius.circular(border)))),
         onPressed: onpressed,
         child: Text(
           text,

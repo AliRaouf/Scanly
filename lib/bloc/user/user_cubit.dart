@@ -6,6 +6,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/services.dart';
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -26,6 +28,7 @@ class UserCubit extends Cubit<UserState> {
   String? fileName;
   PlatformFile? pickedFile;
   String? extension;
+  Uint8List? image;
   getUserData() {
     user = FirebaseAuth.instance.currentUser;
     print(user?.email ?? "de7ka");
@@ -74,11 +77,24 @@ class UserCubit extends Cubit<UserState> {
         fileToDisplay=File(pickedFile!.path.toString());
         print("$fileName \n$extension");
         emit(PickFileSuccess());
-      }emit(PickFileSuccess());
+      }
     }
     catch (e){
       print(e);
       emit(PickFileError());
     }
+  }
+  pickImage(ImageSource source) async {
+    final ImagePicker imagePicker = ImagePicker();
+    XFile? file = await imagePicker.pickImage(source: source);
+    if (file != null) {
+      return await file.readAsBytes();
+    } else {
+      print("No Image Selected");
+    }
+  }
+  selectImage() async {
+    Uint8List? img = await pickImage(ImageSource.camera);
+    image = img;
   }
 }

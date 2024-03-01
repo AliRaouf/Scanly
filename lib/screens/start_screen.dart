@@ -57,13 +57,13 @@ class _StartScreenState extends State<StartScreen> {
                         Container(
                           margin:
                               EdgeInsets.symmetric(horizontal: screenWidth * 0.045),
-                          child: Align(
-                              alignment: Alignment.center,
+                          child: Center(
                               child: Text(
                                 "We are Happy that you are here our mission is to provide you with information about your tests from where you are",
                                 style: GoogleFonts.openSans(
                                     fontSize: screenWidth * 0.045,
                                     color: Color(0xff777777)),
+                                textAlign: TextAlign.center,
                               )),
                         ),
                       ],

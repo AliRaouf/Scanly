@@ -4,12 +4,12 @@ import 'package:scanly/screens/home_screen.dart';
 import 'package:scanly/screens/profile_screen.dart';
 
 class AppBottomAppBar extends StatelessWidget {
-  AppBottomAppBar({
+  const AppBottomAppBar({
     required this.color,
     super.key,
   });
 
-  Color color;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -22,14 +22,14 @@ class AppBottomAppBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
+            SizedBox(
               width: screenWidth * 0.28,
               child: ElevatedButton(
                 onPressed: () {
     Navigator.push(context,
-    MaterialPageRoute(builder: (context) => HomeScreen()));
+    MaterialPageRoute(builder: (context) => const HomeScreen()));
                 },
-                style: ButtonStyle(
+                style: const ButtonStyle(
                     backgroundColor:
                     MaterialStatePropertyAll(Colors.transparent),
                     elevation: MaterialStatePropertyAll(0)),
@@ -42,18 +42,18 @@ class AppBottomAppBar extends StatelessWidget {
                     Text(
                       "Tests",
                       style: GoogleFonts.openSans(fontSize: screenWidth*0.0445,
-                          color: Color(0xff232425),
+                          color: const Color(0xff232425),
                           fontWeight: FontWeight.w600),
                     )
                   ],
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: screenWidth * 0.29,
               child: ElevatedButton(
                 onPressed: () {},
-                style: ButtonStyle(
+                style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(Colors.transparent),
                   elevation: MaterialStatePropertyAll(0),
                 ),
@@ -66,21 +66,21 @@ class AppBottomAppBar extends StatelessWidget {
                     Text(
                       "History",
                       style: GoogleFonts.openSans(fontSize: screenWidth*0.0445,
-                          color: Color(0xff232425),
+                          color: const Color(0xff232425),
                           fontWeight: FontWeight.w600),
                     )
                   ],
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: screenWidth * 0.28,
               child: ElevatedButton(
                 onPressed: (){
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ProfileScreen()));
+                      MaterialPageRoute(builder: (context) => const ProfileScreen()));
                 },
-                style: ButtonStyle(
+                style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(Colors.transparent),
                   elevation: MaterialStatePropertyAll(0),
                 ),
@@ -93,7 +93,7 @@ class AppBottomAppBar extends StatelessWidget {
                     Text(
                       "Profile",
                       style: GoogleFonts.openSans(fontSize: screenWidth*0.0445,
-                          color: Color(0xff232425),
+                          color: const Color(0xff232425),
                           fontWeight: FontWeight.w600),
                     )
                   ],

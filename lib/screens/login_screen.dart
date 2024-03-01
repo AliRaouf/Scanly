@@ -37,8 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     var cubit = LoginCubit.get(context);
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {
+      listener: (context, state)async{
         if (state is LoginSuccessState) {
+          await UserCubit.get(context).receiverUserData();
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => HomeScreen()));
         }
