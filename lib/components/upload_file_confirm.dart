@@ -115,7 +115,9 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                       screenWidth: screenWidth * 0.35,
                       screenHeight: screenHeight * 0.0625,
                       text: "Continue",
-                      onpressed: (){},
+                      onpressed: (){
+                        cubit.processImage();
+                      },
                       fontSize: screenWidth * 0.04444,
                       border: 30),
                 ],
