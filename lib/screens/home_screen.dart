@@ -9,7 +9,7 @@ import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/bottom_appbar.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
 import 'package:scanly/components/gradient_button.dart';
-import 'package:scanly/components/qrscan.dart';
+import 'package:scanly/components/scan_bottomsheet_popup.dart';
 import 'package:scanly/components/upload_file_confirm.dart';
 import 'package:scanly/screens/blood_screen.dart';
 import 'package:scanly/screens/genetic_screen.dart';
@@ -43,7 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
     var cubit = UserCubit.get(context);
     TestCubit.get(context).updateFilteredTests(searchController.text);
     return BlocConsumer<UserCubit, UserState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+      },
       builder: (context, state) {
         return Scaffold(
           body: Container(
@@ -359,209 +360,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               showModalBottomSheet(
                                                   context: context,
                                                   builder: (context) {
-                                                    return StatefulBuilder(
-                                                        builder: (BuildContext
-                                                                context,
-                                                            StateSetter
-                                                                setModalState) {
-                                                      return SizedBox(
-                                                        height:
-                                                            screenHeight * 0.5,
-                                                        child: Center(
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: <Widget>[
-                                                              SizedBox(height: screenHeight*0.05,
-                                                                child: Text(
-                                                                  TestCubit.get(
-                                                                          context)
-                                                                      .filteredTests[index],
-                                                                  style: GoogleFonts.openSans(
-                                                                      fontSize:
-                                                                          screenWidth *
-                                                                              0.06,
-                                                                      color: Color(
-                                                                          0xff232425),
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                              ),
-                                                              GestureDetector(
-                                                                onTap:
-                                                                    () async {
-                                                                  await cubit
-                                                                      .pickFile();
-                                                                  Navigator.push(
-                                                                      context,
-                                                                      MaterialPageRoute(
-                                                                          builder: (context) => UploadFileConfirm(testName:                                                                 TestCubit.get(
-                                                                              context)
-                                                                              .filteredTests[index])));
-                                                                },
-                                                                child: Container(
-                                                                        width: screenWidth *
-                                                                            0.86,
-                                                                        height: screenHeight *
-                                                                            0.2,
-                                                                        decoration: BoxDecoration(
-                                                                            border:
-                                                                                Border.all(color: Color(0xff179BE8)),
-                                                                            borderRadius: BorderRadius.circular(28),
-                                                                            color: Color(0xfffafafa)),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Icon(
-                                                                              Icons.file_upload_outlined,
-                                                                              size: screenWidth * 0.11666666666,
-                                                                              color: Color(0xff179BE8),
-                                                                            ),
-                                                                            Padding(
-                                                                              padding: EdgeInsets.all(screenWidth * 0.01944444444),
-                                                                              child: Text(
-                                                                                "Upload your test",
-                                                                                style: GoogleFonts.openSans(fontSize: screenWidth * 0.04, color: Color(0xff232425), fontWeight: FontWeight.w600),
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                              ),
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
-                                                                children: [
-                                                                  GestureDetector(
-                                                                    onTap: ()async{
-                                                                      await cubit
-                                                                          .selectImage()
-                                                                          .then(
-                                                                              (image) {
-                                                                                setState(
-                                                                            () {
-                                                                          _selectedImage =
-                                                                              image;
-                                                                        });
-                                                                        Navigator.push(
-                                                                            context,
-                                                                            MaterialPageRoute(
-                                                                                builder: (context) => UploadFileConfirm(testName:                                                                 TestCubit.get(
-                                                                                    context)
-                                                                                    .filteredTests[index])));
-                                                                      });
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          screenWidth *
-                                                                              0.4,
-                                                                      height:
-                                                                          screenHeight *
-                                                                              0.15,
-                                                                      decoration: BoxDecoration(
-                                                                          border: Border.all(
-                                                                              color: Color(
-                                                                                  0xff179BE8)),
-                                                                          borderRadius: BorderRadius.circular(
-                                                                              20),
-                                                                          color:
-                                                                              Color(0xfffafafa)),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Icon(
-                                                                            Icons.camera_alt_outlined,
-                                                                            size:
-                                                                                screenWidth * 0.11666666666,
-                                                                            color:
-                                                                                Color(0xff179BE8),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding:
-                                                                                EdgeInsets.symmetric(vertical: screenWidth * 0.01944444444),
-                                                                            child:
-                                                                                Text(
-                                                                              "Use your Camera",
-                                                                              style: GoogleFonts.openSans(fontSize: screenWidth * 0.035, fontWeight: FontWeight.w600, color: Color(0xff232425)),
-                                                                            ),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  GestureDetector(
-                                                                    onTap: () {
-                                                                      Navigator.push(
-                                                                          context,
-                                                                          MaterialPageRoute(
-                                                                              builder: (context) => QRScan()));
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          screenWidth *
-                                                                              0.4,
-                                                                      height:
-                                                                          screenHeight *
-                                                                              0.15,
-                                                                      decoration: BoxDecoration(
-                                                                          border: Border.all(
-                                                                              color: Color(
-                                                                                  0xff179BE8)),
-                                                                          borderRadius: BorderRadius.circular(
-                                                                              20),
-                                                                          color:
-                                                                              Color(0xfffafafa)),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Icon(
-                                                                            Icons.qr_code_scanner_outlined,
-                                                                            size:
-                                                                                screenWidth * 0.11666666666,
-                                                                            color:
-                                                                                Color(0xff179BE8),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding:
-                                                                                EdgeInsets.all(screenWidth * 0.01944444444),
-                                                                            child:
-                                                                                Center(
-                                                                              child: Text(
-                                                                                "Scan QR Code",
-                                                                                style: GoogleFonts.openSans(
-                                                                                  fontSize: screenWidth * 0.035,
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  color: Color(0xff232425),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      );
-                                                    });
+                                                    return ScanBottomSheetPopup(testName: TestCubit.get(
+                                                        context)
+                                                        .filteredTests[index]);
                                                   });
                                             },
                                             fontSize: screenWidth * 0.033,

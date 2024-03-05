@@ -7,6 +7,9 @@ import 'package:scanly/components/bottom_test_appbar.dart';
 import 'package:scanly/components/scan_bottomsheet_popup.dart';
 import 'package:scanly/screens/home_screen.dart';
 
+import '../bloc/user/user_cubit.dart';
+import '../components/gradient_button.dart';
+
 class UrineScreen extends StatefulWidget {
   const UrineScreen({super.key});
 
@@ -24,6 +27,7 @@ class _UrineScreenState extends State<UrineScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     var cubit = TestCubit.get(context);
+    var uCubit = UserCubit.get(context);
     return BlocConsumer<TestCubit, TestState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -96,8 +100,27 @@ class _UrineScreenState extends State<UrineScreen> {
                                               fontWeight: FontWeight.w600),
                                         ),
                                       ),
-                                      ScanBottomSheetPopup(
-                                          testName: cubit.urineTests[index])
+                                      BlocBuilder<UserCubit, UserState>(
+                                        builder: (context, state) {
+                                          return GradientButton(
+                                            screenWidth: screenWidth * 0.2,
+                                            screenHeight: screenHeight * 0.0375,
+                                            text: "Scan",
+                                            onpressed: () {
+                                              uCubit.pickedFile = null;
+                                              showModalBottomSheet(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return ScanBottomSheetPopup(testName: TestCubit.get(
+                                                        context)
+                                                        .urineTests[index]);
+                                                  });
+                                            },
+                                            fontSize: screenWidth * 0.033,
+                                            border: 6,
+                                          );
+                                        },
+                                      )
                                     ],
                                   ),
                                 ),

@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
@@ -65,23 +63,25 @@ class UserCubit extends Cubit<UserState> {
       print(e);
     }
   }
-  pickFile() async {
+  Future<void> pickFile() async {
     emit(PickFileLoading());
-    try{
-      result= await FilePicker.platform.pickFiles(
+    try {
+      result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        allowedExtensions: ['png','pdf','jpeg','jpg']
+        allowedExtensions: ['png', 'pdf', 'jpeg', 'jpg'],
       );
-      if(result!=null){
-        fileName=result!.files.first.name;
-        extension=result!.files.first.extension;
+      if (result != null) {
+        fileName = result!.files.first.name;
+        extension = result!.files.first.extension;
         pickedFile = result!.files.first;
-        fileToDisplay=File(pickedFile!.path.toString());
+        fileToDisplay = File(pickedFile!.path.toString());
         print("$fileName \n$extension");
         emit(PickFileSuccess());
+      } else {
+        print("No file selected");
+        emit(PickFileError());
       }
-    }
-    catch (e){
+    } catch (e) {
       print(e);
       emit(PickFileError());
     }
