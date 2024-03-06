@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,6 +7,8 @@ import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/custom_button.dart';
 import 'package:scanly/components/gradient_button.dart';
 import 'package:scanly/screens/home_screen.dart';
+
+import '../bloc/textract/textract_cubit.dart';
 
 class UploadFileConfirm extends StatefulWidget {
   UploadFileConfirm({super.key, required this.testName});
@@ -116,7 +120,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                       screenHeight: screenHeight * 0.0625,
                       text: "Continue",
                       onpressed: (){
-                        cubit.processImage();
+                        TextractCubit.get(context).uploadImage(File(cubit.pickedFile!.path!));
                       },
                       fontSize: screenWidth * 0.04444,
                       border: 30),

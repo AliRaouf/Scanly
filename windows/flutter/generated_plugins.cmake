@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  amplify_db_common
   cloud_firestore
   desktop_webview_auth
   file_selector_windows

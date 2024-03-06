@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/qrscan.dart';
-import 'package:scanly/components/upload_file_confirm.dart';
+import 'package:scanly/screens/upload_file_confirm.dart';
 
 
 class ScanBottomSheetPopup extends StatefulWidget {

@@ -1,0 +1,29 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-scanly-dev-111628-authRole",
+      "UnauthRoleArn": "arn:aws:iam::211125572739:role/amplify-scanly-dev-111628-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::211125572739:role/amplify-scanly-dev-111628-authRole",
+      "Region": "eu-west-3",
+      "DeploymentBucketName": "amplify-scanly-dev-111628-deployment",
+      "UnauthRoleName": "amplify-scanly-dev-111628-unauthRole",
+      "StackName": "amplify-scanly-dev-111628",
+      "StackId": "arn:aws:cloudformation:eu-west-3:211125572739:stack/amplify-scanly-dev-111628/32c96510-db9a-11ee-8ae6-06f48a57f257",
+      "AmplifyAppId": "d60tf3fav4hp8"
+    },
+    "categories": {
+      "function": {
+        "textract": {},
+        "testract": {}
+      },
+      "auth": {
+        "scanly68db4c9a": {},
+        "Scanly": {}
+      },
+      "storage": {
+        "scanly61bf826d": {},
+        "ScanlyStorage": {}
+      }
+    }
+  }
+}

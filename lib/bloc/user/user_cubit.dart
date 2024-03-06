@@ -74,8 +74,8 @@ class UserCubit extends Cubit<UserState> {
         fileName = result!.files.first.name;
         extension = result!.files.first.extension;
         pickedFile = result!.files.first;
-        fileToDisplay = File(pickedFile!.path.toString());
-        print("$fileName \n$extension");
+        fileToDisplay = File(pickedFile!.path!);
+        print("$fileName \n $extension");
         emit(PickFileSuccess());
       } else {
         print("No file selected");

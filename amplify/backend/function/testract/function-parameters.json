@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "auth": {
+      "Scanly": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "storage": {
+      "scanly61bf826d": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "ScanlyStorage": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
