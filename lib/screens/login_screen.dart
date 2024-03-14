@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Container(
                       margin: EdgeInsets.only(top: screenHeight * 0.01),
-                      height: screenHeight * 0.22,
+                      height: screenHeight * 0.23,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

@@ -72,7 +72,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                             borderRadius: BorderRadius.circular(15),
                             child: Image.file(
                               cubit.fileToDisplay!,
-                              fit: BoxFit.fill,
+                              fit: BoxFit.contain,
                             ),
                           )
                     : ClipRRect(

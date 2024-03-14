@@ -159,12 +159,14 @@ class CommonTestSelection extends StatelessWidget {
                     mainAxisAlignment:
                     MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
-                          width: screenWidth * 0.1583,
-                          margin: EdgeInsets.only(
-                              left: screenWidth * 0.02),
-                          child: Image.asset(
-                              "assets/images/urine.png")),
+                      Expanded(
+                        child: Container(
+                            width: screenWidth * 0.1583,
+                            margin: EdgeInsets.only(
+                                left: screenWidth * 0.02),
+                            child: Image.asset(
+                                "assets/images/urine.png")),
+                      ),
                       Text(
                         "Urine",
                         style: GoogleFonts.openSans(

@@ -5,6 +5,7 @@ import 'package:scanly/bloc/register/register_cubit.dart';
 import 'package:scanly/bloc/test/test_cubit.dart';
 import 'package:scanly/bloc/textract/textract_cubit.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
+import 'package:scanly/screens/splash_screen.dart';
 import 'package:scanly/screens/start_screen.dart';
 
 class AppRoot extends StatelessWidget {
@@ -22,7 +23,7 @@ class AppRoot extends StatelessWidget {
 
         ],
         child: const MaterialApp(debugShowCheckedModeBanner: false,
-          home: StartScreen(),
+          home: SplashScreen(),
         ));
   }
 }
