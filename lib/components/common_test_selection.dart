@@ -63,10 +63,12 @@ class CommonTestSelection extends StatelessWidget {
                       mainAxisAlignment:
                       MainAxisAlignment.spaceAround,
                       children: [
-                        SizedBox(
-                            width: screenWidth * 0.163,
-                            child: Image.asset(
-                                "assets/images/blood.png")),
+                        Expanded(
+                          child: SizedBox(
+                              width: screenWidth * 0.163,
+                              child: Image.asset(
+                                  "assets/images/blood.png")),
+                        ),
                         Text(
                           "Blood",
                           style: GoogleFonts.openSans(
@@ -112,10 +114,12 @@ class CommonTestSelection extends StatelessWidget {
                     mainAxisAlignment:
                     MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox(
-                          width: screenWidth * 0.163,
-                          child: Image.asset(
-                              "assets/images/gene.png")),
+                      Expanded(
+                        child: SizedBox(
+                            width: screenWidth * 0.163,
+                            child: Image.asset(
+                                "assets/images/gene.png")),
+                      ),
                       Text(
                         "Genetic",
                         style: GoogleFonts.openSans(
