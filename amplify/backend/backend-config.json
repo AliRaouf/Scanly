@@ -32,38 +32,26 @@
       "service": "Cognito"
     }
   },
-  "function": {
-    "testract": {
-      "build": true,
-      "dependsOn": [
+  "parameters": {
+    "AMPLIFY_storage_scanly61bf826d_bucketName": {
+      "usedBy": [
         {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "Scanly"
-        },
-        {
-          "attributes": [
-            "BucketName"
-          ],
           "category": "storage",
           "resourceName": "scanly61bf826d"
-        },
-        {
-          "attributes": [
-            "BucketName"
-          ],
-          "category": "storage",
-          "resourceName": "ScanlyStorage"
         }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      ]
+    },
+    "AMPLIFY_storage_scanly61bf826d_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "scanly61bf826d"
+        }
+      ]
     }
   },
   "storage": {
-    "ScanlyStorage": {
+    "images": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3"

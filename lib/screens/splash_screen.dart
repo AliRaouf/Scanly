@@ -12,15 +12,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    return AnimatedSplashScreen(animationDuration:const Duration(seconds:2),
+    return AnimatedSplashScreen(animationDuration:const Duration(seconds:1),
         splash: Image.asset("assets/images/Logo.png"),
         nextScreen: StartScreen(),
         splashTransition: SplashTransition.scaleTransition,
       pageTransitionType: PageTransitionType.topToBottom,
         backgroundColor: Color(0xff80c6dc),
-        duration:2100,
+        duration:1100,
         splashIconSize:screenWidth*0.6,
 
       );

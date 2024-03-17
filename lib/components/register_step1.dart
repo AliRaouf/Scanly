@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:scanly/bloc/register/register_cubit.dart';
@@ -22,16 +23,8 @@ class RegisterStep1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    double screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
     return Container(
-      height: screenHeight * 0.37,
+      height: 320.h,
       child: Form(
         key: formKey1,
         child: Column(
@@ -43,8 +36,8 @@ class RegisterStep1 extends StatelessWidget {
                 Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: screenWidth*0.02037037037),
-                      child: Text("Name",style: GoogleFonts.openSans(fontSize: screenWidth*0.04,color: Color(0xff232425)),),
+                      padding: EdgeInsets.only(left: 0),
+                      child: Text("Name",style: GoogleFonts.openSans(fontSize: 12.sp,color: Color(0xff232425)),),
                     ),
                   ],
                 ),
@@ -60,8 +53,8 @@ class RegisterStep1 extends StatelessWidget {
                 Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: screenWidth*0.02037037037),
-                      child: Text("Email",style: GoogleFonts.openSans(fontSize: screenWidth*0.04,color: Color(0xff232425)),),
+                      padding: EdgeInsets.only(left: 8.w),
+                      child: Text("Email",style: GoogleFonts.openSans(fontSize: 12.sp,color: Color(0xff232425)),),
                     ),
                   ],
                 ),
@@ -78,8 +71,8 @@ class RegisterStep1 extends StatelessWidget {
                 Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: screenWidth*0.02037037037),
-                      child: Text("PhoneNumber",style: GoogleFonts.openSans(fontSize: screenWidth*0.04,color: Color(0xff232425)),),
+                      padding: EdgeInsets.only(left: 8.w),
+                      child: Text("PhoneNumber",style: GoogleFonts.openSans(fontSize: 12.sp,color: Color(0xff232425)),),
                     ),
                   ],
                 ),
@@ -87,7 +80,7 @@ class RegisterStep1 extends StatelessWidget {
                   controller: phoneController,
                   initialCountryCode: "EG",decoration: InputDecoration(alignLabelWithHint: true,
                     contentPadding:
-                    EdgeInsets.symmetric(vertical: screenWidth*0.03819444444, horizontal: screenWidth*0.03819444444),
+                    EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),

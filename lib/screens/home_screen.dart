@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:scanly/bloc/test/test_cubit.dart';
@@ -14,6 +15,7 @@ import 'package:scanly/components/gradient_button.dart';
 import 'package:scanly/components/scan_bottomsheet_popup.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:scanly/screens/profile_screen.dart';
 
 import '../components/common_test_selection.dart';
 
@@ -43,8 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     var cubit = UserCubit.get(context);
     TestCubit.get(context).updateFilteredTests(searchController.text);
     return BlocConsumer<UserCubit, UserState>(
@@ -90,38 +90,48 @@ class _HomeScreenState extends State<HomeScreen> {
             index: _currentIndex,
             children: [
               Container(
-                width: screenWidth,
-                height: screenHeight,
+                width: 1.sw,
+                height: 1.sh,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("assets/images/Scanly_bg.png"),
                         fit: BoxFit.cover)),
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.05092592592),
-                        child: Stack(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 32.h),
+                    child: Column(
+                      children: [
+                        Stack(
                           children: [
                             Row(
                               children: [
-                                CircleAvatar(
-                                  radius: screenWidth * 0.06111111111,
-                                  backgroundColor: Colors.transparent,
-                                  child: ClipOval(
-                                    child: CachedNetworkImage(
-                                      errorWidget: (context, url, error) => const Image(
-                                          image: NetworkImage(
-                                              'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg')),
-                                      imageUrl: cubit.imageUrl,
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      progressIndicatorBuilder:
-                                          (context, url, downloadProgress) =>
-                                          CircularProgressIndicator(
-                                              value: downloadProgress.progress),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 12.w),
+                                  child: GestureDetector(onTap: (){
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProfileScreen()));
+                                  },
+                                    child: CircleAvatar(
+                                      radius: 24.r,
+                                      backgroundColor: Colors.transparent,
+                                      child: ClipOval(
+                                        child: CachedNetworkImage(
+                                          errorWidget: (context, url, error) => const Image(
+                                              image: NetworkImage(
+                                                  'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg')),
+                                          imageUrl: cubit.imageUrl,
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          progressIndicatorBuilder:
+                                              (context, url, downloadProgress) =>
+                                              CircularProgressIndicator(
+                                                  value: downloadProgress.progress),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -130,11 +140,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             Center(
                               child: Padding(
                                 padding:
-                                EdgeInsets.all(screenWidth * 0.01944444444),
+                                const EdgeInsets.all(8),
                                 child: Text(
                                   "Welcome ${cubit.userName ?? ""}",
                                   style: GoogleFonts.openSans(
-                                      fontSize: screenWidth * 0.044442,
+                                      fontSize: 14.sp,
                                       color: Color(0xff232425),
                                       fontWeight: FontWeight.w600),
                                 ),
@@ -142,116 +152,116 @@ class _HomeScreenState extends State<HomeScreen> {
                             )
                           ],
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        width: screenWidth * 0.6667,
-                        child: CustomTextFormField(
-                            controller: searchController,
-                            icon: IconButton(
-                                color: Color(0xff179BE8),
-                                onPressed: () {},
-                                icon: Icon(Icons.search_rounded)),
-                            readOnly: false,
-                            hint: "Search for a test",
-                            obscureText: false),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding:
-                            EdgeInsets.only(left: screenWidth * 0.04583333333),
-                            child: Text(
-                              "Common Tests",
-                              style: GoogleFonts.openSans(
-                                  fontSize: screenWidth * 0.044442,
-                                  color: Color(0xff232425),
-                                  fontWeight: FontWeight.w600),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 8.h),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          width: 240.w,
+                          child: CustomTextFormField(
+                              controller: searchController,
+                              icon: IconButton(
+                                  color: Color(0xff179BE8),
+                                  onPressed: () {},
+                                  icon: Icon(Icons.search_rounded)),
+                              readOnly: false,
+                              hint: "Search for a test",
+                              obscureText: false),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                              EdgeInsets.only(left: 15.w),
+                              child: Text(
+                                "Common Tests",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14.sp,
+                                    color: Color(0xff232425),
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
-                          ),
-                          CommonTestSelection(
-                              screenHeight: screenHeight, screenWidth: screenWidth),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 18.0),
-                            child: Text(
-                              "Tests",
-                              style: GoogleFonts.openSans(
-                                  fontSize: screenWidth * 0.044442,
-                                  color: Color(0xff232425),
-                                  fontWeight: FontWeight.w600),
+                            CommonTestSelection(
+                                screenHeight: 1.sh, screenWidth: 1.sw),
+                            SizedBox(
+                              height: 16.h,
                             ),
-                          )
-                        ],
-                      ),
-                      Container(
-                        height: screenHeight * 0.45,
-                        child: ListView.builder(
-                            key: ValueKey<String>(
-                                TestCubit.get(context).filteredTests.join(',')),
-                            itemCount: TestCubit.get(context).filteredTests.length,
-                            padding:
-                            EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 4),
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 8),
-                                  decoration: BoxDecoration(
-                                      color: Color(0xfffafafa),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  height: screenHeight * 0.05,
-                                  width: screenWidth * 0.9,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          TestCubit.get(context)
-                                              .filteredTests[index],
-                                          style: GoogleFonts.openSans(
-                                              fontSize: screenWidth * 0.04,
-                                              color: Color(0xff232425),
-                                              fontWeight: FontWeight.w600),
+                            Padding(
+                              padding: EdgeInsets.only(left: 18.w),
+                              child: Text(
+                                "Tests",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14.sp,
+                                    color: Color(0xff232425),
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            )
+                          ],
+                        ),
+                        Container(
+                          height: 380.h,
+                          child: ListView.builder(
+                              key: ValueKey<String>(
+                                  TestCubit.get(context).filteredTests.join(',')),
+                              itemCount: TestCubit.get(context).filteredTests.length,
+                              padding:
+                              EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 4),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 8),
+                                    decoration: BoxDecoration(
+                                        color: Color(0xfffafafa),
+                                        borderRadius: BorderRadius.circular(10)),
+                                    height: 40.h,
+                                    width: 328.w,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            TestCubit.get(context)
+                                                .filteredTests[index],
+                                            style: GoogleFonts.openSans(
+                                                fontSize: 14.sp,
+                                                color: Color(0xff232425),
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                         ),
-                                      ),
-                                      BlocBuilder<UserCubit, UserState>(
-                                        builder: (context, state) {
-                                          return GradientButton(
-                                            screenWidth: screenWidth * 0.2,
-                                            screenHeight: screenHeight * 0.0375,
-                                            text: "Scan",
-                                            onpressed: () {
-                                              cubit.pickedFile = null;
-                                              showModalBottomSheet(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return ScanBottomSheetPopup(
-                                                        testName: TestCubit.get(
-                                                            context)
-                                                            .filteredTests[index]);
-                                                  });
-                                            },
-                                            fontSize: screenWidth * 0.033,
-                                            border: 6,
-                                          );
-                                        },
-                                      )
-                                    ],
+                                        BlocBuilder<UserCubit, UserState>(
+                                          builder: (context, state) {
+                                            return GradientButton(
+                                              screenWidth: 75.w,
+                                              screenHeight: 30.h,
+                                              text: "Scan",
+                                              onpressed: () {
+                                                cubit.pickedFile = null;
+                                                showModalBottomSheet(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return ScanBottomSheetPopup(
+                                                          testName: TestCubit.get(
+                                                              context)
+                                                              .filteredTests[index]);
+                                                    });
+                                              },
+                                              fontSize: 12.sp,
+                                              border: 6.r,
+                                            );
+                                          },
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            }),
-                      ),
-                    ],
+                                );
+                              }),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
@@ -22,7 +23,12 @@ class UploadFileConfirm extends StatefulWidget {
 class _UploadFileConfirmState extends State<UploadFileConfirm> {
   int? pages = 0;
   bool isReady = false;
-
+  String? extractedText;
+@override
+  void initState() {
+  TextractCubit.get(context).createTempFileFromMemoryImage(MemoryImage(UserCubit.get(context).image??Uint8List(0)));
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -65,6 +71,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                   setState(() {
                                     pages = _pages;
                                     isReady = true;
+                                    print(pages);
                                   });
                                 }),
                           )
@@ -119,8 +126,24 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                       screenWidth: screenWidth * 0.35,
                       screenHeight: screenHeight * 0.0625,
                       text: "Continue",
-                      onpressed: (){
-                        TextractCubit.get(context).uploadImage(File(cubit.pickedFile!.path!));
+                      onpressed: ()async {
+                        if(cubit.extension!=null) {
+                          if (pages != 0 && pages ! > 1) {
+                            print("The pdf should only have 1 page");
+                          }
+                          else {
+                            await TextractCubit.get(context)
+                                .uploadImage(File(cubit.pickedFile!.path!));
+                            await Future.delayed(Duration(seconds: 8));
+                           String text = await TextractCubit.get(context).downloadAndGetText();
+                           print(text);
+                          TextractCubit.get(context).listAlbum();
+                          }
+                        }else{
+                          await TextractCubit.get(context)
+                              .uploadImage(TextractCubit.get(context).fileImage!);
+                          TextractCubit.get(context).listAlbum();
+                        }
                       },
                       fontSize: screenWidth * 0.04444,
                       border: 30),

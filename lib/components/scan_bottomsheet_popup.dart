@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/qrscan.dart';
@@ -19,23 +20,21 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
     var cubit = UserCubit.get(context);
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setModalState) {
       return SizedBox(
-        height: screenHeight * 0.5,
+        height: 400.h,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               SizedBox(
-                height: screenHeight * 0.05,
+                height: 40.h,
                 child: Text(
                   widget.testName,
                   style: GoogleFonts.openSans(
-                      fontSize: screenWidth * 0.06,
+                      fontSize: 18.sp,
                       color: Color(0xff232425),
                       fontWeight: FontWeight.w600),
                 ),
@@ -50,8 +49,8 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                               UploadFileConfirm(testName: widget.testName)));
                 },
                 child: Container(
-                  width: screenWidth * 0.86,
-                  height: screenHeight * 0.2,
+                  width: 310.w,
+                  height: 160.h,
                   decoration: BoxDecoration(
                       border: Border.all(color: Color(0xff179BE8)),
                       borderRadius: BorderRadius.circular(28),
@@ -61,15 +60,15 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                     children: [
                       Icon(
                         Icons.file_upload_outlined,
-                        size: screenWidth * 0.11666666666,
+                        size: 50.w,
                         color: Color(0xff179BE8),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.01944444444),
+                        padding: EdgeInsets.all(8),
                         child: Text(
                           "Upload your test",
                           style: GoogleFonts.openSans(
-                              fontSize: screenWidth * 0.04,
+                              fontSize: 14.sp,
                               color: Color(0xff232425),
                               fontWeight: FontWeight.w600),
                         ),
@@ -95,8 +94,8 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                       });
                     },
                     child: Container(
-                      width: screenWidth * 0.4,
-                      height: screenHeight * 0.15,
+                      width: 144.w,
+                      height: 120.h,
                       decoration: BoxDecoration(
                           border: Border.all(color: Color(0xff179BE8)),
                           borderRadius: BorderRadius.circular(20),
@@ -107,16 +106,16 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                         children: [
                           Icon(
                             Icons.camera_alt_outlined,
-                            size: screenWidth * 0.11666666666,
+                            size: 50.w,
                             color: Color(0xff179BE8),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
-                                vertical: screenWidth * 0.01944444444),
+                                vertical: 8.h),
                             child: Text(
                               "Use your Camera",
                               style: GoogleFonts.openSans(
-                                  fontSize: screenWidth * 0.035,
+                                  fontSize: 12.sp,
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xff232425)),
                             ),
@@ -131,8 +130,8 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                           MaterialPageRoute(builder: (context) => QRScan()));
                     },
                     child: Container(
-                      width: screenWidth * 0.4,
-                      height: screenHeight * 0.15,
+                      width: 144.w,
+                      height: 120.h,
                       decoration: BoxDecoration(
                           border: Border.all(color: Color(0xff179BE8)),
                           borderRadius: BorderRadius.circular(20),
@@ -143,17 +142,17 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                         children: [
                           Icon(
                             Icons.qr_code_scanner_outlined,
-                            size: screenWidth * 0.11666666666,
+                            size: 50.w,
                             color: Color(0xff179BE8),
                           ),
                           Padding(
                             padding:
-                                EdgeInsets.all(screenWidth * 0.01944444444),
+                                EdgeInsets.all(8),
                             child: Center(
                               child: Text(
                                 "Scan QR Code",
                                 style: GoogleFonts.openSans(
-                                  fontSize: screenWidth * 0.035,
+                                  fontSize: 12.sp,
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xff232425),
                                 ),

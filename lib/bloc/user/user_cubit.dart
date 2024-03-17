@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:meta/meta.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
@@ -98,12 +97,5 @@ class UserCubit extends Cubit<UserState> {
   selectImage() async {
     Uint8List? img = await pickImage(ImageSource.camera);
     image = img;
-  }
-  Future processImage() async {
-    final inputImage = InputImage.fromFilePath(pickedFile!.path.toString());
-    final textRecognizer = TextRecognizer();
-    final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
-
-    print(recognizedText.text);
   }
 }

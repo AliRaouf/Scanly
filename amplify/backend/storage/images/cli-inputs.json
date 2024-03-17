@@ -1,7 +1,7 @@
 {
-  "resourceName": "ScanlyStorage",
-  "policyUUID": "281f94b3",
-  "bucketName": "textractbucket",
+  "resourceName": "images",
+  "policyUUID": "34b119cd",
+  "bucketName": "images",
   "storageAccess": "authAndGuest",
   "guestAccess": [
     "CREATE_AND_UPDATE",
