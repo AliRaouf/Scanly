@@ -84,7 +84,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                           )
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(15),
-                        child: Image(image: MemoryImage(cubit.image!),fit: BoxFit.cover,),
+                        child: Image(image: MemoryImage(cubit.image??Uint8List(0)),fit: BoxFit.cover,),
                       )),
             Padding(
               padding: EdgeInsets.all(screenWidth*0.05590277777),

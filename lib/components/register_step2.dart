@@ -5,14 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
 
 class RegisterStep2 extends StatelessWidget {
-  RegisterStep2({
-    super.key,
-    required this.formKey2,
-    required this.dateController,
-    required this.passwordController,
-    required this.confirmPasswordController,
-    this.onTap
-  });
+  RegisterStep2(
+      {super.key,
+      required this.formKey2,
+      required this.dateController,
+      required this.passwordController,
+      required this.confirmPasswordController,
+      this.onTap});
 
   final GlobalKey<FormState> formKey2;
   final TextEditingController dateController;
@@ -28,39 +27,42 @@ class RegisterStep2 extends StatelessWidget {
         key: formKey2,
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                            left: 8.w),
-                        child: Text("Date Of Birth",
-                          style: GoogleFonts.openSans(fontSize: 12.sp, color: Color(0xff232425)),),
+                        padding: EdgeInsets.only(left: 8.w,top: 20.h),
+                        child: Text(
+                          "Date Of Birth",
+                          style: GoogleFonts.openSans(
+                              fontSize: 12.sp, color: Color(0xff232425)),
+                        ),
                       ),
                     ],
                   ),
                   CustomTextFormField(
                       controller: dateController,
-                      readOnly: false,
+                      readOnly: true,
                       hint: "DD/M/YYYY",
                       obscureText: false,
                       onTap: onTap),
                 ],
               ),
-              Container(height: 100.h,margin: EdgeInsets.only(top: 8.h),
+              Container(
+                height: 140.h,
                 child: ListView(
                   children: [
                     Row(
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 8.w),
-                          child: Text("Password", style: GoogleFonts.openSans(
-                              fontSize: 12.sp,
-                              color: Color(0xff232425)),),
+                          child: Text(
+                            "Password",
+                            style: GoogleFonts.openSans(
+                                fontSize: 12.sp, color: Color(0xff232425)),
+                          ),
                         ),
                       ],
                     ),
@@ -88,18 +90,22 @@ class RegisterStep2 extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                            left: 8.w),
-                        child: Text("Confirm Password",
-                          style: GoogleFonts.openSans(fontSize: 12.sp, color: Color(0xff232425)),),
+                        padding: EdgeInsets.only(left: 8.w),
+                        child: Text(
+                          "Confirm Password",
+                          style: GoogleFonts.openSans(
+                              fontSize: 12.sp, color: Color(0xff232425)),
+                        ),
                       ),
                     ],
-                  ), CustomTextFormField(validate: (data) {
-                    if (confirmPasswordController.text !=
-                        passwordController.text) {
-                      return 'Passwords do not match';
-                    }
-                  },
+                  ),
+                  CustomTextFormField(
+                      validate: (data) {
+                        if (confirmPasswordController.text !=
+                            passwordController.text) {
+                          return 'Passwords do not match';
+                        }
+                      },
                       controller: confirmPasswordController,
                       readOnly: false,
                       hint: "********",

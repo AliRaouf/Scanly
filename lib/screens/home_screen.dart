@@ -46,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var cubit = UserCubit.get(context);
-    TestCubit.get(context).updateFilteredTests(searchController.text);
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -70,22 +69,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Iconify(historyIconOutlined,color: Color(0xff232425),),
                 title: Text("History"),
               ),
-              /// Likes
               SalomonBottomBarItem(
                 icon: Iconify(heartOutlineIcon,color: Color(0xff232425),),
                 title: Text("Health"),
                 activeIcon: Iconify(heartIcon,color:Color(0xff04657A) ,)
               ),
-
-              /// Search
-
-              /// Profile
               SalomonBottomBarItem(activeIcon: Icon(Icons.settings_rounded),
                 icon: Icon(Icons.settings_outlined),
                 title: Text("Settings"),
               ),
             ],
           ),
+
           body: IndexedStack(
             index: _currentIndex,
             children: [
@@ -162,7 +157,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               controller: searchController,
                               icon: IconButton(
                                   color: Color(0xff179BE8),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {
+                                      TestCubit.get(context).updateFilteredTests(searchController.text);
+                                    });
+                                  },
                                   icon: Icon(Icons.search_rounded)),
                               readOnly: false,
                               hint: "Search for a test",
@@ -227,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             TestCubit.get(context)
                                                 .filteredTests[index],
                                             style: GoogleFonts.openSans(
-                                                fontSize: 14.sp,
+                                                fontSize: 12.sp,
                                                 color: Color(0xff232425),
                                                 fontWeight: FontWeight.w600),
                                           ),

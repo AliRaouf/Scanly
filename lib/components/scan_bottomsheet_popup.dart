@@ -34,7 +34,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                 child: Text(
                   widget.testName,
                   style: GoogleFonts.openSans(
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
                       color: Color(0xff232425),
                       fontWeight: FontWeight.w600),
                 ),
@@ -42,6 +42,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
               GestureDetector(
                 onTap: () async {
                   await cubit.pickFile();
+                  cubit.fileToDisplay==null? null :
                   Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -19,7 +19,7 @@ class TestCubit extends Cubit<TestState> {
     'Basic Metabolic Panel (BMP)',
     'Comprehensive Metabolic Panel (CMP)',
     'Lipid Panel',
-    'Thyroid-Stimulating Hormone (TSH) test',
+    'Thyroid-Stimulating Hormone (TSH)',
     'HbA1c test',
     'C-Reactive Protein (CRP)',
     'Prothrombin Time (PT)',
@@ -27,7 +27,7 @@ class TestCubit extends Cubit<TestState> {
     'Electrolytes Panel',
     'Blood Glucose',
     'Vitamin B12 and Folate Levels',
-    'Prostate-Specific Antigen (PSA)'
+    'Prostate-Specific Antigen (PSA)',
     'Blood Culture',
     'Human Immunodeficiency Virus (HIV)',
     'Hepatitis B and C',
