@@ -81,6 +81,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         password: password,
       );
       emit(RegisterUserSuccess());
+      print("UserCreated");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         error = 'The password provided is too weak.';

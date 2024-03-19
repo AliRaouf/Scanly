@@ -10,6 +10,7 @@ import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/checkbox.dart';
 import 'package:scanly/components/custom_button.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
+import 'package:scanly/components/custom_page_route.dart';
 import 'package:scanly/screens/continue_login_screen.dart';
 import 'package:scanly/screens/home_screen.dart';
 import 'package:scanly/screens/register_screen.dart';
@@ -54,7 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ));
           await UserCubit.get(context).receiverUserData();
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              context,
+              AnimatedRoute(page: HomeScreen()));
         }else if(state is LoginErrorState){
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -257,6 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: () async {
                             try {
                               final user = await cubit.googleSignin();
+                              print(user!.email);
                               await cubit.doesEmailExist(user!.email!);
                               if (cubit.isExist == true) {
                                 await UserCubit.get(context).getUserData();

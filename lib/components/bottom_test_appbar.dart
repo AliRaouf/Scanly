@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:scanly/bloc/test/test_cubit.dart';
 import 'package:scanly/screens/blood_screen.dart';
 import 'package:scanly/screens/genetic_screen.dart';
 import 'package:scanly/screens/urine_screen.dart';

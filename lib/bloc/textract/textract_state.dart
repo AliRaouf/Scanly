@@ -4,3 +4,7 @@ part of 'textract_cubit.dart';
 abstract class TextractState {}
 
 class TextractInitial extends TextractState {}
+class UploadImageLoading extends TextractState {}
+class UploadImageSuccess extends TextractState {}
+class UploadImageError extends TextractState {}
+

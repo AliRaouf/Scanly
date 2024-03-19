@@ -1,5 +1,6 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -42,6 +43,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     var cubit = RegisterCubit.get(context);
+    return BlocConsumer<RegisterCubit, RegisterState>(
+  listener: (context, state) {
+    if (state is RegisterUserSuccess){
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.fixed,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: 'Congrats',
+            message:
+            "Account Created Successfully",
+            contentType: ContentType.success,color: Color(0xff04657A),
+          ),
+        ));
+    }
+  },
+  builder: (context, state) {
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
       body: Stack(
@@ -363,19 +383,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           cubit.weight ?? 0,
                                           cubit.diseases ?? [],
                                           cubit.image);
-                                      ScaffoldMessenger.of(context)
-                                        ..hideCurrentSnackBar()
-                                        ..showSnackBar(SnackBar(
-                                          elevation: 0,
-                                          behavior: SnackBarBehavior.fixed,
-                                          backgroundColor: Colors.transparent,
-                                          content: AwesomeSnackbarContent(
-                                            title: 'Congrats',
-                                            message:
-                                            "Account Created Successfully",
-                                            contentType: ContentType.success,color: Color(0xff04657A),
-                                          ),
-                                        ));
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -437,5 +444,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ],
       ),
     );
+  },
+);
   }
 }

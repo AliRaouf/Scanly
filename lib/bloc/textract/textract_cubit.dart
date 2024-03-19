@@ -29,6 +29,7 @@ class TextractCubit extends Cubit<TextractState> {
   }
 
   Future<void> uploadImage(File imageFile) async {
+    emit(UploadImageLoading());
     try {
       AWSFile awsFile = AWSFilePlatform.fromFile(imageFile);
       final key = DateTime
@@ -46,13 +47,18 @@ class TextractCubit extends Cubit<TextractState> {
         key: key,
         localFile: awsFile,
         options: uploadFileOption,
-        onProgress: (progress) =>
-            safePrint('Progress: ${progress.fractionCompleted}'),
+        onProgress: (progress) {
+          safePrint('Progress: ${progress.fractionCompleted}');
+          if(progress.fractionCompleted==1){
+            emit(UploadImageSuccess());
+          }
+        }
       );
       imageTextFile = key;
       safePrint('Uploaded file: $result');
     } on StorageException catch (e) {
       safePrint('Error uploading image: ${e.message}');
+      emit(UploadImageError());
     }
   }
 

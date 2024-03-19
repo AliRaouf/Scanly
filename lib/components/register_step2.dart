@@ -64,8 +64,8 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 ],
               ),
               Container(
-                height: 160.h,
-                child: Column(
+                height: 120.h,
+                child: ListView(
                   children: [
                     Row(
                       children: [
@@ -90,7 +90,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       uppercaseCharCount: 1,
                       numericCharCount: 1,
                       width: 1.sw,
-                      height: 92.h,
+                      height: 105.h,
                       onSuccess: () {
                         print("Success");
                         RegisterCubit.get(context).pwValidate=true;

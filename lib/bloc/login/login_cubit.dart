@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -80,13 +79,21 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<User?> googleSignin() async {
-    final googleAccount = await GoogleSignIn().signIn();
-    final googleAuth = await googleAccount?.authentication;
-    final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-    final userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    return userCredential.user;
+    emit(LoginLoadingState());
+    try {
+      final googleAccount = await GoogleSignIn().signIn();
+      final googleAuth = await googleAccount?.authentication;
+      final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      emit(LoginSuccessState());
+      print(userCredential.user?.email);
+      return userCredential.user;
+    } on Exception catch (e) {
+      print(e);
+    }
+    return null;
   }
 
   Future<User?> signInWithFacebook() async {

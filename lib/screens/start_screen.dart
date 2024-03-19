@@ -5,6 +5,8 @@ import 'package:scanly/bloc/login/login_cubit.dart';
 import 'package:scanly/components/custom_button.dart';
 import 'package:scanly/screens/register_screen.dart';
 import 'package:scanly/screens/login_screen.dart';
+
+import '../components/custom_page_route.dart';
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
 
@@ -75,13 +77,12 @@ class _StartScreenState extends State<StartScreen> {
                             screenWidth: 280.w,
                             screenHeight: 50.h,
                             text: "Login",
-                            onpressed: ()async{
+                            onpressed: () async {
                               await LoginCubit.get(context).loadUserEmailPassword();
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()));
-                            },
+                                  AnimatedRoute(page: LoginScreen()));
+                              },
                             bColor: Color(0xff1A83B6),
                             borderColor: Colors.transparent,
                             textStyle: GoogleFonts.openSans(
@@ -95,8 +96,7 @@ class _StartScreenState extends State<StartScreen> {
                             onpressed: () {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RegisterScreen()));
+                                  AnimatedRoute(page: RegisterScreen()));
                             },
                             bColor: Color(0xffFAFAFA),
                             borderColor: Color(0xff1A83B6),

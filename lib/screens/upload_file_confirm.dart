@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
@@ -34,6 +35,16 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     var cubit = UserCubit.get(context);
+    return BlocConsumer<TextractCubit, TextractState>(
+  listener: (context, state) async{
+    if(state is UploadImageSuccess){
+      print("Starting Timer");
+      await Future.delayed(Duration(seconds: 8));
+      String text = await TextractCubit.get(context).downloadAndGetText();
+      print(text);
+    }
+  },
+  builder: (context, state) {
     return Scaffold(
       body: Container(
         width: screenWidth,
@@ -134,16 +145,10 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                           else {
                             await TextractCubit.get(context)
                                 .uploadImage(File(cubit.pickedFile!.path!));
-                            await Future.delayed(Duration(seconds: 8));
-                           String text = await TextractCubit.get(context).downloadAndGetText();
-                           print(text);
                           }
                         }else{
                           await TextractCubit.get(context)
                               .uploadImage(TextractCubit.get(context).fileImage!);
-                          await Future.delayed(Duration(seconds: 8));
-                          String text = await TextractCubit.get(context).downloadAndGetText();
-                          print(text);
                         }
                       },
                       fontSize: screenWidth * 0.04444,
@@ -155,5 +160,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
         ),
       ),
     );
+  },
+);
   }
 }

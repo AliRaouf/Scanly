@@ -171,6 +171,5 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
         ),
       );
     });
-    ;
   }
 }
