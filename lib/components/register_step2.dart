@@ -4,27 +4,40 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
 
-class RegisterStep2 extends StatelessWidget {
+import '../bloc/register/register_cubit.dart';
+
+class RegisterStep2 extends StatefulWidget {
   RegisterStep2(
       {super.key,
       required this.formKey2,
       required this.dateController,
       required this.passwordController,
       required this.confirmPasswordController,
-      this.onTap});
+      this.onTap, required this.pwKey});
 
   final GlobalKey<FormState> formKey2;
+  final GlobalKey<FormState> pwKey;
   final TextEditingController dateController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
   void Function()? onTap;
 
   @override
+  State<RegisterStep2> createState() => _RegisterStep2State();
+}
+
+class _RegisterStep2State extends State<RegisterStep2> {
+  @override
+  void initState() {
+    RegisterCubit.get(context).pwValidate=false;
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 320.h,
       child: Form(
-        key: formKey2,
+        key: widget.formKey2,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -43,16 +56,16 @@ class RegisterStep2 extends StatelessWidget {
                     ],
                   ),
                   CustomTextFormField(
-                      controller: dateController,
+                      controller: widget.dateController,
                       readOnly: true,
                       hint: "DD/M/YYYY",
                       obscureText: false,
-                      onTap: onTap),
+                      onTap: widget.onTap),
                 ],
               ),
               Container(
-                height: 140.h,
-                child: ListView(
+                height: 160.h,
+                child: Column(
                   children: [
                     Row(
                       children: [
@@ -67,19 +80,21 @@ class RegisterStep2 extends StatelessWidget {
                       ],
                     ),
                     CustomTextFormField(
-                        controller: passwordController,
+                        controller: widget.passwordController,
                         readOnly: false,
                         hint: "********",
                         obscureText: true),
                     FlutterPwValidator(
-                      controller: passwordController,
+                      controller: widget.passwordController,
                       minLength: 8,
                       uppercaseCharCount: 1,
                       numericCharCount: 1,
                       width: 1.sw,
-                      height: 110.h,
+                      height: 92.h,
                       onSuccess: () {
                         print("Success");
+                        RegisterCubit.get(context).pwValidate=true;
+                        print(RegisterCubit.get(context).pwValidate);
                       },
                     )
                   ],
@@ -101,12 +116,12 @@ class RegisterStep2 extends StatelessWidget {
                   ),
                   CustomTextFormField(
                       validate: (data) {
-                        if (confirmPasswordController.text !=
-                            passwordController.text) {
+                        if (widget.confirmPasswordController.text !=
+                            widget.passwordController.text) {
                           return 'Passwords do not match';
                         }
                       },
-                      controller: confirmPasswordController,
+                      controller: widget.confirmPasswordController,
                       readOnly: false,
                       hint: "********",
                       obscureText: true),

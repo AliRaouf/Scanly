@@ -24,6 +24,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   List? diseases;
   String? error;
   Uint8List? image;
+  bool? pwValidate;
 
   String? validateEmail(String? value) {
     const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"

@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           bottomNavigationBar: SalomonBottomBar(
             backgroundColor: Color(0xffd9d9d9).withOpacity(0.25),
             unselectedItemColor: Color(0xff232425),
-            selectedItemColor: Color(0xff04657A ),
+            selectedItemColor: Color(0xff04657A),
             curve: Curves.linearToEaseOut,
             currentIndex: _currentIndex,
             onTap: (i) => setState(() => _currentIndex = i),

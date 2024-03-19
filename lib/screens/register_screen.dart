@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +12,6 @@ import 'package:scanly/components/register_step2.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:scanly/screens/login_screen.dart';
 import 'package:scanly/components/gender_dropdown.dart';
-import 'package:colorful_safe_area/colorful_safe_area.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
@@ -36,6 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   DateTime? date;
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
+  final pwKey = GlobalKey<FormState>();
   final formKey3 = GlobalKey<FormState>();
 
   @override
@@ -57,13 +58,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       decoration: BoxDecoration(
                           boxShadow: [BoxShadow(blurRadius: 4)],
                           image: DecorationImage(
-                              image:
-                                  AssetImage("assets/images/Scanly_bg.png"),
+                              image: AssetImage("assets/images/Scanly_bg.png"),
                               fit: BoxFit.cover),
                           borderRadius: BorderRadius.vertical(
                               bottom: Radius.circular(30))),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 30.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 12.w, vertical: 30.h),
                         child: Column(
                           children: [
                             Text(
@@ -128,8 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Theme(
                 data: Theme.of(context).copyWith(
                     canvasColor: Colors.transparent,
-                    colorScheme:
-                        ColorScheme.light(primary: Color(0xff179BE8))),
+                    colorScheme: ColorScheme.light(primary: Color(0xff179BE8))),
                 child: Stepper(
                     elevation: 0,
                     connectorThickness: 2,
@@ -154,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               : StepState.complete,
                           isActive: index >= 1,
                           title: SizedBox.shrink(),
-                          content: RegisterStep2(
+                          content: RegisterStep2(pwKey: pwKey,
                               onTap: () async {
                                 date = await showDatePicker(
                                     context: context,
@@ -190,8 +190,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         Row(
                                           children: [
                                             Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 8.w),
+                                              padding:
+                                                  EdgeInsets.only(left: 8.w),
                                               child: Text(
                                                 "Gender",
                                                 style: GoogleFonts.openSans(
@@ -204,8 +204,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         GenderDropDown(
                                             screenWidth: 1.sw,
                                             screenHeight: 1.sh,
-                                            genderController:
-                                                genderController),
+                                            genderController: genderController),
                                       ],
                                     ),
                                     Column(
@@ -220,14 +219,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   "Height",
                                                   style: GoogleFonts.openSans(
                                                       fontSize: 12.sp,
-                                                      color:
-                                                          Color(0xff232425)),
+                                                      color: Color(0xff232425)),
                                                 ),
                                                 Container(
                                                   width: 90.w,
                                                   child: CustomTextFormField(
-                                                      type: TextInputType
-                                                          .number,
+                                                      type:
+                                                          TextInputType.number,
                                                       controller:
                                                           heightController,
                                                       readOnly: false,
@@ -242,14 +240,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   "Weight",
                                                   style: GoogleFonts.openSans(
                                                       fontSize: 12.sp,
-                                                      color:
-                                                          Color(0xff232425)),
+                                                      color: Color(0xff232425)),
                                                 ),
                                                 Container(
                                                   width: 90.w,
                                                   child: CustomTextFormField(
-                                                      type: TextInputType
-                                                          .number,
+                                                      type:
+                                                          TextInputType.number,
                                                       controller:
                                                           weightController,
                                                       readOnly: false,
@@ -281,7 +278,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         DiseaseDropDown(
                                             diseaseController:
                                                 diseaseController,
-                                            screenHeight: 1.sh )
+                                            screenHeight: 1.sh)
                                       ],
                                     )
                                   ],
@@ -299,33 +296,92 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 text: "Continue",
                                 onpressed: () async {
                                   if (index == 2) {
-                                    cubit.diseases = diseaseController
-                                        .selectedOptions
-                                        .map((option) => option.value)
-                                        .toList();
-                                    cubit.gender = genderController.text;
-                                    cubit.height =
-                                        int.parse(heightController.text);
-                                    cubit.weight =
-                                        int.parse(weightController.text);
-                                    await cubit.registerUser(
-                                        cubit.email, cubit.password);
-                                    await cubit.saveUser(
-                                        cubit.email,
-                                        cubit.password,
-                                        cubit.name,
-                                        cubit.phoneNumber,
-                                        cubit.date,
-                                        cubit.gender,
-                                        cubit.height ?? 0,
-                                        cubit.weight ?? 0,
-                                        cubit.diseases ?? [],
-                                        cubit.image);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginScreen()));
+                                    if(genderController.text==""){
+                                      ScaffoldMessenger.of(context)
+                                        ..hideCurrentSnackBar()
+                                        ..showSnackBar(SnackBar(
+                                          elevation: 0,
+                                          behavior: SnackBarBehavior.fixed,
+                                          backgroundColor: Colors.transparent,
+                                          content: AwesomeSnackbarContent(
+                                            title: 'Error',
+                                            message:
+                                            "Please Pick a Gender",
+                                            contentType: ContentType.failure,
+                                          ),
+                                        ));
+                                    }else if(heightController.text==""){
+                                      ScaffoldMessenger.of(context)
+                                        ..hideCurrentSnackBar()
+                                        ..showSnackBar(SnackBar(
+                                          elevation: 0,
+                                          behavior: SnackBarBehavior.fixed,
+                                          backgroundColor: Colors.transparent,
+                                          content: AwesomeSnackbarContent(
+                                            title: 'Error',
+                                            message:
+                                            "Please add your height",
+                                            contentType: ContentType.failure,
+                                          ),
+                                        ));
+                                    }else if(weightController.text==""){
+                                      ScaffoldMessenger.of(context)
+                                        ..hideCurrentSnackBar()
+                                        ..showSnackBar(SnackBar(
+                                          elevation: 0,
+                                          behavior: SnackBarBehavior.fixed,
+                                          backgroundColor: Colors.transparent,
+                                          content: AwesomeSnackbarContent(
+                                            title: 'Error',
+                                            message:
+                                            "Please add your weight",
+                                            contentType: ContentType.failure,
+                                          ),
+                                        ));
+                                    }
+                                    else
+                                    {
+                                      cubit.diseases = diseaseController
+                                          .selectedOptions
+                                          .map((option) => option.value)
+                                          .toList();
+                                      cubit.gender = genderController.text;
+                                      cubit.height =
+                                          int.parse(heightController.text);
+                                      cubit.weight =
+                                          int.parse(weightController.text);
+                                      await cubit.registerUser(
+                                          cubit.email, cubit.password);
+                                      await cubit.saveUser(
+                                          cubit.email,
+                                          cubit.password,
+                                          cubit.name,
+                                          cubit.phoneNumber,
+                                          cubit.date,
+                                          cubit.gender,
+                                          cubit.height ?? 0,
+                                          cubit.weight ?? 0,
+                                          cubit.diseases ?? [],
+                                          cubit.image);
+                                      ScaffoldMessenger.of(context)
+                                        ..hideCurrentSnackBar()
+                                        ..showSnackBar(SnackBar(
+                                          elevation: 0,
+                                          behavior: SnackBarBehavior.fixed,
+                                          backgroundColor: Colors.transparent,
+                                          content: AwesomeSnackbarContent(
+                                            title: 'Congrats',
+                                            message:
+                                            "Account Created Successfully",
+                                            contentType: ContentType.success,color: Color(0xff04657A),
+                                          ),
+                                        ));
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LoginScreen()));
+                                    }
                                   } else if (index == 0 &&
                                       formKey1.currentState!.validate()) {
                                     cubit.name = nameController.text;
@@ -338,7 +394,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       index++;
                                     });
                                   } else if (index == 1 &&
-                                      formKey2.currentState!.validate()) {
+                                      formKey2.currentState!.validate() && cubit.pwValidate==true) {
                                     cubit.date = date;
                                     cubit.password =
                                         confirmPasswordController.text;

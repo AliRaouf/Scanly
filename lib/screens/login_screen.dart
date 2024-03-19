@@ -1,4 +1,4 @@
-import 'package:colorful_safe_area/colorful_safe_area.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +12,7 @@ import 'package:scanly/components/custom_button.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
 import 'package:scanly/screens/continue_login_screen.dart';
 import 'package:scanly/screens/home_screen.dart';
+import 'package:scanly/screens/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -38,9 +39,36 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) async {
         if (state is LoginSuccessState) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.fixed,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'Congrats',
+                message:
+                'Welcome to Scanly',
+                contentType: ContentType.success,color: Color(0xff04657A),
+              ),
+            ));
           await UserCubit.get(context).receiverUserData();
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        }else if(state is LoginErrorState){
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.fixed,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'Error',
+                message:
+                LoginCubit.get(context).error!,
+                contentType: ContentType.failure,
+              ),
+            ));
         }
       },
       builder: (context, state) {
@@ -288,7 +316,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
+                          },
                           child: Text(
                             "Sign Up!",
                             style: GoogleFonts.openSans(

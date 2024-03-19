@@ -137,12 +137,13 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                             await Future.delayed(Duration(seconds: 8));
                            String text = await TextractCubit.get(context).downloadAndGetText();
                            print(text);
-                          TextractCubit.get(context).listAlbum();
                           }
                         }else{
                           await TextractCubit.get(context)
                               .uploadImage(TextractCubit.get(context).fileImage!);
-                          TextractCubit.get(context).listAlbum();
+                          await Future.delayed(Duration(seconds: 8));
+                          String text = await TextractCubit.get(context).downloadAndGetText();
+                          print(text);
                         }
                       },
                       fontSize: screenWidth * 0.04444,

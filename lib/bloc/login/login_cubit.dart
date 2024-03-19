@@ -117,7 +117,7 @@ class LoginCubit extends Cubit<LoginState> {
         error='Wrong password provided for that user.';
         emit(LoginErrorState(error));
       }else{
-        error=e.message!;
+        error="Wrong Email or Password";
         emit(LoginErrorState(error));
       }
     }
