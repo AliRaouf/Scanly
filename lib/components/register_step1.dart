@@ -38,7 +38,7 @@ class RegisterStep1 extends StatelessWidget {
                       padding: EdgeInsets.only(left: 8.w),
                       child: Text(
                         "Name",
-                        style: GoogleFonts.openSans(
+                        style: GoogleFonts.nunito(
                             fontSize: 12.sp, color: Color(0xff232425)),
                       ),
                     ),
@@ -59,7 +59,7 @@ class RegisterStep1 extends StatelessWidget {
                       padding: EdgeInsets.only(left: 8.w),
                       child: Text(
                         "Email",
-                        style: GoogleFonts.openSans(
+                        style: GoogleFonts.nunito(
                             fontSize: 12.sp, color: Color(0xff232425)),
                       ),
                     ),
@@ -81,7 +81,7 @@ class RegisterStep1 extends StatelessWidget {
                       padding: EdgeInsets.only(left: 8.w),
                       child: Text(
                         "PhoneNumber",
-                        style: GoogleFonts.openSans(
+                        style: GoogleFonts.nunito(
                             fontSize: 12.sp, color: Color(0xff232425)),
                       ),
                     ),

@@ -41,7 +41,7 @@ class GradientButton extends StatelessWidget {
         onPressed: onpressed,
         child: Text(
           text,
-          style: GoogleFonts.openSans(color: const Color(0xfffafafa), fontSize: fontSize,fontWeight: FontWeight.bold),
+          style: GoogleFonts.nunito(color: const Color(0xfffafafa), fontSize: fontSize,fontWeight: FontWeight.bold),
         ),
       ),
     );

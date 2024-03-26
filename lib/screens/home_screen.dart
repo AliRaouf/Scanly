@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +11,7 @@ import 'package:scanly/bloc/user/user_cubit.dart';
 
 import 'package:scanly/components/custom_form_text_field.dart';
 import 'package:scanly/components/gradient_button.dart';
+import 'package:scanly/components/line_chart.dart';
 import 'package:scanly/components/scan_bottomsheet_popup.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -52,10 +52,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String heartOutlineIcon='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M12 7.194c-1.73-3.92-5.76-4.23-7.64-2.56c-1.53 1.33-2.26 4.66-.87 7.69c2.41 5.21 8.51 8 8.51 8s6.1-2.74 8.51-7.95c1.39-3 .66-6.32-.87-7.69c-1.88-1.72-5.91-1.41-7.64 2.51"/><path d="M3.34 11.964H8l3 3l3-6l2 3h4.66"/></g></svg>';
-    String heartIcon='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.13 4.155a5 5 0 0 0-4.39-1.07A6 6 0 0 0 12 5.665a6 6 0 0 0-3.72-2.58a5.09 5.09 0 0 0-4.4 1c-1.58 1.38-2.45 4.44-1.46 7.54c.112.342.246.676.4 1c.04.075.077.152.11.23c2.57 5.24 8.51 8 8.77 8.13a.672.672 0 0 0 .31.07a.702.702 0 0 0 .31-.07c.25-.11 6.25-2.85 8.8-8.15l.08-.17c.158-.34.295-.691.41-1.05c.94-3 .08-6.06-1.48-7.46m-.31 7.93c-.14.314-.3.618-.48.91h-3.31a1 1 0 0 1-.83-.45l-1.05-1.56l-2.23 4.46a1 1 0 0 1-.73.54h-.16a1 1 0 0 1-.71-.3l-2.71-2.7H4.7a10.595 10.595 0 0 1-.5-1a6.336 6.336 0 0 1-.38-1h4.21a.999.999 0 0 1 .71.29l2 2l2.38-4.76a1 1 0 0 1 .84-.55a1 1 0 0 1 .89.44l1.7 2.56h3.7a6.572 6.572 0 0 1-.43 1.12"/></svg>';
-    String historyIcon='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M8.672 7.542h6.656c3.374 0 5.062 0 6.01.987c.947.987.724 2.511.278 5.56l-.422 2.892c-.35 2.391-.525 3.587-1.422 4.303c-.897.716-2.22.716-4.867.716h-5.81c-2.646 0-3.97 0-4.867-.716c-.897-.716-1.072-1.912-1.422-4.303l-.422-2.892c-.447-3.049-.67-4.573.278-5.56c.948-.987 2.636-.987 6.01-.987M8 18c0-.414.373-.75.833-.75h6.334c.46 0 .833.336.833.75s-.373.75-.833.75H8.833c-.46 0-.833-.336-.833-.75" clip-rule="evenodd"/><path fill="currentColor" d="M8.51 2h6.98c.233 0 .41 0 .567.015c1.108.109 2.014.775 2.399 1.672H5.544c.385-.897 1.292-1.563 2.4-1.672C8.099 2 8.278 2 8.51 2" opacity="0.4"/><path fill="currentColor" d="M6.31 4.723c-1.39 0-2.53.84-2.91 1.953a2.623 2.623 0 0 0-.024.07a7.69 7.69 0 0 1 1.232-.253c1.08-.138 2.446-.138 4.032-.138h6.892c1.586 0 2.952 0 4.032.138c.42.054.834.133 1.232.253a2.817 2.817 0 0 0-.023-.07c-.38-1.114-1.52-1.953-2.911-1.953z" opacity="0.7"/></svg>';
-    String historyIconOutlined='<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.562 7a2.132 2.132 0 0 0-2.1-2.5H6.538a2.132 2.132 0 0 0-2.1 2.5M17.5 4.5c.028-.26.043-.389.043-.496a2 2 0 0 0-1.787-1.993C15.65 2 15.52 2 15.26 2H8.74c-.26 0-.391 0-.497.011a2 2 0 0 0-1.787 1.993c0 .107.014.237.043.496" opacity="0.5"/><path stroke-linecap="round" d="M15 18H9"/><path d="M2.384 13.793c-.447-3.164-.67-4.745.278-5.77C3.61 7 5.298 7 8.672 7h6.656c3.374 0 5.062 0 6.01 1.024c.947 1.024.724 2.605.278 5.769l-.422 3c-.35 2.48-.525 3.721-1.422 4.464c-.897.743-2.22.743-4.867.743h-5.81c-2.646 0-3.97 0-4.867-.743c-.897-.743-1.072-1.983-1.422-4.464z"/></g></svg>';
+    String heartOutlineIcon =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M12 7.194c-1.73-3.92-5.76-4.23-7.64-2.56c-1.53 1.33-2.26 4.66-.87 7.69c2.41 5.21 8.51 8 8.51 8s6.1-2.74 8.51-7.95c1.39-3 .66-6.32-.87-7.69c-1.88-1.72-5.91-1.41-7.64 2.51"/><path d="M3.34 11.964H8l3 3l3-6l2 3h4.66"/></g></svg>';
+    String heartIcon =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.13 4.155a5 5 0 0 0-4.39-1.07A6 6 0 0 0 12 5.665a6 6 0 0 0-3.72-2.58a5.09 5.09 0 0 0-4.4 1c-1.58 1.38-2.45 4.44-1.46 7.54c.112.342.246.676.4 1c.04.075.077.152.11.23c2.57 5.24 8.51 8 8.77 8.13a.672.672 0 0 0 .31.07a.702.702 0 0 0 .31-.07c.25-.11 6.25-2.85 8.8-8.15l.08-.17c.158-.34.295-.691.41-1.05c.94-3 .08-6.06-1.48-7.46m-.31 7.93c-.14.314-.3.618-.48.91h-3.31a1 1 0 0 1-.83-.45l-1.05-1.56l-2.23 4.46a1 1 0 0 1-.73.54h-.16a1 1 0 0 1-.71-.3l-2.71-2.7H4.7a10.595 10.595 0 0 1-.5-1a6.336 6.336 0 0 1-.38-1h4.21a.999.999 0 0 1 .71.29l2 2l2.38-4.76a1 1 0 0 1 .84-.55a1 1 0 0 1 .89.44l1.7 2.56h3.7a6.572 6.572 0 0 1-.43 1.12"/></svg>';
+    String historyIcon =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M8.672 7.542h6.656c3.374 0 5.062 0 6.01.987c.947.987.724 2.511.278 5.56l-.422 2.892c-.35 2.391-.525 3.587-1.422 4.303c-.897.716-2.22.716-4.867.716h-5.81c-2.646 0-3.97 0-4.867-.716c-.897-.716-1.072-1.912-1.422-4.303l-.422-2.892c-.447-3.049-.67-4.573.278-5.56c.948-.987 2.636-.987 6.01-.987M8 18c0-.414.373-.75.833-.75h6.334c.46 0 .833.336.833.75s-.373.75-.833.75H8.833c-.46 0-.833-.336-.833-.75" clip-rule="evenodd"/><path fill="currentColor" d="M8.51 2h6.98c.233 0 .41 0 .567.015c1.108.109 2.014.775 2.399 1.672H5.544c.385-.897 1.292-1.563 2.4-1.672C8.099 2 8.278 2 8.51 2" opacity="0.4"/><path fill="currentColor" d="M6.31 4.723c-1.39 0-2.53.84-2.91 1.953a2.623 2.623 0 0 0-.024.07a7.69 7.69 0 0 1 1.232-.253c1.08-.138 2.446-.138 4.032-.138h6.892c1.586 0 2.952 0 4.032.138c.42.054.834.133 1.232.253a2.817 2.817 0 0 0-.023-.07c-.38-1.114-1.52-1.953-2.911-1.953z" opacity="0.7"/></svg>';
+    String historyIconOutlined =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.562 7a2.132 2.132 0 0 0-2.1-2.5H6.538a2.132 2.132 0 0 0-2.1 2.5M17.5 4.5c.028-.26.043-.389.043-.496a2 2 0 0 0-1.787-1.993C15.65 2 15.52 2 15.26 2H8.74c-.26 0-.391 0-.497.011a2 2 0 0 0-1.787 1.993c0 .107.014.237.043.496" opacity="0.5"/><path stroke-linecap="round" d="M15 18H9"/><path d="M2.384 13.793c-.447-3.164-.67-4.745.278-5.77C3.61 7 5.298 7 8.672 7h6.656c3.374 0 5.062 0 6.01 1.024c.947 1.024.724 2.605.278 5.769l-.422 3c-.35 2.48-.525 3.721-1.422 4.464c-.897.743-2.22.743-4.867.743h-5.81c-2.646 0-3.97 0-4.867-.743c-.897-.743-1.072-1.983-1.422-4.464z"/></g></svg>';
 
     var cubit = UserCubit.get(context);
     return BlocConsumer<UserCubit, UserState>(
@@ -82,23 +86,23 @@ class _HomeScreenState extends State<HomeScreen> {
             items: [
               SalomonBottomBarItem(
                 icon: Icon(Icons.home_outlined),
-                title: Text("Home"),
+                title: Text("Home", style: GoogleFonts.nunito()),
                 activeIcon: Icon(Icons.home_rounded),
               ),
               SalomonBottomBarItem(
                 activeIcon: Iconify(historyIcon, color: Color(0xff04657A)),
                 icon: Iconify(historyIconOutlined, color: Color(0xff232425)),
-                title: Text("History"),
+                title: Text("History", style: GoogleFonts.nunito()),
               ),
               SalomonBottomBarItem(
                 icon: Iconify(heartOutlineIcon, color: Color(0xff232425)),
-                title: Text("Health"),
+                title: Text("Health", style: GoogleFonts.nunito()),
                 activeIcon: Iconify(heartIcon, color: Color(0xff04657A)),
               ),
               SalomonBottomBarItem(
                 activeIcon: Icon(Icons.settings_rounded),
                 icon: Icon(Icons.settings_outlined),
-                title: Text("Settings"),
+                title: Text("Settings", style: GoogleFonts.nunito()),
               ),
             ],
           ),
@@ -128,27 +132,29 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(left: 12.w),
-                                  child: GestureDetector(onTap: (){
-                                    Navigator.push(
-                                        context,
-                                        AnimatedRoute(page: ProfileScreen()));
-                                  },
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(context,
+                                          AnimatedRoute(page: ProfileScreen()));
+                                    },
                                     child: CircleAvatar(
                                       radius: 24.r,
                                       backgroundColor: Colors.transparent,
                                       child: ClipOval(
                                         child: CachedNetworkImage(
-                                          errorWidget: (context, url, error) => const Image(
-                                              image: NetworkImage(
-                                                  'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg')),
+                                          errorWidget: (context, url, error) =>
+                                              const Image(
+                                                  image: NetworkImage(
+                                                      'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg')),
                                           imageUrl: cubit.imageUrl,
                                           fit: BoxFit.cover,
                                           width: double.infinity,
                                           height: double.infinity,
-                                          progressIndicatorBuilder:
-                                              (context, url, downloadProgress) =>
+                                          progressIndicatorBuilder: (context,
+                                                  url, downloadProgress) =>
                                               CircularProgressIndicator(
-                                                  value: downloadProgress.progress),
+                                                  value: downloadProgress
+                                                      .progress),
                                         ),
                                       ),
                                     ),
@@ -158,11 +164,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Center(
                               child: Padding(
-                                padding:
-                                const EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 child: Text(
                                   "Welcome ${cubit.userName ?? ""}",
-                                  style: GoogleFonts.openSans(
+                                  style: GoogleFonts.nunito(
                                       fontSize: 14.sp,
                                       color: Color(0xff232425),
                                       fontWeight: FontWeight.w600),
@@ -183,7 +188,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: Color(0xff179BE8),
                                   onPressed: () {
                                     setState(() {
-                                      TestCubit.get(context).updateFilteredTests(searchController.text);
+                                      TestCubit.get(context)
+                                          .updateFilteredTests(
+                                              searchController.text);
                                     });
                                   },
                                   icon: Icon(Icons.search_rounded)),
@@ -195,11 +202,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding:
-                              EdgeInsets.only(left: 15.w),
+                              padding: EdgeInsets.only(left: 15.w),
                               child: Text(
                                 "Common Tests",
-                                style: GoogleFonts.openSans(
+                                style: GoogleFonts.nunito(
                                     fontSize: 14.sp,
                                     color: Color(0xff232425),
                                     fontWeight: FontWeight.w600),
@@ -214,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: EdgeInsets.only(left: 18.w),
                               child: Text(
                                 "Tests",
-                                style: GoogleFonts.openSans(
+                                style: GoogleFonts.nunito(
                                     fontSize: 14.sp,
                                     color: Color(0xff232425),
                                     fontWeight: FontWeight.w600),
@@ -225,31 +231,35 @@ class _HomeScreenState extends State<HomeScreen> {
                         Container(
                           height: 380.h,
                           child: ListView.builder(
-                              key: ValueKey<String>(
-                                  TestCubit.get(context).filteredTests.join(',')),
-                              itemCount: TestCubit.get(context).filteredTests.length,
-                              padding:
-                              EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                              key: ValueKey<String>(TestCubit.get(context)
+                                  .filteredTests
+                                  .join(',')),
+                              itemCount:
+                                  TestCubit.get(context).filteredTests.length,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 4, horizontal: 16),
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 4),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4),
                                   child: Container(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 8, vertical: 8),
                                     decoration: BoxDecoration(
                                         color: Color(0xfffafafa),
-                                        borderRadius: BorderRadius.circular(10)),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     height: 40.h,
                                     width: 328.w,
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Expanded(
                                           child: Text(
                                             TestCubit.get(context)
                                                 .filteredTests[index],
-                                            style: GoogleFonts.openSans(
+                                            style: GoogleFonts.nunito(
                                                 fontSize: 12.sp,
                                                 color: Color(0xff232425),
                                                 fontWeight: FontWeight.w600),
@@ -268,8 +278,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     builder: (context) {
                                                       return ScanBottomSheetPopup(
                                                           testName: TestCubit.get(
-                                                              context)
-                                                              .filteredTests[index]);
+                                                                      context)
+                                                                  .filteredTests[
+                                                              index]);
                                                     });
                                               },
                                               fontSize: 12.sp,
@@ -296,17 +307,185 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                // Health Page
-                color: Colors.yellow,
-                child: Center(
-                  child: Text("Health Page"),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/Scanly_bg.png"),
+                        fit: BoxFit.cover)),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 32.h, horizontal: 8.w),
+                  child: Column(
+                    children: [
+                      LineChartSample2(),
+                      Row(
+                        children: [
+                          Text(
+                            "Health Check:",
+                            style: GoogleFonts.nunito(
+                                fontSize: 20.sp, color: Color(0xff232425),fontWeight:FontWeight.w600),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
               Container(
-                // Settings Page
-                color: Colors.yellow,
-                child: Center(
-                  child: Text("Settings Page"),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/Scanly_bg.png"),
+                        fit: BoxFit.cover)),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 30.h, horizontal: 30.w),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Account",
+                                style: GoogleFonts.nunito(
+                                    color: Color(0xff232425),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 20.sp),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            width: 1.sw,
+                            decoration: BoxDecoration(
+                                color: Color(0xfffafafa),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.r))),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    TextButton(
+                                        onPressed: () {},
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "1- Change User Data",
+                                            style: GoogleFonts.nunito(
+                                                color: Color(0xff232425),
+                                                fontSize: 16.sp),
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    TextButton(
+                                        onPressed: () {},
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text("2- Verify Account",
+                                              style: GoogleFonts.nunito(
+                                                  color: Color(0xff232425),
+                                                  fontSize: 14.sp)),
+                                        )),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Security",
+                                style: GoogleFonts.nunito(
+                                    color: Color(0xff232425),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 20.sp),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            width: 1.sw,
+                            decoration: BoxDecoration(
+                                color: Color(0xfffafafa),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.r))),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    TextButton(
+                                        onPressed: () {},
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "1- Change Password",
+                                            style: GoogleFonts.nunito(
+                                                color: Color(0xff232425),
+                                                fontSize: 14.sp),
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Legal",
+                                style: GoogleFonts.nunito(
+                                    color: Color(0xff232425),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 20.sp),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            width: 1.sw,
+                            decoration: BoxDecoration(
+                                color: Color(0xfffafafa),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.r))),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    TextButton(
+                                        onPressed: () {},
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "1- View Legal Terms & Conditions",
+                                            style: GoogleFonts.nunito(
+                                                color: Color(0xff232425),
+                                                fontSize: 14.sp),
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      GradientButton(
+                          screenWidth: 0.4.sw,
+                          screenHeight: 45.h,
+                          text: "Logout",
+                          onpressed: () {},
+                          fontSize: 20.sp,
+                          border: 10.r)
+                    ],
+                  ),
                 ),
               ),
             ],

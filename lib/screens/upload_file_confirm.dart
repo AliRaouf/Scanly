@@ -59,7 +59,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
               padding: EdgeInsets.only(top: screenHeight * 0.05),
               child: Text(
                 widget.testName,
-                style: GoogleFonts.openSans(
+                style: GoogleFonts.nunito(
                     fontSize: screenWidth * 0.06,
                     color: Color(0xff232425),
                     fontWeight: FontWeight.w600),
@@ -102,7 +102,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
               child: Center(
                   child: Text(
                     "Are you sure you want to upload this Test?",
-                    style: GoogleFonts.openSans(
+                    style: GoogleFonts.nunito(
                         fontSize: screenWidth * 0.045,
                         color: Color(0xff4b4b4b)),
                     textAlign: TextAlign.center,
@@ -129,7 +129,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                       },
                       bColor: Color(0xffFAFAFA),
                       borderColor: Color(0xff179BE8),
-                      textStyle: GoogleFonts.openSans(
+                      textStyle: GoogleFonts.nunito(
                           fontWeight: FontWeight.bold,
                           fontSize: screenWidth * 0.04444,
                           color: Color(0xff179BE8))),

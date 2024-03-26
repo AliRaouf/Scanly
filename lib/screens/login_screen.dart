@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   padding: EdgeInsets.only(left: 45.w),
                                   child: Text(
                                     "Email",
-                                    style: GoogleFonts.openSans(
+                                    style: GoogleFonts.nunito(
                                         fontSize: 12.sp,
                                         color: Color(0xff232425)),
                                   ),
@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   padding: EdgeInsets.only(left: 45.w),
                                   child: Text(
                                     "Password",
-                                    style: GoogleFonts.openSans(
+                                    style: GoogleFonts.nunito(
                                         fontSize: 12.sp,
                                         color: Color(0xff232425)),
                                   ),
@@ -170,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           CheckBox(),
                           Text(
                             "Remember Me",
-                            style: GoogleFonts.openSans(
+                            style: GoogleFonts.nunito(
                                 color: Color(0xff232425), fontSize: 14.sp),
                           )
                         ],
@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: () {},
                           child: Text(
                             "Forgot Your Password?",
-                            style: GoogleFonts.openSans(
+                            style: GoogleFonts.nunito(
                                 color: Color(0xff232425).withOpacity(0.8),
                                 fontSize: 14.sp),
                           )),
@@ -202,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       bColor: Color(0xff1A83B6),
                       borderColor: Colors.transparent,
-                      textStyle: GoogleFonts.openSans(
+                      textStyle: GoogleFonts.nunito(
                           fontWeight: FontWeight.bold,
                           fontSize: 22.sp,
                           color: Colors.white)),
@@ -313,7 +313,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Text(
                         "Dont have an account?",
-                        style: GoogleFonts.openSans(
+                        style: GoogleFonts.nunito(
                           fontSize: 14.sp,
                           color: Color(0xff232425).withOpacity(0.8),
                         ),
@@ -324,7 +324,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Text(
                             "Sign Up!",
-                            style: GoogleFonts.openSans(
+                            style: GoogleFonts.nunito(
                                 fontSize: 16.sp,
                                 color: Color(0xff1d80b5),
                                 fontWeight: FontWeight.bold),

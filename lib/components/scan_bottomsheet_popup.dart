@@ -33,7 +33,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                 height: 40.h,
                 child: Text(
                   widget.testName,
-                  style: GoogleFonts.openSans(
+                  style: GoogleFonts.nunito(
                       fontSize: 16.sp,
                       color: Color(0xff232425),
                       fontWeight: FontWeight.w600),
@@ -68,7 +68,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                         padding: EdgeInsets.all(8),
                         child: Text(
                           "Upload your test",
-                          style: GoogleFonts.openSans(
+                          style: GoogleFonts.nunito(
                               fontSize: 14.sp,
                               color: Color(0xff232425),
                               fontWeight: FontWeight.w600),
@@ -115,7 +115,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                                 vertical: 8.h),
                             child: Text(
                               "Use your Camera",
-                              style: GoogleFonts.openSans(
+                              style: GoogleFonts.nunito(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xff232425)),
@@ -152,7 +152,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                             child: Center(
                               child: Text(
                                 "Scan QR Code",
-                                style: GoogleFonts.openSans(
+                                style: GoogleFonts.nunito(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xff232425),

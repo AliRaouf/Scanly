@@ -60,7 +60,7 @@ class _StartScreenState extends State<StartScreen> {
                         child: Center(
                             child: Text(
                               "We are Happy that you are here our mission is to provide you with information about your tests from where you are",
-                              style: GoogleFonts.openSans(
+                              style: GoogleFonts.nunito(
                                   fontSize: 16.sp,
                                   color: Color(0xff777777)),
                               textAlign: TextAlign.center,
@@ -85,7 +85,7 @@ class _StartScreenState extends State<StartScreen> {
                               },
                             bColor: Color(0xff1A83B6),
                             borderColor: Colors.transparent,
-                            textStyle: GoogleFonts.openSans(
+                            textStyle: GoogleFonts.nunito(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.sp,
                                 color: Colors.white)),
@@ -100,7 +100,7 @@ class _StartScreenState extends State<StartScreen> {
                             },
                             bColor: Color(0xffFAFAFA),
                             borderColor: Color(0xff1A83B6),
-                            textStyle: GoogleFonts.openSans(
+                            textStyle: GoogleFonts.nunito(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.sp,
                                 color: Color(0xff1A83B6))),

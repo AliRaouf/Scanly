@@ -49,7 +49,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                         padding: EdgeInsets.only(left: 8.w,top: 20.h),
                         child: Text(
                           "Date Of Birth",
-                          style: GoogleFonts.openSans(
+                          style: GoogleFonts.nunito(
                               fontSize: 12.sp, color: Color(0xff232425)),
                         ),
                       ),
@@ -73,7 +73,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           padding: EdgeInsets.only(left: 8.w),
                           child: Text(
                             "Password",
-                            style: GoogleFonts.openSans(
+                            style: GoogleFonts.nunito(
                                 fontSize: 12.sp, color: Color(0xff232425)),
                           ),
                         ),
@@ -108,7 +108,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                         padding: EdgeInsets.only(left: 8.w),
                         child: Text(
                           "Confirm Password",
-                          style: GoogleFonts.openSans(
+                          style: GoogleFonts.nunito(
                               fontSize: 12.sp, color: Color(0xff232425)),
                         ),
                       ),

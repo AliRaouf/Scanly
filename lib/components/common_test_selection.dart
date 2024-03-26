@@ -71,7 +71,7 @@ class CommonTestSelection extends StatelessWidget {
                         ),
                         Text(
                           "Blood",
-                          style: GoogleFonts.openSans(
+                          style: GoogleFonts.nunito(
                               fontSize:
                               screenWidth * 0.044442,
                               color: Color(0xff232425),
@@ -122,7 +122,7 @@ class CommonTestSelection extends StatelessWidget {
                       ),
                       Text(
                         "Genetic",
-                        style: GoogleFonts.openSans(
+                        style: GoogleFonts.nunito(
                             fontSize:
                             screenWidth * 0.044442,
                             color: Color(0xff232425),
@@ -173,7 +173,7 @@ class CommonTestSelection extends StatelessWidget {
                       ),
                       Text(
                         "Urine",
-                        style: GoogleFonts.openSans(
+                        style: GoogleFonts.nunito(
                             fontSize:
                             screenWidth * 0.04442,
                             color: Color(0xff232425),

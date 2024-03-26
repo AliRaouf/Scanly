@@ -89,14 +89,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           children: [
                             Text(
                               "Create a New Account",
-                              style: GoogleFonts.openSans(
+                              style: GoogleFonts.nunito(
                                   fontSize: 22.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff232425)),
                             ),
                             Text(
                               "Add a profile picture",
-                              style: GoogleFonts.openSans(
+                              style: GoogleFonts.nunito(
                                   fontSize: 18.sp, color: Color(0xff232425)),
                             ),
                             Stack(children: [
@@ -214,7 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   EdgeInsets.only(left: 8.w),
                                               child: Text(
                                                 "Gender",
-                                                style: GoogleFonts.openSans(
+                                                style: GoogleFonts.nunito(
                                                     fontSize: 12.sp,
                                                     color: Color(0xff232425)),
                                               ),
@@ -237,7 +237,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               children: [
                                                 Text(
                                                   "Height",
-                                                  style: GoogleFonts.openSans(
+                                                  style: GoogleFonts.nunito(
                                                       fontSize: 12.sp,
                                                       color: Color(0xff232425)),
                                                 ),
@@ -258,7 +258,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               children: [
                                                 Text(
                                                   "Weight",
-                                                  style: GoogleFonts.openSans(
+                                                  style: GoogleFonts.nunito(
                                                       fontSize: 12.sp,
                                                       color: Color(0xff232425)),
                                                 ),
@@ -288,7 +288,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   EdgeInsets.only(left: 8.w),
                                               child: Text(
                                                 "Medical History",
-                                                style: GoogleFonts.openSans(
+                                                style: GoogleFonts.nunito(
                                                     fontSize: 12.sp,
                                                     color: Color(0xff232425)),
                                               ),
@@ -412,7 +412,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 },
                                 bColor: Color(0xff179BE8),
                                 borderColor: Colors.transparent,
-                                textStyle: GoogleFonts.openSans(
+                                textStyle: GoogleFonts.nunito(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.sp,
                                     color: Colors.white)),
@@ -432,7 +432,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 },
                                 bColor: Color(0xffFAFAFA),
                                 borderColor: Color(0xff179BE8),
-                                textStyle: GoogleFonts.openSans(
+                                textStyle: GoogleFonts.nunito(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.sp,
                                     color: Color(0xff179BE8))),

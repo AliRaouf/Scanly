@@ -68,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                                             screenWidth * 0.02037037037),
                                     child: Text(
                                       "Name",
-                                      style: GoogleFonts.openSans(
+                                      style: GoogleFonts.nunito(
                                           fontSize: screenWidth * 0.04,
                                           color: const Color(0xff232425)),
                                     ),
@@ -103,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
                                             screenWidth * 0.02037037037),
                                     child: Text(
                                       "Email",
-                                      style: GoogleFonts.openSans(
+                                      style: GoogleFonts.nunito(
                                           fontSize: screenWidth * 0.04,
                                           color: const Color(0xff232425)),
                                     ),
@@ -137,7 +137,7 @@ class ProfileScreen extends StatelessWidget {
                                             screenWidth * 0.02037037037),
                                     child: Text(
                                       "PhoneNumber",
-                                      style: GoogleFonts.openSans(
+                                      style: GoogleFonts.nunito(
                                           fontSize: screenWidth * 0.04,
                                           color: const Color(0xff232425)),
                                     ),
@@ -173,7 +173,7 @@ class ProfileScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     "Height",
-                                    style: GoogleFonts.openSans(
+                                    style: GoogleFonts.nunito(
                                         fontSize: screenWidth * 0.04,
                                         color: const Color(0xff232425)),
                                   ),
@@ -196,7 +196,7 @@ class ProfileScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     "Weight",
-                                    style: GoogleFonts.openSans(
+                                    style: GoogleFonts.nunito(
                                         fontSize: screenWidth * 0.04,
                                         color: const Color(0xff232425)),
                                   ),
@@ -230,7 +230,7 @@ class ProfileScreen extends StatelessWidget {
                                             screenWidth * 0.02037037037),
                                     child: Text(
                                       "Gender",
-                                      style: GoogleFonts.openSans(
+                                      style: GoogleFonts.nunito(
                                           fontSize: screenWidth * 0.04,
                                           color: const Color(0xff232425)),
                                     ),
@@ -266,7 +266,7 @@ class ProfileScreen extends StatelessWidget {
                                             screenWidth * 0.02037037037),
                                     child: Text(
                                       "Medical History",
-                                      style: GoogleFonts.openSans(
+                                      style: GoogleFonts.nunito(
                                           fontSize: screenWidth * 0.04,
                                           color: const Color(0xff232425)),
                                     ),
@@ -289,7 +289,7 @@ class ProfileScreen extends StatelessWidget {
                                             screenWidth * 0.0385),
                                         child: Text(
                                           cubit.diseases!.join(', '),
-                                          style: GoogleFonts.openSans(
+                                          style: GoogleFonts.nunito(
                                             fontSize: screenWidth * 0.04,
                                             color:
                                                 const Color(0xff232425),

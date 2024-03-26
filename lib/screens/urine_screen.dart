@@ -94,7 +94,7 @@ class _UrineScreenState extends State<UrineScreen> {
                                       Expanded(
                                         child: Text(
                                           cubit.urineTests[index],
-                                          style: GoogleFonts.openSans(
+                                          style: GoogleFonts.nunito(
                                               fontSize: screenWidth * 0.04,
                                               color: Color(0xff232425),
                                               fontWeight: FontWeight.w600),

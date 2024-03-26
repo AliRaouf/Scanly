@@ -54,7 +54,7 @@ class DiseaseDropDown extends StatelessWidget {
       chipConfig: const ChipConfig(
           wrapType: WrapType.wrap),
       dropdownHeight: screenHeight * 0.4,
-      optionTextStyle: GoogleFonts.openSans(
+      optionTextStyle: GoogleFonts.nunito(
           fontSize: 16),
       selectedOptionIcon:
       const Icon(Icons.check_circle),

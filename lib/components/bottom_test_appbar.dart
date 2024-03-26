@@ -48,7 +48,7 @@ class BottomTestAppBar extends StatelessWidget {
                           child: Image.asset("assets/images/blood.png")),
                       Text(
                         "Blood",
-                        style: GoogleFonts.openSans(
+                        style: GoogleFonts.nunito(
                             fontSize: screenWidth * 0.044442,
                             color: Color(0xff232425),
                             fontWeight: FontWeight.w600),
@@ -83,7 +83,7 @@ class BottomTestAppBar extends StatelessWidget {
                           child: Image.asset("assets/images/gene.png")),
                       Text(
                         "Genetic",
-                        style: GoogleFonts.openSans(
+                        style: GoogleFonts.nunito(
                             fontSize: screenWidth * 0.044442,
                             color: Color(0xff232425),
                             fontWeight: FontWeight.w600),
@@ -118,7 +118,7 @@ class BottomTestAppBar extends StatelessWidget {
                           child: Image.asset("assets/images/urine.png")),
                       Text(
                         "Urine",
-                        style: GoogleFonts.openSans(
+                        style: GoogleFonts.nunito(
                             fontSize: screenWidth * 0.04442,
                             color: Color(0xff232425),
                             fontWeight: FontWeight.w600),

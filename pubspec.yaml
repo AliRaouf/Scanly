@@ -65,6 +65,7 @@ dependencies:
   salomon_bottom_bar: ^3.3.2
   flutter_screenutil: ^5.9.0
   awesome_snackbar_content: ^0.1.2
+  fl_chart: ^0.66.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
