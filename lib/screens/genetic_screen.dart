@@ -1,4 +1,4 @@
-import 'package:colorful_safe_area/colorful_safe_area.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,9 +36,7 @@ class _GeneticScreenState extends State<GeneticScreen> {
         return PopScope(canPop:
         false,
           child: Scaffold(
-            body: ColorfulSafeArea(
-                color: Color(0xff80c6dc),
-                child: Container(
+            body: Container(
                   width: screenWidth,
                   height: screenHeight,
                   decoration: BoxDecoration(
@@ -134,8 +132,7 @@ class _GeneticScreenState extends State<GeneticScreen> {
                     ],
                   ),
                 )),
-          ),
-        );
+          );
       },
     );
   }

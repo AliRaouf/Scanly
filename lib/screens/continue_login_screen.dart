@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,9 +41,7 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
   },
   builder: (context, state) {
     return Scaffold(
-        body: ColorfulSafeArea(
-          color : Color(0xff80c6dc),
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
             child: Column(
                   children: [
             Container(
@@ -247,8 +244,8 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                                 1,
                                 DateFormat('d/M/yyyy').format(date!),
                                 genderController.text,
-                                int.parse(heightController.text)??0,
-                                int.parse(weightController.text)??0,
+                                int.parse(heightController.text),
+                                int.parse(weightController.text),
                                 diseaseController.selectedOptions
                                     .map((option) => option.value)
                                     .toList()??[],
@@ -273,7 +270,7 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                   ],
                 ),
           ),
-        ));
+        );
   },
 );
   }
