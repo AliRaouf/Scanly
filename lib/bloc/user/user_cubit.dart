@@ -98,4 +98,14 @@ class UserCubit extends Cubit<UserState> {
     Uint8List? img = await pickImage(ImageSource.camera);
     image = img;
   }
+  Future<void> logout() async {
+    emit(UserLogoutLoading());
+    try {
+      await FirebaseAuth.instance.signOut();
+      emit(UserLogoutSuccess());
+    } catch (e) {
+      print('Error signing out: $e');
+      emit(UserLogoutError());
+    }
+  }
 }

@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +17,7 @@ import 'package:scanly/components/line_chart.dart';
 import 'package:scanly/components/scan_bottomsheet_popup.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:scanly/screens/login_screen.dart';
 import 'package:scanly/screens/profile_screen.dart';
 
 import '../components/common_test_selection.dart';
@@ -36,6 +39,7 @@ late MemoryImage? _selectedImage;
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0; // Define _currentIndex variable
   late PageController _pageController;
+  List<double> score = [6, 7.5, 8, 7, 5, 4, 3, 2, 1, 10];
 
   @override
   void initState() {
@@ -52,6 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String warningIcon =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M16 2C8.3 2 2 8.3 2 16s6.3 14 14 14s14-6.3 14-14S23.7 2 16 2m-1.1 6h2.2v11h-2.2zM16 25c-.8 0-1.5-.7-1.5-1.5S15.2 22 16 22s1.5.7 1.5 1.5S16.8 25 16 25"/></svg>';
     String heartOutlineIcon =
         '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M12 7.194c-1.73-3.92-5.76-4.23-7.64-2.56c-1.53 1.33-2.26 4.66-.87 7.69c2.41 5.21 8.51 8 8.51 8s6.1-2.74 8.51-7.95c1.39-3 .66-6.32-.87-7.69c-1.88-1.72-5.91-1.41-7.64 2.51"/><path d="M3.34 11.964H8l3 3l3-6l2 3h4.66"/></g></svg>';
     String heartIcon =
@@ -63,7 +69,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
     var cubit = UserCubit.get(context);
     return BlocConsumer<UserCubit, UserState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if(state is UserLogoutSuccess){
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(
+              elevation: 0,
+              behavior: SnackBarBehavior.fixed,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'Success',
+                message:
+                'Logged out',
+                contentType: ContentType.success,color: Color(0xff04657A),
+              ),
+            ));
+          Navigator.pushReplacement(
+              context,
+              AnimatedRoute(page: LoginScreen()));
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           extendBody: true,
@@ -307,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("assets/images/Scanly_bg.png"),
                         fit: BoxFit.cover)),
@@ -316,22 +341,61 @@ class _HomeScreenState extends State<HomeScreen> {
                       EdgeInsets.symmetric(vertical: 32.h, horizontal: 8.w),
                   child: Column(
                     children: [
-                      LineChartSample2(),
+                      const LineChartSample2(),
                       Row(
                         children: [
                           Text(
                             "Health Check:",
                             style: GoogleFonts.nunito(
-                                fontSize: 20.sp, color: Color(0xff232425),fontWeight:FontWeight.w600),
+                                fontSize: 20.sp,
+                                color: Color(0xff232425),
+                                fontWeight: FontWeight.w600),
                           ),
                         ],
+                      ),
+                      score[(score.length - 1)] > score[(score.length - 2)]
+                          ? Container(
+                              child: Row(crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                   padding: EdgeInsets.only(right:8.0.w),
+                                    child: Icon(Icons.check_circle_rounded,
+                                        color: Color(0xff2a7f2d), size: 40.w),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      "Fantastic news!\nBased on your latest test results, your health is on an upward trend. Keep up the great work!",
+                                      style: GoogleFonts.nunito(
+                                          color: Color(0xff232425),fontSize:14.sp,fontWeight:FontWeight.w600),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container(
+                        child: Row(crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right:8.0.w),
+                              child: Iconify(warningIcon,
+                                  color: Color(0xffd22424), size: 40.w),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "We noticed a decline in your recent health data that need a closer look. While this doesn't necessarily indicate a problem, it's important to be careful about your well-being",
+                                style: GoogleFonts.nunito(
+                                    color: Color(0xff232425),fontSize:14.sp,fontWeight:FontWeight.w600),
+                              ),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
                 ),
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("assets/images/Scanly_bg.png"),
                         fit: BoxFit.cover)),
@@ -481,7 +545,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           screenWidth: 0.4.sw,
                           screenHeight: 45.h,
                           text: "Logout",
-                          onpressed: () {},
+                          onpressed: (){
+                            cubit.logout();
+                          },
                           fontSize: 20.sp,
                           border: 10.r)
                     ],

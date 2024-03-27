@@ -79,21 +79,31 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<User?> googleSignin() async {
-    emit(LoginLoadingState());
     try {
-      final googleAccount = await GoogleSignIn().signIn();
-      final googleAuth = await googleAccount?.authentication;
-      final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-      final userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      emit(LoginSuccessState());
-      print(userCredential.user?.email);
-      return userCredential.user;
-    } on Exception catch (e) {
-      print(e);
+      final googleSignIn = GoogleSignIn(scopes: ['email']);
+
+      // Sign out the user to ensure they can choose an account each time
+      await googleSignIn.signOut();
+
+      final googleAccount = await googleSignIn.signIn();
+
+      if (googleAccount != null) {
+        final googleAuth = await googleAccount.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        final userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        return userCredential.user;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print("Error signing in with Google: $e");
+      return null;
     }
-    return null;
   }
 
   Future<User?> signInWithFacebook() async {

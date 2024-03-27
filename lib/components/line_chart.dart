@@ -42,7 +42,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     TextStyle style = GoogleFonts.nunito(
       fontWeight: FontWeight.w600,
-      fontSize: 10,
+      fontSize: 10.sp,
     );
     int index = value.toInt() - 1;
     Widget text;
@@ -60,7 +60,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     TextStyle style = GoogleFonts.nunito(
       fontWeight: FontWeight.w600,
-      fontSize: 10,
+      fontSize: 8.sp,
     );
     String text;
     switch (value.toInt()) {
