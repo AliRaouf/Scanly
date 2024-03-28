@@ -65,9 +65,6 @@ class LoginCubit extends Cubit<LoginState> {
       var email = prefs.getString("email") ?? "";
       var password = prefs.getString("password") ?? "";
       var rememberMe = prefs.getBool("remember_me") ?? false;
-      print(rememberMe);
-      print(email);
-      print(password);
       if (rememberMe) {
         emailText = email;
         passwordText = password;

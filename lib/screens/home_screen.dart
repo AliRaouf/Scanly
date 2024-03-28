@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var cubit = UserCubit.get(context);
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        if(state is UserLogoutSuccess){
+        if (state is UserLogoutSuccess) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
@@ -79,14 +79,13 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.transparent,
               content: AwesomeSnackbarContent(
                 title: 'Success',
-                message:
-                'Logged out',
-                contentType: ContentType.success,color: Color(0xff04657A),
+                message: 'Logged out',
+                contentType: ContentType.success,
+                color: Color(0xff04657A),
               ),
             ));
           Navigator.pushReplacement(
-              context,
-              AnimatedRoute(page: LoginScreen()));
+              context, AnimatedRoute(page: LoginScreen()));
         }
       },
       builder: (context, state) {
@@ -355,10 +354,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       score[(score.length - 1)] > score[(score.length - 2)]
                           ? Container(
-                              child: Row(crossAxisAlignment: CrossAxisAlignment.start,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                   padding: EdgeInsets.only(right:8.0.w),
+                                    padding: EdgeInsets.only(right: 8.0.w),
                                     child: Icon(Icons.check_circle_rounded,
                                         color: Color(0xff2a7f2d), size: 40.w),
                                   ),
@@ -366,30 +366,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: Text(
                                       "Fantastic news!\nBased on your latest test results, your health is on an upward trend. Keep up the great work!",
                                       style: GoogleFonts.nunito(
-                                          color: Color(0xff232425),fontSize:14.sp,fontWeight:FontWeight.w600),
+                                          color: Color(0xff232425),
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                   )
                                 ],
                               ),
                             )
                           : Container(
-                        child: Row(crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(right:8.0.w),
-                              child: Iconify(warningIcon,
-                                  color: Color(0xffd22424), size: 40.w),
-                            ),
-                            Expanded(
-                              child: Text(
-                                "We noticed a decline in your recent health data that need a closer look. While this doesn't necessarily indicate a problem, it's important to be careful about your well-being",
-                                style: GoogleFonts.nunito(
-                                    color: Color(0xff232425),fontSize:14.sp,fontWeight:FontWeight.w600),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 8.0.w),
+                                    child: Iconify(warningIcon,
+                                        color: Color(0xffd22424), size: 40.w),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      "We noticed a decline in your recent health data that need a closer look. While this doesn't necessarily indicate a problem, it's important to be careful about your well-being",
+                                      style: GoogleFonts.nunito(
+                                          color: Color(0xff232425),
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  )
+                                ],
                               ),
                             )
-                          ],
-                        ),
-                      )
                     ],
                   ),
                 ),
@@ -545,7 +550,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           screenWidth: 0.4.sw,
                           screenHeight: 45.h,
                           text: "Logout",
-                          onpressed: (){
+                          onpressed: () {
                             cubit.logout();
                           },
                           fontSize: 20.sp,
