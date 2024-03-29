@@ -9,7 +9,8 @@ import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/screens/splash_screen.dart';
 
 class AppRoot extends StatelessWidget {
-  const AppRoot({super.key});
+  final bool onboarding;
+  const AppRoot({super.key, required this.onboarding});
 
   @override
   Widget build(BuildContext context) {
