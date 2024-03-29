@@ -1,13 +1,13 @@
-import 'dart:js_interop';
-import 'dart:js_interop_unsafe';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:scanly/model/introduction_items.dart';
 import 'package:scanly/screens/start_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../components/custom_page_route.dart';
+
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({super.key});
 
@@ -25,15 +25,19 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: Container(
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        color: Color(0xfffafafa),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         child: isLastPage? getStarted() :  Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TextButton(onPressed: (){ Navigator.push(
-                context,
-                AnimatedRoute(page: StartScreen()));},
-                child: const Text('Skip',style:TextStyle(color:Colors.cyan),)),
+            TextButton(onPressed: ()async{
+              final prefs = await SharedPreferences.getInstance();
+              prefs.setBool("onboarding", true);
+              if(!mounted)return;
+              Navigator.push(
+                  context,
+                  AnimatedRoute(page: StartScreen()));},
+                child: Text('Skip',style:GoogleFonts.montserrat(color:Color(0xff1684b5),fontSize:14.sp,fontWeight:FontWeight.w600),)),
             SmoothPageIndicator(
               controller: pageController,
               count: controller.items.length,
@@ -41,16 +45,16 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 duration: const Duration(milliseconds: 600),
                 curve: Curves.easeIn),
             effect: WormEffect(
-              activeDotColor: Colors.cyan
+              activeDotColor: Color(0xff1684b5)
             ),),
             TextButton(
                 onPressed: ()=>pageController.nextPage(duration: Duration(microseconds: 600), curve: Curves.easeIn),
-                child: Text('Next',style:TextStyle(color:Colors.cyan),)),
+                child: Text('Next',style:GoogleFonts.montserrat(color:Color(0xff1684b5),fontSize:14.sp,fontWeight:FontWeight.w600))),
           ],
         ),
       ),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15),
+      body: Container(color: Color(0xfffafafa),
+        margin: EdgeInsets.symmetric(horizontal: 15.w),
         child: PageView.builder(
           onPageChanged: (index)=> setState(()=> isLastPage = controller.items.length-1 == index ),
             itemCount: controller.items.length,
@@ -60,13 +64,13 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(controller.items[index].image),
-                const SizedBox(height: 15,),
+                 SizedBox(height: 15.h,),
                 Text(controller.items[index].title,
-                style: const TextStyle(fontSize:21,fontWeight: FontWeight.bold),
+                style: GoogleFonts.montserrat(color:Color(0xff232425),fontSize:16.sp,fontWeight:FontWeight.bold),
                 ),
-                const SizedBox(height: 15,),
+                 SizedBox(height: 15.h,),
                 Text(controller.items[index].description,
-                  style: const TextStyle(fontSize:17,color:Colors.grey), textAlign: TextAlign.center,),
+                  style:GoogleFonts.nunito(color:Colors.grey,fontSize:14.sp), textAlign: TextAlign.center,),
     ],
               );
     }
@@ -76,18 +80,20 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
  Widget getStarted(){
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Colors.cyan),
-      width: MediaQuery.of(context).size.width*0.9,
-      height: 55,
+          borderRadius: BorderRadius.circular(10.r),
+          color: Color(0xff1A83B6)),
+      width: 0.6.sw,
+      height: 50.h,
       child: TextButton(
           onPressed: ()async{
             final prefs = await SharedPreferences.getInstance();
             prefs.setBool("onboarding", true);
-
             if(!mounted)return;
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>StartScreen()));},
-          child: Text("Get started",style: TextStyle(color:Colors.white),)),
+            Navigator.push(
+                context,
+                AnimatedRoute(page: StartScreen()));
+            },
+          child: Text("Get started",style: GoogleFonts.nunito(color:Color(0xfffafafa),fontSize:20.sp,fontWeight:FontWeight.bold),)),
     );
  }
 }

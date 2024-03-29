@@ -21,6 +21,7 @@ class LoginCubit extends Cubit<LoginState> {
   var passwordController = TextEditingController();
   String? error;
   bool? isExist;
+  bool? firstTimeUser;
 
   String? validateEmail(String? value) {
     const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
@@ -36,7 +37,11 @@ class LoginCubit extends Cubit<LoginState> {
         ? 'Enter a valid email address'
         : null;
   }
-
+  firstTime() async {
+    final prefs = await SharedPreferences.getInstance();
+    final onboarding = prefs.getBool("onboarding")??false;
+    firstTimeUser=onboarding;
+  }
   handleRemeberme(String email, String password) {
     if (isChecked == true) {
       SharedPreferences.getInstance().then(

@@ -11,7 +11,7 @@ class IntroductionItem{
     IntroductionInfo(
         title: 'Simple Test Analysis Process',
         description: 'Upload your test results, let our app analyze them, and receive valuable insights',
-        image:("assets/images/how_it_work.png")
+        image:("assets/images/how_it_works.png")
     ),
     IntroductionInfo(
         title: 'Tailored Recommendations for You',

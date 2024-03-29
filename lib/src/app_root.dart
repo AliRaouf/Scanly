@@ -8,17 +8,21 @@ import 'package:scanly/bloc/textract/textract_cubit.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/screens/splash_screen.dart';
 
-class AppRoot extends StatelessWidget {
-  final bool onboarding;
-  const AppRoot({super.key, required this.onboarding});
+class AppRoot extends StatefulWidget {
+  const AppRoot({super.key,});
 
+  @override
+  State<AppRoot> createState() => _AppRootState();
+}
+
+class _AppRootState extends State<AppRoot> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => RegisterCubit()),
           BlocProvider(
-              create: (context) => LoginCubit()..loadUserEmailPassword()),
+              create: (context) => LoginCubit()..loadUserEmailPassword()..firstTime()),
           BlocProvider(create: (context) => UserCubit()),
           BlocProvider(create: (context) => TestCubit()),
           BlocProvider(create: (context) => TextractCubit()),
@@ -29,7 +33,7 @@ class AppRoot extends StatelessWidget {
             useInheritedMediaQuery: true,
             ensureScreenSize: true,
             builder: (_, child) {
-              return const MaterialApp(
+              return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 home: SplashScreen(),
               );

@@ -22,5 +22,5 @@ Future<void>main()async{
 
   // Configure Amplify
   await Amplify.configure(amplifyconfig);
-  runApp(const AppRoot());
+  runApp(AppRoot());
 }

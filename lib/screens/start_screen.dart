@@ -35,25 +35,23 @@ class _StartScreenState extends State<StartScreen> {
                 children: [
                   Container(
                       height: 300.h,
-                      child: Image.asset("assets/images/Logo.png")),
+                      child: Image.asset("assets/images/logo_only.png")),
                   Column(
                     children: [
-                      Container(
-                          child: Text(
-                            "Welcome To",
-                            style: GoogleFonts.montserrat(
-                                fontSize: 44.sp,
-                                fontWeight: FontWeight.bold,
-                                color: const Color(0xff232425)),
-                          )),
-                      Container(
-                          child: Text(
-                            "Scanly",
-                            style: GoogleFonts.montserrat(
-                                fontSize: 44.sp,
-                                fontWeight: FontWeight.bold,
-                                color: const Color(0xff232425)),
-                          )),
+                      Text(
+                        "Welcome To",
+                        style: GoogleFonts.montserrat(
+                            fontSize: 44.sp,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xff232425)),
+                      ),
+                      Text(
+                        "Scanly",
+                        style: GoogleFonts.montserrat(
+                            fontSize: 44.sp,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xff232425)),
+                      ),
                       Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 12.w),
