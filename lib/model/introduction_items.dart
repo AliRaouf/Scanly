@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'introduction_info.dart';
 
 class IntroductionItem{
@@ -14,7 +13,7 @@ class IntroductionItem{
         image:("assets/images/how_it_works.png")
     ),
     IntroductionInfo(
-        title: 'Tailored Recommendations for You',
+        title: 'Tailored Recommendations',
         description: 'Receive personalized suggestions based on your unique test results',
         image:("assets/images/dr_recom.png")
     ),

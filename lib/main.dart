@@ -6,10 +6,14 @@ import 'package:flutter/services.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:scanly/firebase_options.dart';
 import 'package:scanly/src/app_root.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'amplifyconfiguration.dart';
 Future<void>main()async{
   WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  final onboarding = prefs.getBool("onboarding")??false;
+  print(onboarding);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -22,5 +26,5 @@ Future<void>main()async{
 
   // Configure Amplify
   await Amplify.configure(amplifyconfig);
-  runApp(AppRoot());
+  runApp(AppRoot(onboarding: onboarding,));
 }

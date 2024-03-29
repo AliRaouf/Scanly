@@ -63,12 +63,12 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(controller.items[index].image),
-                 SizedBox(height: 15.h,),
+                Container(height: 400.h,
+                    child: Image.asset(controller.items[index].image,fit: BoxFit.contain,)),
                 Text(controller.items[index].title,
                 style: GoogleFonts.montserrat(color:Color(0xff232425),fontSize:16.sp,fontWeight:FontWeight.bold),
                 ),
-                 SizedBox(height: 15.h,),
+                 SizedBox(height: 10.h,),
                 Text(controller.items[index].description,
                   style:GoogleFonts.nunito(color:Colors.grey,fontSize:14.sp), textAlign: TextAlign.center,),
     ],
@@ -87,7 +87,8 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
       child: TextButton(
           onPressed: ()async{
             final prefs = await SharedPreferences.getInstance();
-            prefs.setBool("onboarding", true);
+            await prefs.setBool("onboarding", true);
+            print(prefs.getBool("onboarding"));
             if(!mounted)return;
             Navigator.push(
                 context,
