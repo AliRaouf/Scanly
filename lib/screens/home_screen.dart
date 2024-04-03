@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -403,161 +404,195 @@ class _HomeScreenState extends State<HomeScreen> {
                     image: DecorationImage(
                         image: AssetImage("assets/images/Scanly_bg.png"),
                         fit: BoxFit.cover)),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 30.h, horizontal: 30.w),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Account",
-                                style: GoogleFonts.nunito(
-                                    color: Color(0xff232425),
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 20.sp),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            width: 1.sw,
-                            decoration: BoxDecoration(
-                                color: Color(0xfffafafa),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.r))),
-                            child: Column(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Center(
+                      child: Container(height: 500.h,padding:
+                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 30.w),decoration: BoxDecoration(color: Color(0xfffafafa),borderRadius: BorderRadius.circular(30)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
                               children: [
                                 Row(
                                   children: [
-                                    TextButton(
-                                        onPressed: () {},
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            "1- Change User Data",
-                                            style: GoogleFonts.nunito(
-                                                color: Color(0xff232425),
-                                                fontSize: 16.sp),
-                                          ),
-                                        )),
+                                    Text(
+                                      "Account",
+                                      style: GoogleFonts.nunito(
+                                          color: Color(0xff232425),
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 20.sp),
+                                    ),
                                   ],
                                 ),
-                                Row(
-                                  children: [
-                                    TextButton(
-                                        onPressed: () {},
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text("2- Verify Account",
-                                              style: GoogleFonts.nunito(
-                                                  color: Color(0xff232425),
-                                                  fontSize: 14.sp)),
-                                        )),
-                                  ],
+                                Container(
+                                  width: 1.sw,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xfffafafa),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(15.r))),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: TextButton(
+                                                onPressed: () {},
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        "Change User Data",
+                                                        style: GoogleFonts.nunito(
+                                                            color: Color(0xff232425),
+                                                            fontSize: 16.sp),
+                                                      ),
+                                                      Icon(Icons.arrow_forward_ios_rounded)
+                                                    ],
+                                                  ),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: TextButton(
+                                                onPressed: () {},
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        "Verify Account",
+                                                        style: GoogleFonts.nunito(
+                                                            color: Color(0xff232425),
+                                                            fontSize: 16.sp),
+                                                      ),
+                                                      Icon(Icons.arrow_forward_ios_rounded)
+                                                    ],
+                                                  ),
+                                                )),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Security",
-                                style: GoogleFonts.nunito(
-                                    color: Color(0xff232425),
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 20.sp),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            width: 1.sw,
-                            decoration: BoxDecoration(
-                                color: Color(0xfffafafa),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.r))),
-                            child: Column(
+                            Column(
                               children: [
                                 Row(
                                   children: [
-                                    TextButton(
-                                        onPressed: () {},
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            "1- Change Password",
-                                            style: GoogleFonts.nunito(
-                                                color: Color(0xff232425),
-                                                fontSize: 14.sp),
-                                          ),
-                                        )),
+                                    Text(
+                                      "Security",
+                                      style: GoogleFonts.nunito(
+                                          color: Color(0xff232425),
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 20.sp),
+                                    ),
                                   ],
                                 ),
+                                Container(
+                                  width: 1.sw,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xfffafafa),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(15.r))),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: TextButton(
+                                                onPressed: () {},
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        "Change Password",
+                                                        style: GoogleFonts.nunito(
+                                                            color: Color(0xff232425),
+                                                            fontSize: 16.sp),
+                                                      ),
+                                                      Icon(Icons.arrow_forward_ios_rounded)
+                                                    ],
+                                                  ),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Legal",
-                                style: GoogleFonts.nunito(
-                                    color: Color(0xff232425),
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 20.sp),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            width: 1.sw,
-                            decoration: BoxDecoration(
-                                color: Color(0xfffafafa),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.r))),
-                            child: Column(
+                            Column(
                               children: [
                                 Row(
                                   children: [
-                                    TextButton(
-                                        onPressed: () {},
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            "1- View Legal Terms & Conditions",
-                                            style: GoogleFonts.nunito(
-                                                color: Color(0xff232425),
-                                                fontSize: 14.sp),
-                                          ),
-                                        )),
+                                    Text(
+                                      "Legal",
+                                      style: GoogleFonts.nunito(
+                                          color: Color(0xff232425),
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 20.sp),
+                                    ),
                                   ],
                                 ),
+                                Container(
+                                  width: 1.sw,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xfffafafa),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(15.r))),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                  Expanded(
+                                  child: TextButton(
+                                      onPressed: () {},
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "View Legal Terms & Conditions",
+                                            style: GoogleFonts.nunito(
+                                                color: Color(0xff232425),
+                                                fontSize: 15.sp),
+                                          ),
+                                          Icon(Icons.arrow_forward_ios_rounded)
+                                        ],
+                                      ),
+                                    )),
+                      ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
-                          )
-                        ],
+                            GradientButton(
+                                screenWidth: 0.4.sw,
+                                screenHeight: 45.h,
+                                text: "Logout",
+                                onpressed: () {
+                                  cubit.logout();
+                                },
+                                fontSize: 20.sp,
+                                border: 10.r)
+                          ],
+                        ),
                       ),
-                      GradientButton(
-                          screenWidth: 0.4.sw,
-                          screenHeight: 45.h,
-                          text: "Logout",
-                          onpressed: () {
-                            cubit.logout();
-                          },
-                          fontSize: 20.sp,
-                          border: 10.r)
-                    ],
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         );
