@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:scanly/bloc/api/api_cubit.dart';
 import 'package:scanly/bloc/login/login_cubit.dart';
 import 'package:scanly/bloc/register/register_cubit.dart';
 import 'package:scanly/bloc/test/test_cubit.dart';
@@ -28,6 +29,7 @@ class _AppRootState extends State<AppRoot> {
           BlocProvider(create: (context) => UserCubit()),
           BlocProvider(create: (context) => TestCubit()),
           BlocProvider(create: (context) => TextractCubit()),
+          BlocProvider(create: (context) => ApiCubit()),
         ],
         child: ScreenUtilInit(
             designSize: const Size(360, 800),

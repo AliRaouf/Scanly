@@ -66,6 +66,7 @@ dependencies:
   awesome_snackbar_content: ^0.1.2
   fl_chart: ^0.66.2
   smooth_page_indicator: ^1.1.0
+  chat_gpt_sdk: ^3.0.4
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_test:

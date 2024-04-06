@@ -91,7 +91,6 @@ print(filePath!);
     final file = File(filePath!); // Use the previously defined filepath
     try {
       final text = await file.readAsString();
-      print(text);
       return text;
     } on FileSystemException catch (e) {
       safePrint('Error accessing downloaded file: $e');
