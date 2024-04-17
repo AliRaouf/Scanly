@@ -260,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             try {
                               final user = await cubit.googleSignin();
                               print(user!.email);
-                              await cubit.doesEmailExist(user!.email!);
+                              await cubit.doesEmailExist(user.email!);
                               if (cubit.isExist == true) {
                                 await UserCubit.get(context).getUserData();
                                 await UserCubit.get(context).receiverUserData();

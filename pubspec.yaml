@@ -67,6 +67,8 @@ dependencies:
   fl_chart: ^0.66.2
   smooth_page_indicator: ^1.1.0
   chat_gpt_sdk: ^3.0.4
+  gauge_indicator: ^0.4.3
+  persistent_bottom_nav_bar_v2: ^5.2.2
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_test:

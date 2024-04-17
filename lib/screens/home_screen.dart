@@ -16,6 +16,7 @@ import 'package:scanly/components/line_chart.dart';
 import 'package:scanly/components/scan_bottomsheet_popup.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:scanly/screens/change_password_screen.dart';
 import 'package:scanly/screens/login_screen.dart';
 import 'package:scanly/screens/profile_screen.dart';
 
@@ -252,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         Container(
-                          height: 380.h,
+                          height: 400.h,
                           child: ListView.builder(
                               key: ValueKey<String>(TestCubit.get(context)
                                   .filteredTests
@@ -441,13 +442,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Text(
-                                                        "Change User Data",
-                                                        style: GoogleFonts.nunito(
-                                                            color: Color(0xff232425),
-                                                            fontSize: 16.sp),
+                                                      Expanded(
+                                                        child: Text(
+                                                          "Change User Data",
+                                                          style: GoogleFonts.nunito(
+                                                              color: Color(0xff232425),
+                                                              ),
+                                                        ),
                                                       ),
-                                                      Icon(Icons.arrow_forward_ios_rounded)
+                                                      Icon(Icons.arrow_forward_ios_rounded,size:18,color: Color(0xff232425),)
                                                     ],
                                                   ),
                                                 )),
@@ -463,13 +466,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Text(
-                                                        "Verify Account",
-                                                        style: GoogleFonts.nunito(
-                                                            color: Color(0xff232425),
-                                                            fontSize: 16.sp),
+                                                      Expanded(
+                                                        child: Text(
+                                                          "Verify Account",
+                                                          style: GoogleFonts.nunito(
+                                                              color: Color(0xff232425),
+                                                              ),
+                                                        ),
                                                       ),
-                                                      Icon(Icons.arrow_forward_ios_rounded)
+                                                      Icon(Icons.arrow_forward_ios_rounded,size:18,color: Color(0xff232425),)
                                                     ],
                                                   ),
                                                 )),
@@ -506,18 +511,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           Expanded(
                                             child: TextButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context, AnimatedRoute(page: ChangePasswordScreen()));
+                                                },
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Text(
-                                                        "Change Password",
-                                                        style: GoogleFonts.nunito(
-                                                            color: Color(0xff232425),
-                                                            fontSize: 16.sp),
+                                                      Expanded(
+                                                        child: Text(
+                                                          "Change Password",
+                                                          style: GoogleFonts.nunito(
+                                                              color: Color(0xff232425),
+                                                              ),
+                                                        ),
                                                       ),
-                                                      Icon(Icons.arrow_forward_ios_rounded)
+                                                      Icon(Icons.arrow_forward_ios_rounded,size:18,color: Color(0xff232425),)
                                                     ],
                                                   ),
                                                 )),
@@ -559,13 +569,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            "View Legal Terms & Conditions",
-                                            style: GoogleFonts.nunito(
-                                                color: Color(0xff232425),
-                                                fontSize: 15.sp),
+                                          Expanded(
+                                            child: Text(
+                                              "View Legal Terms & Conditions",
+                                              style: GoogleFonts.nunito(
+                                                  color: Color(0xff232425),
+                                                  ),
+                                            ),
                                           ),
-                                          Icon(Icons.arrow_forward_ios_rounded)
+                                          Icon(Icons.arrow_forward_ios_rounded,size:18,color: Color(0xff232425), )
                                         ],
                                       ),
                                     )),

@@ -14,3 +14,6 @@ class PickFileError extends UserState {}
 class UserLogoutLoading extends UserState {}
 class UserLogoutSuccess extends UserState {}
 class UserLogoutError extends UserState {}
+class ChangeUserPasswordSuccessState extends UserState {}
+class ChangeUserPasswordLoadingState extends UserState {}
+class ChangeUserPasswordErrorState extends UserState {}

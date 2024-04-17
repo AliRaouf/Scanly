@@ -27,16 +27,19 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
         height: 400.h,
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               SizedBox(
                 height: 40.h,
-                child: Text(
-                  widget.testName,
-                  style: GoogleFonts.nunito(
-                      fontSize: 16.sp,
-                      color: Color(0xff232425),
-                      fontWeight: FontWeight.w600),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    widget.testName,
+                    style: GoogleFonts.nunito(
+                        fontSize: 16.sp,
+                        color: Color(0xff232425),
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
               GestureDetector(
@@ -78,93 +81,96 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      await cubit.selectImage().then((image) {
-                        setState(() {
-                          _selectedImage = image;
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 12.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        await cubit.selectImage().then((image) {
+                          setState(() {
+                            _selectedImage = image;
+                          });
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UploadFileConfirm(
+                                      testName: widget.testName)));
                         });
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => UploadFileConfirm(
-                                    testName: widget.testName)));
-                      });
-                    },
-                    child: Container(
-                      width: 144.w,
-                      height: 120.h,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xff179BE8)),
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color(0xfffafafa)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.camera_alt_outlined,
-                            size: 50.w,
-                            color: Color(0xff179BE8),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8.h),
-                            child: Text(
-                              "Use your Camera",
-                              style: GoogleFonts.nunito(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff232425)),
+                      },
+                      child: Container(
+                        width: 144.w,
+                        height: 120.h,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Color(0xff179BE8)),
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xfffafafa)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.camera_alt_outlined,
+                              size: 50.w,
+                              color: Color(0xff179BE8),
                             ),
-                          )
-                        ],
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8.h),
+                              child: Text(
+                                "Use your Camera",
+                                style: GoogleFonts.nunito(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xff232425)),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => QRScan()));
-                    },
-                    child: Container(
-                      width: 144.w,
-                      height: 120.h,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xff179BE8)),
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color(0xfffafafa)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.qr_code_scanner_outlined,
-                            size: 50.w,
-                            color: Color(0xff179BE8),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsets.all(8),
-                            child: Center(
-                              child: Text(
-                                "Scan QR Code",
-                                style: GoogleFonts.nunito(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff232425),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => QRScan()));
+                      },
+                      child: Container(
+                        width: 144.w,
+                        height: 120.h,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Color(0xff179BE8)),
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xfffafafa)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.qr_code_scanner_outlined,
+                              size: 50.w,
+                              color: Color(0xff179BE8),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsets.all(8),
+                              child: Center(
+                                child: Text(
+                                  "Scan QR Code",
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xff232425),
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ],
           ),

@@ -248,7 +248,7 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                                 int.parse(weightController.text),
                                 diseaseController.selectedOptions
                                     .map((option) => option.value)
-                                    .toList()??[],
+                                    .toList(),
                               cubit.image ?? image
                                 );
                             await UserCubit.get(context).getUserData();

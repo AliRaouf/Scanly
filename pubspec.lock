@@ -757,6 +757,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gauge_indicator:
+    dependency: "direct main"
+    description:
+      name: gauge_indicator
+      sha256: "483abfae360ddffdf7b89fbd25192f83d1a6513d5da18f2388131566ab0793fd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.3"
+  go_router:
+    dependency: transitive
+    description:
+      name: go_router
+      sha256: "771c8feb40ad0ef639973d7ecf1b43d55ffcedb2207fd43fab030f5639e40446"
+      url: "https://pub.dev"
+    source: hosted
+    version: "13.2.4"
   google_fonts:
     dependency: "direct main"
     description:
@@ -1157,6 +1173,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  persistent_bottom_nav_bar_v2:
+    dependency: "direct main"
+    description:
+      name: persistent_bottom_nav_bar_v2
+      sha256: "5e5ebdf852e7e47b48e573bf867fa9c044cba870f1d2298c9ca7c9909875ee1d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.2"
   petitparser:
     dependency: transitive
     description:

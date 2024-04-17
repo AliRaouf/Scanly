@@ -28,6 +28,9 @@ class UserCubit extends Cubit<UserState> {
   PlatformFile? pickedFile;
   String? extension;
   Uint8List? image;
+  bool isOldPasswordObscured = true;
+  bool isNewPasswordObscured = true;
+  bool isConfirmNewPasswordObscured = true;
   getUserData() {
     user = FirebaseAuth.instance.currentUser;
     print(user?.email ?? "de7ka");
@@ -107,5 +110,47 @@ class UserCubit extends Cubit<UserState> {
       print('Error signing out: $e');
       emit(UserLogoutError());
     }
+  }
+  changeUserPassword(oldPassword, newPassword) {
+    emit(ChangeUserPasswordLoadingState());
+    AuthCredential credential = EmailAuthProvider.credential(
+        email: user!.email!, password: oldPassword);
+    user!.reauthenticateWithCredential(credential)
+        .then((_) {
+      user!.updatePassword(newPassword).then((_) {
+        print('Password updated successfully');
+        updateUserPassword(newPassword);
+        emit(ChangeUserPasswordSuccessState());
+      }).catchError((error) {
+        print('Error updating password: $error');
+        emit(ChangeUserPasswordErrorState());
+      });
+    }).catchError((error) {
+      print('Error re-authenticating user: $error');
+      emit(ChangeUserPasswordErrorState());
+    });
+  }
+
+  updateUserPassword(newPassword) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: user!.email)
+        .get().then((QuerySnapshot querySnapshot) {
+      var doc = querySnapshot.docs[0];
+      doc.reference.update({'password': newPassword}).then((value) => print("Password Updated Successfully"))
+          .catchError((error)=>print("Failed To Update Password"));
+    });
+  }
+
+  void toggleOldPasswordVisibility() {
+    isOldPasswordObscured = !isOldPasswordObscured;
+  }
+
+  void toggleNewPasswordVisibility() {
+    isNewPasswordObscured = !isNewPasswordObscured;
+  }
+
+  void toggleConfirmNewPasswordVisibility() {
+    isConfirmNewPasswordObscured = !isConfirmNewPasswordObscured;
   }
 }

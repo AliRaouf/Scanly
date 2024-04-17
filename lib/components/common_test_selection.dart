@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../screens/blood_screen.dart';
+import '../screens/common_test_tab_view.dart';
 import '../screens/genetic_screen.dart';
 import '../screens/urine_screen.dart';
 
@@ -44,7 +44,7 @@ class CommonTestSelection extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  BloodScreen()));
+                                  CommonTestTabView(index: 0)));
                     },
                     style: ButtonStyle(
                         padding: MaterialStatePropertyAll(
@@ -95,7 +95,7 @@ class CommonTestSelection extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                GeneticScreen()));
+                                CommonTestTabView(index: 1)));
                   },
                   style: ButtonStyle(
                       padding: MaterialStatePropertyAll(
@@ -144,10 +144,11 @@ class CommonTestSelection extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                UrineScreen()));
+                                CommonTestTabView(index: 2)));
                   },
                   style: ButtonStyle(
                       padding: MaterialStatePropertyAll(
+
                           EdgeInsets.zero),
                       shape: MaterialStatePropertyAll(
                           RoundedRectangleBorder(
