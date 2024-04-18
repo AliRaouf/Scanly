@@ -30,7 +30,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
           border: Border.all(color: borderColor)),
       child: ElevatedButton(
-        style: ButtonStyle(
+        style: ButtonStyle(elevation: MaterialStatePropertyAll(0),
             side: MaterialStatePropertyAll(
                 BorderSide(color: sColor ?? Colors.transparent)),
             backgroundColor: MaterialStatePropertyAll(bColor),

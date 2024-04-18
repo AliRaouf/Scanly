@@ -5,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../bloc/user/user_cubit.dart';
 import '../components/custom_form_text_field.dart';
+import '../components/custom_page_route.dart';
 import '../components/gradient_button.dart';
+import 'login_screen.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -30,6 +32,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         if (state is ChangeUserPasswordSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Password Changed Successfully")));
+          Navigator.pushReplacement(
+              context,
+              AnimatedRoute(page: LoginScreen()));
         }else if (state is ChangeUserPasswordErrorState){
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Failed To Change Password")));
@@ -55,7 +60,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       vertical: screenHeight * 0.04, horizontal: 16),
                   child: Text(
                     "Want to Change your Password?",
-                    style: GoogleFonts.nunito(fontSize: 18.sp),
+                    style: GoogleFonts.nunito(fontSize: 18.sp,color:Color(0xff232425)),
                   )),
               Form(key: formKey,
                 child: Column(

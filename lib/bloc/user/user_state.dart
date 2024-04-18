@@ -17,3 +17,7 @@ class UserLogoutError extends UserState {}
 class ChangeUserPasswordSuccessState extends UserState {}
 class ChangeUserPasswordLoadingState extends UserState {}
 class ChangeUserPasswordErrorState extends UserState {}
+class UpdateUserImageSuccess extends UserState {}
+class UpdateUserImageFailure extends UserState {}
+class UpdateUserDataSuccess extends UserState {}
+class UpdateUserDataFailure extends UserState {}

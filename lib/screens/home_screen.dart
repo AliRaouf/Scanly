@@ -17,6 +17,7 @@ import 'package:scanly/components/scan_bottomsheet_popup.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:scanly/screens/change_password_screen.dart';
+import 'package:scanly/screens/change_user_data_screen.dart';
 import 'package:scanly/screens/login_screen.dart';
 import 'package:scanly/screens/profile_screen.dart';
 
@@ -37,7 +38,7 @@ bool isReady = false;
 late MemoryImage? _selectedImage;
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0; // Define _currentIndex variable
+  int _currentIndex = 0;
   late PageController _pageController;
   List<double> score = [6, 7.5, 8, 7, 5, 4, 3, 2, 1, 10];
 
@@ -71,19 +72,19 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
         if (state is UserLogoutSuccess) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-              elevation: 0,
-              behavior: SnackBarBehavior.fixed,
-              backgroundColor: Colors.transparent,
-              content: AwesomeSnackbarContent(
-                title: 'Success',
-                message: 'Logged out',
-                contentType: ContentType.success,
-                color: Color(0xff04657A),
-              ),
-            ));
+          // ScaffoldMessenger.of(context)
+          //   ..hideCurrentSnackBar()
+          //   ..showSnackBar(SnackBar(
+          //     elevation: 0,
+          //     behavior: SnackBarBehavior.fixed,
+          //     backgroundColor: Colors.transparent,
+          //     content: AwesomeSnackbarContent(
+          //       title: 'Success',
+          //       message: 'Logged out',
+          //       contentType: ContentType.success,
+          //       color: Color(0xff04657A),
+          //     ),
+          //   ));
           Navigator.pushReplacement(
               context, AnimatedRoute(page: LoginScreen()));
         }
@@ -190,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8),
                                 child: Text(
-                                  "Welcome ${cubit.userName ?? ""}",
+                                  "Welcome ${cubit.userName?.split(" ")[0] ?? ""}",
                                   style: GoogleFonts.nunito(
                                       fontSize: 14.sp,
                                       color: Color(0xff232425),
@@ -437,7 +438,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           Expanded(
                                             child: TextButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context, AnimatedRoute(page: ChangeUserDataScreen()));
+                                                },
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
