@@ -12,6 +12,7 @@ import 'package:scanly/components/custom_button.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
 import 'package:scanly/components/custom_page_route.dart';
 import 'package:scanly/screens/continue_login_screen.dart';
+import 'package:scanly/screens/forgot_password_screen.dart';
 import 'package:scanly/screens/home_screen.dart';
 import 'package:scanly/screens/register_screen.dart';
 
@@ -39,24 +40,41 @@ class _LoginScreenState extends State<LoginScreen> {
     var cubit = LoginCubit.get(context);
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) async {
+      await FirebaseAuth.instance.currentUser!.reload();
         if (state is LoginSuccessState) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-              elevation: 0,
-              behavior: SnackBarBehavior.fixed,
-              backgroundColor: Colors.transparent,
-              content: AwesomeSnackbarContent(
-                title: 'Congrats',
-                message:
-                'Welcome to Scanly',
-                contentType: ContentType.success,color: Color(0xff04657A),
-              ),
-            ));
-          await UserCubit.get(context).receiverUserData();
-          Navigator.pushReplacement(
-              context,
-              AnimatedRoute(page: HomeScreen()));
+          if(FirebaseAuth.instance.currentUser!.emailVerified){
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                elevation: 0,
+                behavior: SnackBarBehavior.fixed,
+                backgroundColor: Colors.transparent,
+                content: AwesomeSnackbarContent(
+                  title: 'Congrats',
+                  message:
+                  'Welcome to Scanly',
+                  contentType: ContentType.success,color: Color(0xff04657A),
+                ),
+              ));
+            await UserCubit.get(context).receiverUserData();
+            Navigator.pushReplacement(
+                context,
+                AnimatedRoute(page: HomeScreen()));
+          }else {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                elevation: 0,
+                behavior: SnackBarBehavior.fixed,
+                backgroundColor: Colors.transparent,
+                content: AwesomeSnackbarContent(
+                  title: 'Not Verified',
+                  message: 'We sent you a mail to verify your account',
+                  contentType: ContentType.help,
+                  color: Color(0xff6B7B8C),
+                ),
+              ));
+          }
         }else if(state is LoginErrorState){
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -176,7 +194,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                AnimatedRoute(page: ForgotPasswordScreen()));
+                          },
                           child: Text(
                             "Forgot Your Password?",
                             style: GoogleFonts.nunito(

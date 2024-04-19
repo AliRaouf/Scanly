@@ -106,7 +106,7 @@ class UserCubit extends Cubit<UserState> {
     }
   }
   selectImage() async {
-    Uint8List? img = await pickImage(ImageSource.camera);
+    Uint8List? img = await pickImage(ImageSource.gallery);
     image = img;
   }
   Future<void> logout() async {

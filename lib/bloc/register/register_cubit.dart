@@ -127,5 +127,8 @@ class RegisterCubit extends Cubit<RegisterState> {
     List<int> bytes = data.buffer.asUint8List();
     return Uint8List.fromList(bytes);
   }
-
+  Future sendVerificationEmail()async{
+    final user = FirebaseAuth.instance.currentUser!;
+    await user.sendEmailVerification();
+  }
 }

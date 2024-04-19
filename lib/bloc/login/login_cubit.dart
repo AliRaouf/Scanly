@@ -143,4 +143,8 @@ doesEmailExist(String email) async {
     isExist=querySnapshot.docs.isNotEmpty;
 
   }
+  Future resetUserPassword(String email)async{
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    emit(resetUserPasswordState());
+  }
 }

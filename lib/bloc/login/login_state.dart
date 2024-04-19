@@ -11,3 +11,4 @@ class LoginErrorState extends LoginState {
 
   LoginErrorState(this.error);
 }
+class resetUserPasswordState extends LoginState {}

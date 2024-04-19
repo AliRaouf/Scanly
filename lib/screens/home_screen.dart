@@ -461,30 +461,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ],
                                       ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextButton(
-                                                onPressed: () {},
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          "Verify Account",
-                                                          style: GoogleFonts.nunito(
-                                                              color: Color(0xff232425),
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Icon(Icons.arrow_forward_ios_rounded,size:18,color: Color(0xff232425),)
-                                                    ],
-                                                  ),
-                                                )),
-                                          ),
-                                        ],
-                                      )
                                     ],
                                   ),
                                 )

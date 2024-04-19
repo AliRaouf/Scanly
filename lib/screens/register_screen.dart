@@ -44,8 +44,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     var cubit = RegisterCubit.get(context);
     return BlocConsumer<RegisterCubit, RegisterState>(
-  listener: (context, state) {
+  listener: (context, state) async {
     if (state is RegisterUserSuccess){
+      cubit.sendVerificationEmail();
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(
@@ -53,9 +54,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           behavior: SnackBarBehavior.fixed,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Congrats',
+            title: 'Account Created',
             message:
-            "Account Created Successfully",
+            "We have sent an email for you to verify your account",
             contentType: ContentType.success,color: Color(0xff04657A),
           ),
         ));
