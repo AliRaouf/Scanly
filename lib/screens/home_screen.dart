@@ -18,6 +18,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:scanly/screens/change_password_screen.dart';
 import 'package:scanly/screens/change_user_data_screen.dart';
+import 'package:scanly/screens/loading_screen.dart';
 import 'package:scanly/screens/login_screen.dart';
 import 'package:scanly/screens/profile_screen.dart';
 
@@ -544,7 +545,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                   Expanded(
                                   child: TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context, AnimatedRoute(page: LoadingScreen()));
+                                      },
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,

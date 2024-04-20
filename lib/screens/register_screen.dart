@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +41,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final formKey2 = GlobalKey<FormState>();
   final pwKey = GlobalKey<FormState>();
   final formKey3 = GlobalKey<FormState>();
-
+  var isClicked = false;
+  late Timer _timer;
+  _startTimer() {
+    _timer = Timer(Duration(seconds: 5), () => isClicked = false);
+  }
   @override
   Widget build(BuildContext context) {
     var cubit = RegisterCubit.get(context);
@@ -360,35 +366,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           ),
                                         ));
                                     }
-                                    else
-                                    {
-                                      cubit.diseases = diseaseController
-                                          .selectedOptions
-                                          .map((option) => option.value)
-                                          .toList();
-                                      cubit.gender = genderController.text;
-                                      cubit.height =
-                                          int.parse(heightController.text);
-                                      cubit.weight =
-                                          int.parse(weightController.text);
-                                      await cubit.registerUser(
-                                          cubit.email, cubit.password);
-                                      await cubit.saveUser(
-                                          cubit.email,
-                                          cubit.password,
-                                          cubit.name,
-                                          cubit.phoneNumber,
-                                          cubit.date,
-                                          cubit.gender,
-                                          cubit.height ?? 0,
-                                          cubit.weight ?? 0,
-                                          cubit.diseases ?? [],
-                                          cubit.image);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  LoginScreen()));
+                                    else {
+                                      if (isClicked == false) {
+                                        _startTimer();
+                                        isClicked = true;
+                                        cubit.diseases = diseaseController
+                                            .selectedOptions
+                                            .map((option) => option.value)
+                                            .toList();
+                                        cubit.gender = genderController.text;
+                                        cubit.height =
+                                            int.parse(heightController.text);
+                                        cubit.weight =
+                                            int.parse(weightController.text);
+                                        await cubit.registerUser(
+                                            cubit.email, cubit.password);
+                                        await cubit.saveUser(
+                                            cubit.email,
+                                            cubit.password,
+                                            cubit.name,
+                                            cubit.phoneNumber,
+                                            cubit.date,
+                                            cubit.gender,
+                                            cubit.height ?? 0,
+                                            cubit.weight ?? 0,
+                                            cubit.diseases ?? [],
+                                            cubit.image);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginScreen()));
+                                      }
                                     }
                                   } else if (index == 0 &&
                                       formKey1.currentState!.validate()) {

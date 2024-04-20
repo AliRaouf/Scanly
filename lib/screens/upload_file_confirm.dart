@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -35,7 +36,11 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
   }
 
   String? text;
-
+  var isClicked = false;
+  late Timer _timer;
+  _startTimer() {
+    _timer = Timer(Duration(seconds: 5), () => isClicked = false);
+  }
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -143,35 +148,30 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                               if (pages != 0 && pages! > 1) {
                                 print("The pdf should only have 1 page");
                               } else {
-                                await TextractCubit.get(context)
-                                    .uploadImage(File(cubit.pickedFile!.path!));
-                                print("Starting Timer");
-                                await Future.delayed(Duration(seconds: 8));
-                                text = await TextractCubit.get(context).downloadAndGetText();
-                                Map<String, dynamic> jsonTest =
-                                await ApiCubit.get(context).getJSONFromPrompt(text!);
-                                print(jsonTest);
+                                Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context)
+                                    .uploadImage(File(cubit.pickedFile!.path!))
+                                    .then((_) => Future.delayed(Duration(seconds: 8)))
+                                    .then((_) => TextractCubit.get(context).downloadAndGetText())
+                                    .then((text) => ApiCubit.get(context).getJSONFromPrompt(text));
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => TestScreen(
-                                          jsonTest: jsonTest,
+                                          jsonDataFuture:jsonDataFuture,
                                         )));
                               }
                             } else {
-                              await TextractCubit.get(context).uploadImage(
-                                  TextractCubit.get(context).fileImage!);
-                              print("Starting Timer");
-                              await Future.delayed(Duration(seconds: 8));
-                              text = await TextractCubit.get(context).downloadAndGetText();
-                              Map<String, dynamic> jsonTest =
-                              await ApiCubit.get(context).getJSONFromPrompt(text!);
-                              print(jsonTest);
+                              Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context)
+                                  .uploadImage(
+                                      TextractCubit.get(context).fileImage!)
+                                  .then((_) => Future.delayed(Duration(seconds: 8)))
+                                  .then((_) => TextractCubit.get(context).downloadAndGetText())
+                                  .then((text) => ApiCubit.get(context).getJSONFromPrompt(text));
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => TestScreen(
-                                        jsonTest: jsonTest,
+                                        jsonDataFuture:jsonDataFuture,
                                       )));
                             }
                           },

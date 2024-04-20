@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +36,11 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.text = LoginCubit.get(context).passwordText ?? "";
     super.initState();
   }
-
+  var isClicked = false;
+  late Timer _timer;
+  _startTimer() {
+    _timer = Timer(Duration(seconds: 5), () => isClicked = false);
+  }
   @override
   Widget build(BuildContext context) {
     var cubit = LoginCubit.get(context);
@@ -215,12 +221,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       screenHeight: 50.h,
                       text: "Login",
                       onpressed: () async {
-                        await cubit.handleRemeberme(
-                            emailController.text, passwordController.text);
-                        await cubit.signInWithEmail(
-                            emailController.text, passwordController.text);
-                        await UserCubit.get(context).getUserData();
-                        await UserCubit.get(context).receiverUserData();
+                        if (isClicked == false) {
+                          _startTimer();
+                          isClicked=true;
+                          await cubit.handleRemeberme(
+                              emailController.text, passwordController.text);
+                          await cubit.signInWithEmail(
+                              emailController.text, passwordController.text);
+                          await UserCubit.get(context).getUserData();
+                          await UserCubit.get(context).receiverUserData();
+                        }else{
+                          print("please wait 5 seconds before each login");
+                        }
                       },
                       bColor: Color(0xff1A83B6),
                       borderColor: Colors.transparent,

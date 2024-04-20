@@ -17,7 +17,7 @@ class TextractCubit extends Cubit<TextractState> {
   String? imageTextFile;
   File? fileImage;
   String? filePath;
-
+  Map<String, dynamic>? jsonTest;
   createTempFileFromMemoryImage(MemoryImage image) async {
     final tempDir = await Directory.systemTemp;
     final fileName = '${DateTime
@@ -29,7 +29,7 @@ class TextractCubit extends Cubit<TextractState> {
   }
 
   Future<void> uploadImage(File imageFile) async {
-    emit(UploadImageLoading());
+    emit(TextractLoading());
     try {
       AWSFile awsFile = AWSFilePlatform.fromFile(imageFile);
       final key = DateTime

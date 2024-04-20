@@ -69,6 +69,7 @@ dependencies:
   chat_gpt_sdk: ^3.0.4
   gauge_indicator: ^0.4.3
   persistent_bottom_nav_bar_v2: ^5.2.2
+  animated_text_kit: ^4.2.2
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_test:
@@ -114,6 +115,7 @@ flutter:
      - assets/images/health.png
      - assets/images/how_it_works.png
      - assets/images/logo_only.png
+     - assets/images/Waiting.gif
 
 
 
