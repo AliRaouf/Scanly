@@ -12,11 +12,11 @@ class ApiCubit extends Cubit<ApiState> {
   static ApiCubit get(context) => BlocProvider.of(context);
   final openAi = OpenAI.instance.build(
       token: "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",
-      baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 10)),enableLog: true);
+      baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 20)),enableLog: true);
   Future<Map<String, dynamic>> getJSONFromPrompt(String userTest) async {
     final request = CompleteText(maxTokens: 2500,
       prompt: '''
-      turn it into a json formatted like this while removing any extra nests or classifications i DON'T want any nests or Classifications:
+turn it into a json formatted like this while removing any extra nests or classifications i DON'T want any nests or Classifications:
 {
   "Complete Blood Picture": {
     "Red Cell Count": {
@@ -91,11 +91,12 @@ class ApiCubit extends Cubit<ApiState> {
     }
   },
 }
-Comment:
-Recommendation:
+"Comments":
+"Explanation":
+"Health":                                 //Either "Good" or "Bad"//
+"Recommendation":
 }
- only showing the results of the test it self like the test name and the results inside showing the value , type and refrence range only while removing any Classifications like Differential Count or BloodTypes or Nests but add the items inside it just put the tests all below each other and stopping after the comment but at the end add a recommendation for health improvements as a recommend
-      $userTest
+ only showing the results of the test it self like the test name and the results inside showing the value , type and refrence range only while removing any Classifications like Differential Count or BloodTypes or Nests but add the items inside it just put the tests all below each other and stopping after the comment but at the end add an explanation at the end as if you are a doctor and explaining the test results to the patient in every detail Summarizing it  with clear and understandable language then add a recommendation for which doctor the patient should go to$userTest
       ''',
       model: Gpt3TurboInstruct(),
     );

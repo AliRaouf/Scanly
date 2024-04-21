@@ -13,6 +13,7 @@ import 'package:scanly/screens/test_screen.dart';
 
 import '../bloc/api/api_cubit.dart';
 import '../bloc/textract/textract_cubit.dart';
+import '../components/custom_page_route.dart';
 
 class UploadFileConfirm extends StatefulWidget {
   UploadFileConfirm({super.key, required this.testName});
@@ -155,10 +156,9 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                     .then((text) => ApiCubit.get(context).getJSONFromPrompt(text));
                                 Navigator.push(
                                     context,
-                                    MaterialPageRoute(
-                                        builder: (context) => TestScreen(
-                                          jsonDataFuture:jsonDataFuture,
-                                        )));
+                                    AnimatedRoute(page:TestScreen(
+                                      jsonDataFuture:jsonDataFuture,
+                                    )));
                               }
                             } else {
                               Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context)
@@ -169,8 +169,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                   .then((text) => ApiCubit.get(context).getJSONFromPrompt(text));
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => TestScreen(
+                                  AnimatedRoute(page:TestScreen(
                                         jsonDataFuture:jsonDataFuture,
                                       )));
                             }

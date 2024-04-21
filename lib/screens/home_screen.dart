@@ -255,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         Container(
-                          height: 400.h,
+                          height: 380.h,
                           child: ListView.builder(
                               key: ValueKey<String>(TestCubit.get(context)
                                   .filteredTests
