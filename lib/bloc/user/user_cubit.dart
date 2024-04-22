@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -107,7 +108,11 @@ class UserCubit extends Cubit<UserState> {
   }
   selectImage() async {
     Uint8List? img = await pickImage(ImageSource.camera);
-    image = img;
+    if (img != null) {
+      image = await FlutterImageCompress.compressWithList(img,quality: 80,);
+      print("before: ${img.length}");
+      print("after: ${image!.length}");
+    }
   }
   Future<void> logout() async {
     emit(UserLogoutLoading());

@@ -92,7 +92,7 @@ turn it into a json formatted like this while removing any extra nests or classi
   },
 }
 "Comments":
-"Explanation": Explain the patient's values to the patient if they are in range what that means and if they are outside the range what that also means concisely
+"Explanation": Explain the patient's values to the patient if they are in range what that means and if they are outside the range what that also means concisely (Don't Explain what the test it self is)
 "Health": "good or bad"
 "Recommendation":
 }

@@ -137,7 +137,7 @@ class TestScreen extends StatelessWidget {
                                     image: MemoryImage(
                                         UserCubit.get(context).image ??
                                             Uint8List(0)),
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.contain,
                                   ),
                                 ))),
                   Container(
