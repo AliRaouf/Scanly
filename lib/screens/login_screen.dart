@@ -18,6 +18,8 @@ import 'package:scanly/screens/forgot_password_screen.dart';
 import 'package:scanly/screens/home_screen.dart';
 import 'package:scanly/screens/register_screen.dart';
 
+import '../bloc/register/register_cubit.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -67,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 context,
                 AnimatedRoute(page: HomeScreen()));
           }else {
+            RegisterCubit.get(context).sendVerificationEmail();
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
