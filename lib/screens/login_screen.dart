@@ -48,8 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
     var cubit = LoginCubit.get(context);
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) async {
-      await FirebaseAuth.instance.currentUser!.reload();
         if (state is LoginSuccessState) {
+         await FirebaseAuth.instance.currentUser!.reload();
           if(FirebaseAuth.instance.currentUser!.emailVerified){
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
