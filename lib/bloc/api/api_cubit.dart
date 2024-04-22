@@ -12,7 +12,7 @@ class ApiCubit extends Cubit<ApiState> {
   static ApiCubit get(context) => BlocProvider.of(context);
   final openAi = OpenAI.instance.build(
       token: "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",
-      baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 20)),enableLog: true);
+      baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 30)),enableLog: true);
   Future<Map<String, dynamic>> getJSONFromPrompt(String userTest) async {
     final request = CompleteText(maxTokens: 2500,
       prompt: '''
@@ -92,17 +92,19 @@ turn it into a json formatted like this while removing any extra nests or classi
   },
 }
 "Comments":
-"Explanation":
-"Health":                                 //Either "Good" or "Bad"//
+"Explanation": Explain the patient's values to the patient if they are in range what that means and if they are outside the range what that also means concisely
+"Health": "good or bad"
 "Recommendation":
 }
- only showing the results of the test it self like the test name and the results inside showing the value , type and refrence range only while removing any Classifications like Differential Count or BloodTypes or Nests but add the items inside it just put the tests all below each other and stopping after the comment but at the end add an explanation at the end as if you are a doctor and explaining the test results to the patient in every detail Summarizing it  with clear and understandable language then add a recommendation for which doctor the patient should go to$userTest
+ only showing the results of the test it self like the test name and the results inside showing the value , type and refrence range only while removing any Classifications like Differential Count or BloodTypes or Nests but add the items inside it just put the tests all below each other and stopping after the comment but at the end add an explanation at the end as if you are a doctor and explaining the test results to the patient in every detail Summarizing it  with clear and understandable language then add a recommendation for which doctor the patient should go to.
+ Test:
+ $userTest
       ''',
       model: Gpt3TurboInstruct(),
     );
 
     final response = await openAi.onCompletion(request: request);
-    print(response);
+    print("$response");
     return jsonDecode(response!.choices[0].text);
   }
   List<MapEntry<String, Map<String, dynamic>>> getNestedKeyValuePairs(

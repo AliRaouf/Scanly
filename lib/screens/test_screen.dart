@@ -51,7 +51,7 @@ class TestScreen extends StatelessWidget {
                       totalRepeatCount: 5,
                       animatedTexts: [
                         RotateAnimatedText(
-                          duration: Duration(seconds: 4),
+                          duration: Duration(seconds: 5),
                           "Feeling tired? Drinking plenty of water can boost your energy levels.",
                           textStyle: GoogleFonts.nunito(
                             fontSize: 16.sp,
@@ -59,7 +59,7 @@ class TestScreen extends StatelessWidget {
                           ),
                         ),
                         RotateAnimatedText(
-                          duration: Duration(seconds: 4),
+                          duration: Duration(seconds: 5),
                           "Getting enough sleep is essential for managing stress, Aim for 7-9 hours of quality sleep per night",
                           textStyle: GoogleFonts.nunito(
                             fontSize: 16.sp,
@@ -67,7 +67,7 @@ class TestScreen extends StatelessWidget {
                           ),
                         ),
                         RotateAnimatedText(
-                          duration: Duration(seconds: 4),
+                          duration: Duration(seconds: 5),
                           "Swap out sugary snacks for healthier options like fruit, yogurt, or nuts to keep your energy up",
                           textStyle: GoogleFonts.nunito(
                             fontSize: 16.sp,
@@ -75,7 +75,7 @@ class TestScreen extends StatelessWidget {
                           ),
                         ),
                         RotateAnimatedText(
-                          duration: Duration(seconds: 4),
+                          duration: Duration(seconds: 5),
                           "Break up long periods of sitting by stretching or taking short walks to keep your body feeling good",
                           textStyle: GoogleFonts.nunito(
                             fontSize: 16.sp,
@@ -90,6 +90,7 @@ class TestScreen extends StatelessWidget {
               ),
             );
           } else if (snapshot.hasError) {
+            print(snapshot.error);
             return Center(
               child: Text('Error: ${snapshot.error}'),
             );
@@ -102,48 +103,86 @@ class TestScreen extends StatelessWidget {
                   image: DecorationImage(
                       image: AssetImage("assets/images/Scanly_bg.png"),
                       fit: BoxFit.cover)),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SafeArea(
-                        child: Text("Result",style: GoogleFonts.nunito(fontSize:24.sp,fontWeight:FontWeight.w600,color:Color(0xff232425)),)
-                ),
-                    Container(
-                        height: 400.h,
-                        width: .9.sw,
-                        child:  UserCubit.get(context).extension != null
-                            ? UserCubit.get(context).extension == 'pdf'
-                            ? ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: PDFView(
-                              filePath: UserCubit.get(context).pickedFile?.path ?? "",
-                              enableSwipe: true,
-                              swipeHorizontal: true,
-                              autoSpacing: false,
-                              pageFling: false,
-                              onRender: (_pages) {
-                              }),
-                        )
-                            : ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image.file(
-                            UserCubit.get(context).fileToDisplay!,
-                            fit: BoxFit.contain,
-                          ),
-                        )
-                            : ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image(
-                            image: MemoryImage(UserCubit.get(context).image ?? Uint8List(0)),
-                            fit: BoxFit.cover,
-                          ),
-                        )),
-                    Padding(
+              child: Column(
+                children: [
+                  SafeArea(
+                      child: Container(
+                          height: 300.h,
+                          width: .8.sw,
+                          child: UserCubit.get(context).extension != null
+                              ? UserCubit.get(context).extension == 'pdf'
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: PDFView(
+                                          filePath: UserCubit.get(context)
+                                                  .pickedFile
+                                                  ?.path ??
+                                              "",
+                                          enableSwipe: true,
+                                          swipeHorizontal: true,
+                                          autoSpacing: false,
+                                          pageFling: false,
+                                          onRender: (_pages) {}),
+                                    )
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Image.file(
+                                        UserCubit.get(context).fileToDisplay!,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    )
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image(
+                                    image: MemoryImage(
+                                        UserCubit.get(context).image ??
+                                            Uint8List(0)),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ))),
+                  Container(
+                    width: .95.sw,height: 250.h,
+                    child: ListView.builder(shrinkWrap: true,physics: ClampingScrollPhysics(),
+                      itemCount:jsonData["Explanation"].trim().split('. ').length,
+                      itemBuilder: (context, index) {
+                        return Row(crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:EdgeInsets.only(right: 8.0),
+                              child: Text("•",style: GoogleFonts.nunito(
+                                  fontSize: 12.sp, color: Color(0xff232425))),
+                            ),
+                            Expanded(
+                              child: Text("${jsonData["Explanation"].trim().split('. ')[index]}.",style: GoogleFonts.nunito(
+                              fontSize: 12.sp, color: Color(0xff232425))),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 1.sw,
+                    child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("${jsonData["Explanation"]}",style: GoogleFonts.nunito(fontSize:16.sp,color:Color(0xff232425)),),
-                    )
-                  ],
-                ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Should You See a Doctor?",
+                              style: GoogleFonts.nunito(
+                                  fontSize: 16.sp,
+                                  color: Color(0xff232425),
+                                  fontWeight: FontWeight.bold)),
+                          Text(
+                            "${jsonData["Recommendation"]}",
+                            style: GoogleFonts.nunito(
+                                fontSize: 12.sp, color: Color(0xff232425)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
             );
           } else {
