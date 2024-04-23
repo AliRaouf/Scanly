@@ -151,7 +151,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                               } else {
                                 Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context)
                                     .uploadImage(File(cubit.pickedFile!.path!))
-                                    .then((_) => Future.delayed(Duration(seconds: 8)))
+                                    .then((_) => Future.delayed(Duration(seconds: 15)))
                                     .then((_) => TextractCubit.get(context).downloadAndGetText())
                                     .then((text) => ApiCubit.get(context).getJSONFromPrompt(text));
                                 Navigator.push(
@@ -164,7 +164,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                               Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context)
                                   .uploadImage(
                                       TextractCubit.get(context).fileImage!)
-                                  .then((_) => Future.delayed(Duration(seconds: 8)))
+                                  .then((_) => Future.delayed(Duration(seconds: 15)))
                                   .then((_) => TextractCubit.get(context).downloadAndGetText())
                                   .then((text) => ApiCubit.get(context).getJSONFromPrompt(text));
                               Navigator.push(

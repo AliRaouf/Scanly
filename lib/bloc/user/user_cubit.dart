@@ -109,7 +109,7 @@ class UserCubit extends Cubit<UserState> {
   selectImage() async {
     Uint8List? img = await pickImage(ImageSource.camera);
     if (img != null) {
-      image = await FlutterImageCompress.compressWithList(img,quality: 80,);
+      image = await FlutterImageCompress.compressWithList(img,quality: 70,);
       print("before: ${img.length}");
       print("after: ${image!.length}");
     }

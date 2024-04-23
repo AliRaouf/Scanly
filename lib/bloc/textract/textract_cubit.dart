@@ -86,16 +86,24 @@ print(filePath!);
   }
 
   Future<String> downloadAndGetText() async {
-    await downloadToLocalFile(); // Call the download function
+    String text;
+    do {
+      await downloadToLocalFile(); // Call the download function
 
-    final file = File(filePath!); // Use the previously defined filepath
-    try {
-      final text = await file.readAsString();
-      return text;
-    } on FileSystemException catch (e) {
-      safePrint('Error accessing downloaded file: $e');
-      return '';
-    }
+      final file = File(filePath!); // Use the previously defined filepath
+      try {
+        text = await file.readAsString();
+        // Break the loop if text is not null or empty
+        break;
+      } on FileSystemException catch (e) {
+        safePrint('Error accessing downloaded file: $e');
+        text = '';
+      }
+      // Wait 10 seconds before retrying
+      await Future.delayed(const Duration(seconds: 10));
+    } while (text == null || text.isEmpty);
+
+    return text;
   }
   Future<void> listAlbum() async {
     try {

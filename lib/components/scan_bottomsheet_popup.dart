@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/qrscan.dart';
 import 'package:scanly/screens/upload_file_confirm.dart';
@@ -46,11 +47,11 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                 onTap: () async {
                   await cubit.pickFile();
                   cubit.fileToDisplay==null? null :
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              UploadFileConfirm(testName: widget.testName)));
+                  pushScreen(
+                    context,
+                    screen: UploadFileConfirm(testName: widget.testName),
+                    withNavBar: false,
+                              );
                 },
                 child: Container(
                   width: 310.w,
@@ -92,11 +93,11 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                           setState(() {
                             _selectedImage = image;
                           });
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => UploadFileConfirm(
-                                      testName: widget.testName)));
+                          pushScreen(
+                            context,
+                            screen: UploadFileConfirm(testName: widget.testName),
+                            withNavBar: false,
+                          );
                         });
                       },
                       child: Container(
@@ -132,8 +133,11 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => QRScan()));
+                        pushScreen(
+                          context,
+                          screen: QRScan(),
+                          withNavBar: false,
+                        );
                       },
                       child: Container(
                         width: 144.w,

@@ -9,7 +9,7 @@ class TestCubit extends Cubit<TestState> {
   static TestCubit get(context) => BlocProvider.of(context);
   List<String> tests = [
     "Cholestrol",
-    "Blood Picture (CBP)",
+    'Complete Blood Count (CBC)',
     "Thyroid Test",
     "Urine Analysis",
     "AminoGram",
@@ -51,6 +51,7 @@ class TestCubit extends Cubit<TestState> {
     'Whole genome sequencing (WGS)',
   ];
   List<String> bloodTests = [
+    "Cholestrol",
     'Complete Blood Count (CBC)',
     'Basic Metabolic Panel (BMP)',
     'Comprehensive Metabolic Panel (CMP)',

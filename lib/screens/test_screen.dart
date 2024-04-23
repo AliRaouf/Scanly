@@ -89,7 +89,8 @@ class TestScreen extends StatelessWidget {
                 ],
               ),
             );
-          } else if (snapshot.hasError) {
+          }
+          else if (snapshot.hasError) {
             print(snapshot.error);
             return Center(
               child: Text('Error: ${snapshot.error}'),
@@ -103,86 +104,90 @@ class TestScreen extends StatelessWidget {
                   image: DecorationImage(
                       image: AssetImage("assets/images/Scanly_bg.png"),
                       fit: BoxFit.cover)),
-              child: Column(
-                children: [
-                  SafeArea(
-                      child: Container(
-                          height: 300.h,
-                          width: .8.sw,
-                          child: UserCubit.get(context).extension != null
-                              ? UserCubit.get(context).extension == 'pdf'
-                                  ? ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: PDFView(
-                                          filePath: UserCubit.get(context)
-                                                  .pickedFile
-                                                  ?.path ??
-                                              "",
-                                          enableSwipe: true,
-                                          swipeHorizontal: true,
-                                          autoSpacing: false,
-                                          pageFling: false,
-                                          onRender: (_pages) {}),
-                                    )
-                                  : ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: Image.file(
-                                        UserCubit.get(context).fileToDisplay!,
-                                        fit: BoxFit.contain,
-                                      ),
-                                    )
-                              : ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image(
-                                    image: MemoryImage(
-                                        UserCubit.get(context).image ??
-                                            Uint8List(0)),
-                                    fit: BoxFit.contain,
-                                  ),
-                                ))),
-                  Container(
-                    width: .95.sw,height: 250.h,
-                    child: ListView.builder(shrinkWrap: true,physics: ClampingScrollPhysics(),
-                      itemCount:jsonData["Explanation"].trim().split('. ').length,
-                      itemBuilder: (context, index) {
-                        return Row(crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:EdgeInsets.only(right: 8.0),
-                              child: Text("•",style: GoogleFonts.nunito(
-                                  fontSize: 12.sp, color: Color(0xff232425))),
-                            ),
-                            Expanded(
-                              child: Text("${jsonData["Explanation"].trim().split('. ')[index]}.",style: GoogleFonts.nunito(
-                              fontSize: 12.sp, color: Color(0xff232425))),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                  Container(
-                    width: 1.sw,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Should You See a Doctor?",
-                              style: GoogleFonts.nunito(
-                                  fontSize: 16.sp,
-                                  color: Color(0xff232425),
-                                  fontWeight: FontWeight.bold)),
-                          Text(
-                            "${jsonData["Recommendation"]}",
-                            style: GoogleFonts.nunito(
-                                fontSize: 12.sp, color: Color(0xff232425)),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SafeArea(
+                        child: Container(height: 400.h,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),color:Color(0xfffafafa).withOpacity(0.3)),
+                          width: 1.sw,
+                          child: Column(
+                            children: [
+                              Text("Test Result",style: GoogleFonts.nunito(
+                                  fontSize: 16.sp, fontWeight: FontWeight.w700)),
+                              Expanded(
+                                child: ListView.builder(
+                                    padding: EdgeInsets.all(12),
+                                    itemCount: cubit.getNestedKeyValuePairs(jsonData).length,
+                                    itemBuilder: (context, index) {
+                                      MapEntry<String, Map<String, dynamic>> entry =
+                                      cubit.getNestedKeyValuePairs(jsonData)[index];
+                                      String key = entry.key;
+                                      Map<String, dynamic> value = entry.value;
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(children: [
+                                            Text(
+                                              "$key: ",
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 12.sp, fontWeight: FontWeight.w700),
+                                            ),
+                                          ]),
+                                          Text("${value["value"]} ${value["range"]}")
+                                        ],
+                                      );
+                                    }),
+                              ),
+                            ],
                           ),
-                        ],
+                        )),
+                    SizedBox(height: 10.h,),
+                    Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color:Color(0xfffafafa).withOpacity(0.3)),
+
+                      width: 1.sw,height: 200.h,
+                      child: ListView.builder(shrinkWrap: true,physics: ClampingScrollPhysics(),
+                        itemCount:jsonData["Explanation"].trim().split('. ').length,
+                        itemBuilder: (context, index) {
+                          return Row(crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:EdgeInsets.only(right: 8.0,left: 8),
+                                child: Text("•",style: GoogleFonts.nunito(
+                                    fontSize: 12.sp, color: Color(0xff232425))),
+                              ),
+                              Expanded(
+                                child: Text("${jsonData["Explanation"].trim().split('. ')[index]}.",style: GoogleFonts.nunito(
+                                fontSize: 12.sp, color: Color(0xff232425))),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
-                  )
-                ],
+                    Container(
+                      width: 1.sw,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Should You See a Doctor?",
+                                style: GoogleFonts.nunito(
+                                    fontSize: 16.sp,
+                                    color: Color(0xff232425),
+                                    fontWeight: FontWeight.bold)),
+                            Text(
+                              "${jsonData["Recommendation"]}",
+                              style: GoogleFonts.nunito(
+                                  fontSize: 12.sp, color: Color(0xff232425)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             );
           } else {
