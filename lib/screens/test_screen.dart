@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -131,28 +133,7 @@ class TestScreen extends StatelessWidget {
                   children: [
                     SafeArea(
                         child:Container(height: 400.h,width: 1.sw,
-                            child: userCubit.extension == null?
-                            //     ? userCubit.extension == 'pdf'
-                            //     ? ClipRRect(
-                            //   borderRadius: BorderRadius.circular(15),
-                            //   child: PDFView(
-                            //       filePath: userCubit.pickedFile?.path ?? "",
-                            //       enableSwipe: true,
-                            //       swipeHorizontal: true,
-                            //       autoSpacing: false,
-                            //       pageFling: false,
-                            //       onRender: (_pages) {
-                            //       }),
-                            // )
-                            //     :
-                                ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: Image.file(
-                                userCubit.fileToDisplay!,
-                                fit: BoxFit.contain,
-                              ),
-                            )
-                                : ClipRRect(
+                            child: ClipRRect(
                               borderRadius: BorderRadius.circular(15),
                               child: Image(
                                 image: MemoryImage(userCubit.image ?? Uint8List(0)),

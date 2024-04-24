@@ -165,19 +165,45 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                             //         )));
                             //   }
                             // } else {
-                              cubit.image= await TestCubit.get(context).captureImage(widget.screenshotController);
-                             await TextractCubit.get(context).createTempFileFromMemoryImage(MemoryImage(cubit.image!));
-                              Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context).createTempFileFromMemoryImage(MemoryImage(cubit.image!)).then((_)=>TextractCubit.get(context)
-                                  .uploadImage(
-                                      TextractCubit.get(context).fileImage!))
-                                  .then((_) => Future.delayed(Duration(seconds: 15)))
-                                  .then((_) => TextractCubit.get(context).downloadAndGetText())
-                                  .then((text) => ApiCubit.get(context).getJSONFromPrompt(text,context));
-                              Navigator.push(
-                                  context,
-                                  AnimatedRoute(page:TestScreen(
-                                        jsonDataFuture:jsonDataFuture,
-                                      )));
+
+                             if (cubit.extension=='pdf') {
+                               cubit.image= await TestCubit.get(context).captureImage(widget.screenshotController);
+                               await TextractCubit.get(context).createTempFileFromMemoryImage(MemoryImage(cubit.image!));
+                               Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context).createTempFileFromMemoryImage(MemoryImage(cubit.image!)).then((_)=>TextractCubit.get(context)
+                                   .uploadImage(
+                                   TextractCubit.get(context).fileImage!))
+                                   .then((_) => Future.delayed(Duration(seconds: 15)))
+                                   .then((_) => TextractCubit.get(context).downloadAndGetText())
+                                   .then((text) => ApiCubit.get(context).getJSONFromPrompt(text,context));
+                               Navigator.push(
+                                   context,
+                                   AnimatedRoute(page:TestScreen(
+                                     jsonDataFuture:jsonDataFuture,
+                                   )));
+                             }else
+                             {
+                               Future<Map<String,
+                                   dynamic>> jsonDataFuture = TextractCubit.get(
+                                   context).createTempFileFromMemoryImage(
+                                   MemoryImage(cubit.image!)).then((_) =>
+                                   TextractCubit.get(context)
+                                       .uploadImage(
+                                       TextractCubit
+                                           .get(context)
+                                           .fileImage!))
+                                   .then((_) =>
+                                   Future.delayed(Duration(seconds: 15)))
+                                   .then((_) => TextractCubit.get(context)
+                                   .downloadAndGetText())
+                                   .then((text) =>
+                                   ApiCubit.get(context).getJSONFromPrompt(
+                                       text, context));
+                               Navigator.push(
+                                   context,
+                                   AnimatedRoute(page: TestScreen(
+                                     jsonDataFuture: jsonDataFuture,
+                                   )));
+                             }
                             },
                           fontSize: screenWidth * 0.04444,
                           border: 30),
