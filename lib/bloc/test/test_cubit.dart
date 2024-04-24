@@ -1,12 +1,21 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:scanly/bloc/user/user_cubit.dart';
 
 part 'test_state.dart';
 
 class TestCubit extends Cubit<TestState> {
   TestCubit() : super(TestInitial());
+
   static TestCubit get(context) => BlocProvider.of(context);
+  Stream? testStream;
   List<String> tests = [
     "Cholestrol",
     'Complete Blood Count (CBC)',
@@ -37,7 +46,7 @@ class TestCubit extends Cubit<TestState> {
     'Dipstick test',
     'Urine culture and sensitivity',
     'Microscopy',
-    '24-hour urine collection',    'Carrier screening',
+    '24-hour urine collection', 'Carrier screening',
     'Prenatal genetic testing',
     'Chorionic villus sampling (CVS)',
     'Amniocentesis',
@@ -65,7 +74,7 @@ class TestCubit extends Cubit<TestState> {
     'Blood Glucose',
     'Vitamin B12 and Folate Levels',
     'Prostate-Specific Antigen (PSA)'
-    'Blood Culture',
+        'Blood Culture',
     'Human Immunodeficiency Virus (HIV)',
     'Hepatitis B and C',
     'Iron Studies',
@@ -94,9 +103,86 @@ class TestCubit extends Cubit<TestState> {
     'Whole genome sequencing (WGS)',
   ];
   List<String> filteredTests = [];
+
   updateFilteredTests(String searchText) {
     filteredTests = searchText.isEmpty
         ? tests
-        : tests.where((test) => test.toLowerCase().contains(searchText.toLowerCase())).toList();
+        : tests.where((test) =>
+        test.toLowerCase().contains(searchText.toLowerCase())).toList();
+  }
+
+   saveTest(BuildContext context,Map<String, dynamic> test) {
+    emit(SaveTestLoading());
+    try {
+      FirebaseFirestore.instance
+          .collection("tests")
+          .doc(UserCubit
+          .get(context)
+          .user!
+          .email)
+          .collection("userTest")
+          .add(
+          test
+      );
+      print('Test entry added for ${UserCubit
+          .get(context)
+          .user!
+          .email}');
+      emit(SaveTestSuccess());
+    } catch (e) {
+      print('Error adding Test entry: $e');
+      emit(SaveTestError());
+    }
+  }
+
+  receiveTestList(BuildContext context) {
+    emit(ReceiveTestLoading());
+    try {
+      testStream = FirebaseFirestore.instance
+          .collection('nutrition')
+          .doc(UserCubit
+          .get(context)
+          .user!
+          .email)
+          .collection('TestLog')
+          .snapshots();
+      emit(ReceiveTestSuccess());
+      print("Test Received Successfully");
+      print(testStream!.length);
+    } on Exception catch (e) {
+      print('Error receiving Test entry: $e');
+      emit(ReceiveTestError());
+    }
+  }
+
+  Future<String> uploadImage(Uint8List file, BuildContext context) async {
+    String imgName = "${DateTime
+        .now()
+        .microsecondsSinceEpoch
+        .toString()
+    },${UserCubit
+        .get(context)
+        .user!.email}";
+    Reference ref = FirebaseStorage.instance.ref('userTests').child(
+        imgName);
+    UploadTask uploadTask = ref.putData(file);
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+  Future<String> uploadPdf(File file, BuildContext context) async {
+    String imgName = "${DateTime
+        .now()
+        .microsecondsSinceEpoch
+        .toString()
+    },${UserCubit
+        .get(context)
+        .userEmail}";
+    Reference ref = FirebaseStorage.instance.ref('userTests').child(
+        imgName);
+    UploadTask uploadTask = ref.putData(file.readAsBytesSync());
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
   }
 }

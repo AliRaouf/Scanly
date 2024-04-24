@@ -86,7 +86,9 @@ class UserCubit extends Cubit<UserState> {
         extension = result!.files.first.extension;
         pickedFile = result!.files.first;
         fileToDisplay = File(pickedFile!.path!);
-        print("$fileName \n $extension");
+        image = await FlutterImageCompress.compressWithFile(pickedFile?.path??"",quality: 70,);
+        print("after: ${image!.length}");
+        print("$fileName.$extension");
         emit(PickFileSuccess());
       } else {
         print("No file selected");

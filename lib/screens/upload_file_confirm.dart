@@ -153,7 +153,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                     .uploadImage(File(cubit.pickedFile!.path!))
                                     .then((_) => Future.delayed(Duration(seconds: 15)))
                                     .then((_) => TextractCubit.get(context).downloadAndGetText())
-                                    .then((text) => ApiCubit.get(context).getJSONFromPrompt(text));
+                                    .then((text) => ApiCubit.get(context).getJSONFromPrompt(text,context));
                                 Navigator.push(
                                     context,
                                     AnimatedRoute(page:TestScreen(
@@ -166,7 +166,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                       TextractCubit.get(context).fileImage!)
                                   .then((_) => Future.delayed(Duration(seconds: 15)))
                                   .then((_) => TextractCubit.get(context).downloadAndGetText())
-                                  .then((text) => ApiCubit.get(context).getJSONFromPrompt(text));
+                                  .then((text) => ApiCubit.get(context).getJSONFromPrompt(text,context));
                               Navigator.push(
                                   context,
                                   AnimatedRoute(page:TestScreen(

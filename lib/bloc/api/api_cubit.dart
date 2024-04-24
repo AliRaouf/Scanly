@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+
+import '../user/user_cubit.dart';
 
 part 'api_state.dart';
 
@@ -13,10 +16,10 @@ class ApiCubit extends Cubit<ApiState> {
   final openAi = OpenAI.instance.build(
       token: "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",
       baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 60)),enableLog: true);
-  Future<Map<String, dynamic>> getJSONFromPrompt(String userTest) async {
+  Future<Map<String, dynamic>> getJSONFromPrompt(String userTest,BuildContext context) async {
     final request = CompleteText(maxTokens: 2500,
       prompt: '''
-turn it into a json formatted like this (the test doesn't have to be a complete blood picture) while removing any extra nests or classifications i DON'T want any nests or Classifications:
+turn it into a json formatted like this (the test doesn't have to be a complete blood picture and can be various tests in one) with the values from the Text at the end while removing any extra nests or classifications i DON'T want any nests or Classifications:
 {
   "Complete Blood Picture": {
     "Red Cell Count": {
@@ -91,13 +94,19 @@ turn it into a json formatted like this (the test doesn't have to be a complete 
     }
   },
 }
-"Comments":
-"Explanation": Diagnose the patient concisely with clear understandable language If the test values are within the reference range, explain what this means for the patient's health.
+"Comment":       "the comment at the end of the test"
+"Explanation": Diagnose the patient concisely with clear understandable language (while explaining how you found out if anything is wrong) If the test values are within the reference range, explain what this means for the patient's health.
 If the test values are outside the reference range, explain the possible implications for the patient's health.
-"Health": "good or bad"
+"healthScore": "from 1 to 10 the output should be only the number"
 "Recommendation":
+"Date":          "Date of the test"
 }
  only showing the results of the test it self like the test name and the results inside showing the value , type and refrence range only while removing any Classifications like Differential Count or BloodTypes or Nests but add the items inside it just put the tests all below each other and stopping after the comment but at the end add an explanation at the end as if you are a doctor and diagnosing the patient's results to the patient in every detail with clear and understandable language But Don't explain the meaning of the test it self! then add a recommendation for which doctor specialization the patient should go to.
+ Information About the User to take into consideration:
+ -gender : ${UserCubit.get(context).gender}
+ -height : ${UserCubit.get(context).height}Cm
+ -weight : ${UserCubit.get(context).weight}Kg
+ -medical history : ${UserCubit.get(context).diseases!.join(', ')}
  Test:
  $userTest
       ''',

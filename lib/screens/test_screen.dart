@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:scanly/bloc/api/api_cubit.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 
+import '../bloc/test/test_cubit.dart';
+
 class TestScreen extends StatelessWidget {
   final Future<Map<String, dynamic>> jsonDataFuture;
 
@@ -17,6 +19,8 @@ class TestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = ApiCubit.get(context);
+    var testCubit = TestCubit.get(context);
+    var userCubit = UserCubit.get(context);
     return Scaffold(
       backgroundColor: Color(0xfffafafa),
       body: FutureBuilder<Map<String, dynamic>>(
@@ -97,6 +101,23 @@ class TestScreen extends StatelessWidget {
             );
           } else if (snapshot.hasData) {
             Map<String, dynamic> jsonData = snapshot.data!;
+            userCubit.extension == 'pdf'?
+            testCubit.uploadPdf(userCubit.fileToDisplay!, context).then((downloadUrl) {
+              print('File uploaded successfully. Download URL: $downloadUrl');
+              jsonData.addAll({"image":downloadUrl});
+              print(jsonData["image"]);
+              testCubit.saveTest(context, jsonData);
+            }).catchError((error) {
+              print('Error uploading file: $error');
+            }):
+            testCubit.uploadImage(userCubit.image!, context).then((downloadUrl) {
+              print('image uploaded successfully. Download URL: $downloadUrl');
+              jsonData.addAll({"image":downloadUrl});
+              testCubit.saveTest(context, jsonData);
+            }).catchError((error) {
+              print('Error uploading file: $error');
+            });
+
             return Container(
               width: 1.sw,
               height: 1.sh,
@@ -108,40 +129,34 @@ class TestScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SafeArea(
-                        child: Container(height: 400.h,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),color:Color(0xfffafafa).withOpacity(0.3)),
-                          width: 1.sw,
-                          child: Column(
-                            children: [
-                              Text("Test Result",style: GoogleFonts.nunito(
-                                  fontSize: 16.sp, fontWeight: FontWeight.w700)),
-                              Expanded(
-                                child: ListView.builder(
-                                    padding: EdgeInsets.all(12),
-                                    itemCount: cubit.getNestedKeyValuePairs(jsonData).length,
-                                    itemBuilder: (context, index) {
-                                      MapEntry<String, Map<String, dynamic>> entry =
-                                      cubit.getNestedKeyValuePairs(jsonData)[index];
-                                      String key = entry.key;
-                                      Map<String, dynamic> value = entry.value;
-                                      return Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(children: [
-                                            Text(
-                                              "$key: ",
-                                              style: GoogleFonts.nunito(
-                                                  fontSize: 12.sp, fontWeight: FontWeight.w700),
-                                            ),
-                                          ]),
-                                          Text("${value["value"]} ${value["range"]}")
-                                        ],
-                                      );
-                                    }),
+                        child:Container(height: 400.h,width: 1.sw,
+                            child: userCubit.extension != null
+                                ? userCubit.extension == 'pdf'
+                                ? ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: PDFView(
+                                  filePath: userCubit.pickedFile?.path ?? "",
+                                  enableSwipe: true,
+                                  swipeHorizontal: true,
+                                  autoSpacing: false,
+                                  pageFling: false,
+                                  onRender: (_pages) {
+                                  }),
+                            )
+                                : ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image.file(
+                                userCubit.fileToDisplay!,
+                                fit: BoxFit.contain,
                               ),
-                            ],
-                          ),
-                        )),
+                            )
+                                : ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image(
+                                image: MemoryImage(userCubit.image ?? Uint8List(0)),
+                                fit: BoxFit.cover,
+                              ),
+                            ))),
                     SizedBox(height: 10.h,),
                     Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color:Color(0xfffafafa).withOpacity(0.3)),
 

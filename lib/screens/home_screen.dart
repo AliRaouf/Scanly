@@ -46,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     TestCubit.get(context).filteredTests = TestCubit.get(context).tests;
+    TestCubit.get(context).receiveTestList(context);
     _pageController = PageController(initialPage: _currentIndex);
     super.initState();
   }
