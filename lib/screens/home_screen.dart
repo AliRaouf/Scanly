@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +20,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:scanly/screens/change_password_screen.dart';
 import 'package:scanly/screens/change_user_data_screen.dart';
+import 'package:scanly/screens/history_test_screen.dart';
 import 'package:scanly/screens/loading_screen.dart';
 import 'package:scanly/screens/login_screen.dart';
 import 'package:scanly/screens/profile_screen.dart';
@@ -42,9 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   late PageController _pageController;
   List<double> score = [6, 7.5, 8, 7, 5, 4, 3, 2, 1, 10];
+  var testHistory;
 
   @override
   void initState() {
+    testHistory = UserCubit.get(context)
+        .getUserTestStream(FirebaseAuth.instance.currentUser!.email!);
     TestCubit.get(context).filteredTests = TestCubit.get(context).tests;
     TestCubit.get(context).receiveTestList(context);
     _pageController = PageController(initialPage: _currentIndex);
@@ -327,12 +333,86 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                // History Page
-                color: Colors.red,
-                child: Center(
-                  child: Text("History Page"),
-                ),
-              ),
+                  width: 1.sw,
+                  height: 1.sh,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/Scanly_bg.png"),
+                          fit: BoxFit.cover)),
+                  child: StreamBuilder<List<dynamic>>(
+                    stream: testHistory,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text("error"),
+                        );
+                      } else if (snapshot.hasData) {
+                        final tests = snapshot.data!;
+                        return SafeArea(
+                          child: ListView.builder(
+                              padding: EdgeInsets.symmetric(horizontal: 24.w),
+                              physics: BouncingScrollPhysics(),
+                              itemCount: tests.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context,
+                                          AnimatedRoute(page: HistoryTestScreen(testData: tests[index])));
+                                    },
+                                    child: Container(
+                                        width: 1.sw,
+                                        height: 120.h,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 1.5,
+                                                color: Color(0xff1398b6)),
+                                            color: const Color(0xffADD8E6),
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceEvenly,
+                                            children: [
+                                              Text(
+                                                "Test Name: ${TestCubit.get(context).extractTestName(tests[index])}",
+                                                style: GoogleFonts.nunito(
+                                                    color:
+                                                        Color(0xff232425),
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                          Text(
+                                          "Test Date: ${tests[index]["Date"]??"Not Included"}",
+                                          style: GoogleFonts.nunito(
+                                              color:
+                                              Color(0xff232425),
+                                              fontWeight:
+                                              FontWeight.w600),)
+                                            ],
+                                          ),
+                                        )),
+                                  ),
+                                );
+                              }),
+                        );
+                      } else {
+                        return Center(
+                          child: Text("Empty"),
+                        );
+                      }
+                      return Center(
+                        child: Text("Start Adding Tests!"),
+                      );
+                    },
+                  )),
               Container(
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -407,188 +487,234 @@ class _HomeScreenState extends State<HomeScreen> {
                     image: DecorationImage(
                         image: AssetImage("assets/images/Scanly_bg.png"),
                         fit: BoxFit.cover)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Center(
-                      child: Container(height: 500.h,padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 30.w),decoration: BoxDecoration(color: Color(0xfffafafa),borderRadius: BorderRadius.circular(30)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Row(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Center(
+                    child: Container(
+                      height: 500.h,
+                      padding: EdgeInsets.symmetric(
+                          vertical: 15.h, horizontal: 30.w),
+                      decoration: BoxDecoration(
+                          color: Color(0xfffafafa),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "Account",
+                                    style: GoogleFonts.nunito(
+                                        color: Color(0xff232425),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20.sp),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                width: 1.sw,
+                                decoration: BoxDecoration(
+                                    color: Color(0xfffafafa),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(15.r))),
+                                child: Column(
                                   children: [
-                                    Text(
-                                      "Account",
-                                      style: GoogleFonts.nunito(
-                                          color: Color(0xff232425),
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 20.sp),
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  width: 1.sw,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xfffafafa),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(15.r))),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context, AnimatedRoute(page: ChangeUserDataScreen()));
-                                                },
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          "Change User Data",
-                                                          style: GoogleFonts.nunito(
-                                                              color: Color(0xff232425),
-                                                              ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    AnimatedRoute(
+                                                        page:
+                                                            ChangeUserDataScreen()));
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "Change User Data",
+                                                        style:
+                                                            GoogleFonts.nunito(
+                                                          color:
+                                                              Color(0xff232425),
                                                         ),
                                                       ),
-                                                      Icon(Icons.arrow_forward_ios_rounded,size:18,color: Color(0xff232425),)
-                                                    ],
-                                                  ),
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Security",
-                                      style: GoogleFonts.nunito(
-                                          color: Color(0xff232425),
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 20.sp),
+                                                    ),
+                                                    Icon(
+                                                      Icons
+                                                          .arrow_forward_ios_rounded,
+                                                      size: 18,
+                                                      color: Color(0xff232425),
+                                                    )
+                                                  ],
+                                                ),
+                                              )),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                                Container(
-                                  width: 1.sw,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xfffafafa),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(15.r))),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context, AnimatedRoute(page: ChangePasswordScreen()));
-                                                },
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          "Change Password",
-                                                          style: GoogleFonts.nunito(
-                                                              color: Color(0xff232425),
-                                                              ),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "Security",
+                                    style: GoogleFonts.nunito(
+                                        color: Color(0xff232425),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20.sp),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                width: 1.sw,
+                                decoration: BoxDecoration(
+                                    color: Color(0xfffafafa),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(15.r))),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    AnimatedRoute(
+                                                        page:
+                                                            ChangePasswordScreen()));
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "Change Password",
+                                                        style:
+                                                            GoogleFonts.nunito(
+                                                          color:
+                                                              Color(0xff232425),
                                                         ),
                                                       ),
-                                                      Icon(Icons.arrow_forward_ios_rounded,size:18,color: Color(0xff232425),)
-                                                    ],
-                                                  ),
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Legal",
-                                      style: GoogleFonts.nunito(
-                                          color: Color(0xff232425),
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 20.sp),
+                                                    ),
+                                                    Icon(
+                                                      Icons
+                                                          .arrow_forward_ios_rounded,
+                                                      size: 18,
+                                                      color: Color(0xff232425),
+                                                    )
+                                                  ],
+                                                ),
+                                              )),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                                Container(
-                                  width: 1.sw,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xfffafafa),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(15.r))),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                  Expanded(
-                                  child: TextButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context, AnimatedRoute(page: LoadingScreen()));
-                                      },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              "View Legal Terms & Conditions",
-                                              style: GoogleFonts.nunito(
-                                                  color: Color(0xff232425),
-                                                  ),
-                                            ),
-                                          ),
-                                          Icon(Icons.arrow_forward_ios_rounded,size:18,color: Color(0xff232425), )
-                                        ],
-                                      ),
-                                    )),
-                      ),
-                                        ],
-                                      ),
-                                    ],
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "Legal",
+                                    style: GoogleFonts.nunito(
+                                        color: Color(0xff232425),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20.sp),
                                   ),
-                                )
-                              ],
-                            ),
-                            GradientButton(
-                                screenWidth: 0.4.sw,
-                                screenHeight: 45.h,
-                                text: "Logout",
-                                onpressed: () {
-                                  cubit.logout();
-                                },
-                                fontSize: 20.sp,
-                                border: 10.r)
-                          ],
-                        ),
+                                ],
+                              ),
+                              Container(
+                                width: 1.sw,
+                                decoration: BoxDecoration(
+                                    color: Color(0xfffafafa),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(15.r))),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    AnimatedRoute(
+                                                        page: LoadingScreen()));
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "View Legal Terms & Conditions",
+                                                        style:
+                                                            GoogleFonts.nunito(
+                                                          color:
+                                                              Color(0xff232425),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Icon(
+                                                      Icons
+                                                          .arrow_forward_ios_rounded,
+                                                      size: 18,
+                                                      color: Color(0xff232425),
+                                                    )
+                                                  ],
+                                                ),
+                                              )),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          GradientButton(
+                              screenWidth: 0.4.sw,
+                              screenHeight: 45.h,
+                              text: "Logout",
+                              onpressed: () {
+                                cubit.logout();
+                              },
+                              fontSize: 20.sp,
+                              border: 10.r)
+                        ],
                       ),
                     ),
                   ),
                 ),
+              ),
             ],
           ),
         );

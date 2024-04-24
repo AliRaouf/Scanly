@@ -1,15 +1,16 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scanly/bloc/test/test_cubit.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/custom_button.dart';
 import 'package:scanly/components/gradient_button.dart';
 import 'package:scanly/screens/home_screen.dart';
 import 'package:scanly/screens/test_screen.dart';
+import 'package:screenshot/screenshot.dart';
 
 import '../bloc/api/api_cubit.dart';
 import '../bloc/textract/textract_cubit.dart';
@@ -17,7 +18,7 @@ import '../components/custom_page_route.dart';
 
 class UploadFileConfirm extends StatefulWidget {
   UploadFileConfirm({super.key, required this.testName});
-
+  ScreenshotController screenshotController = ScreenshotController();
   String testName;
 
   @override
@@ -77,19 +78,22 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                         ? cubit.extension == 'pdf'
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                child: PDFView(
-                                    filePath: cubit.pickedFile?.path ?? "",
-                                    enableSwipe: true,
-                                    swipeHorizontal: true,
-                                    autoSpacing: false,
-                                    pageFling: false,
-                                    onRender: (_pages) {
-                                      setState(() {
-                                        pages = _pages;
-                                        isReady = true;
-                                        print(pages);
-                                      });
-                                    }),
+                                child: Screenshot(
+                                  controller:widget.screenshotController ,
+                                  child: PDFView(
+                                      filePath: cubit.pickedFile?.path ?? "",
+                                      enableSwipe: true,
+                                      swipeHorizontal: true,
+                                      autoSpacing: false,
+                                      pageFling: false,
+                                      onRender: (_pages) {
+                                        setState(() {
+                                          pages = _pages;
+                                          isReady = true;
+                                          print(pages);
+                                        });
+                                      }),
+                                ),
                               )
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
@@ -145,25 +149,27 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                           screenHeight: screenHeight * 0.0625,
                           text: "Continue",
                           onpressed: () async {
-                            if (cubit.extension != null) {
-                              if (pages != 0 && pages! > 1) {
-                                print("The pdf should only have 1 page");
-                              } else {
-                                Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context)
-                                    .uploadImage(File(cubit.pickedFile!.path!))
-                                    .then((_) => Future.delayed(Duration(seconds: 15)))
-                                    .then((_) => TextractCubit.get(context).downloadAndGetText())
-                                    .then((text) => ApiCubit.get(context).getJSONFromPrompt(text,context));
-                                Navigator.push(
-                                    context,
-                                    AnimatedRoute(page:TestScreen(
-                                      jsonDataFuture:jsonDataFuture,
-                                    )));
-                              }
-                            } else {
-                              Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context)
+                            // if (cubit.extension != null) {
+                            //   if (pages != 0 && pages! > 1) {
+                            //     print("The pdf should only have 1 page");
+                            //   } else {
+                            //     Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context)
+                            //         .uploadImage(File(cubit.pickedFile!.path!))
+                            //         .then((_) => Future.delayed(Duration(seconds: 15)))
+                            //         .then((_) => TextractCubit.get(context).downloadAndGetText())
+                            //         .then((text) => ApiCubit.get(context).getJSONFromPrompt(text,context));
+                            //     Navigator.push(
+                            //         context,
+                            //         AnimatedRoute(page:TestScreen(
+                            //           jsonDataFuture:jsonDataFuture,
+                            //         )));
+                            //   }
+                            // } else {
+                              cubit.image= await TestCubit.get(context).captureImage(widget.screenshotController);
+                             await TextractCubit.get(context).createTempFileFromMemoryImage(MemoryImage(cubit.image!));
+                              Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context).createTempFileFromMemoryImage(MemoryImage(cubit.image!)).then((_)=>TextractCubit.get(context)
                                   .uploadImage(
-                                      TextractCubit.get(context).fileImage!)
+                                      TextractCubit.get(context).fileImage!))
                                   .then((_) => Future.delayed(Duration(seconds: 15)))
                                   .then((_) => TextractCubit.get(context).downloadAndGetText())
                                   .then((text) => ApiCubit.get(context).getJSONFromPrompt(text,context));
@@ -172,8 +178,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                   AnimatedRoute(page:TestScreen(
                                         jsonDataFuture:jsonDataFuture,
                                       )));
-                            }
-                          },
+                            },
                           fontSize: screenWidth * 0.04444,
                           border: 30),
                     ],

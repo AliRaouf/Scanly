@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
-
 part 'test_state.dart';
 
 class TestCubit extends Cubit<TestState> {
@@ -162,7 +162,7 @@ class TestCubit extends Cubit<TestState> {
         .toString()
     },${UserCubit
         .get(context)
-        .user!.email}";
+        .user!.email}.Image";
     Reference ref = FirebaseStorage.instance.ref('userTests').child(
         imgName);
     UploadTask uploadTask = ref.putData(file);
@@ -177,12 +177,26 @@ class TestCubit extends Cubit<TestState> {
         .toString()
     },${UserCubit
         .get(context)
-        .userEmail}";
+        .userEmail}.Document";
     Reference ref = FirebaseStorage.instance.ref('userTests').child(
         imgName);
-    UploadTask uploadTask = ref.putData(file.readAsBytesSync());
+    UploadTask uploadTask = ref.putFile(file);
     TaskSnapshot snapshot = await uploadTask;
     String downloadUrl = await snapshot.ref.getDownloadURL();
     return downloadUrl;
+  }
+  String extractTestName(Map<String,dynamic> tests){
+    String? testName;
+    var keys=tests.keys.toList();
+    for (int i = 0;i<keys.length;i++){
+      if (keys[i]!="Comment" && keys[i]!="Date" && keys[i]!="Explanation" && keys[i]!="Recommendation" && keys[i]!="healthScore" && keys[i]!="image" && keys[i]!= "uploadDate"){
+        testName=keys[i];
+      }
+    }
+    return testName??"Not Visible";
+  }
+  Future<Uint8List?> captureImage(screenshotController) async {
+    final image = await screenshotController.capture();
+    return image;
   }
 }

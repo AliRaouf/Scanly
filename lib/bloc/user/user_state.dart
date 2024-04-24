@@ -21,3 +21,6 @@ class UpdateUserImageSuccess extends UserState {}
 class UpdateUserImageFailure extends UserState {}
 class UpdateUserDataSuccess extends UserState {}
 class UpdateUserDataFailure extends UserState {}
+class ReceiveTestLoading extends UserState {}
+class ReceiveTestSuccess extends UserState {}
+class ReceiveTestFailure extends UserState {}

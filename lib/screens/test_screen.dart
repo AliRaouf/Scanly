@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -101,18 +102,18 @@ class TestScreen extends StatelessWidget {
             );
           } else if (snapshot.hasData) {
             Map<String, dynamic> jsonData = snapshot.data!;
-            userCubit.extension == 'pdf'?
-            testCubit.uploadPdf(userCubit.fileToDisplay!, context).then((downloadUrl) {
-              print('File uploaded successfully. Download URL: $downloadUrl');
-              jsonData.addAll({"image":downloadUrl});
-              print(jsonData["image"]);
-              testCubit.saveTest(context, jsonData);
-            }).catchError((error) {
-              print('Error uploading file: $error');
-            }):
+            // userCubit.extension == 'pdf'?
+            // testCubit.uploadPdf(userCubit.fileToDisplay!, context).then((downloadUrl) {
+            //   print('File uploaded successfully. Download URL: $downloadUrl');
+            //   jsonData.addAll({"image":downloadUrl,"uploadDate":FieldValue.serverTimestamp()});
+            //   print(jsonData["image"]);
+            //   testCubit.saveTest(context, jsonData);
+            // }).catchError((error) {
+            //   print('Error uploading file: $error');
+            // }):
             testCubit.uploadImage(userCubit.image!, context).then((downloadUrl) {
               print('image uploaded successfully. Download URL: $downloadUrl');
-              jsonData.addAll({"image":downloadUrl});
+              jsonData.addAll({"image":downloadUrl,"uploadDate":FieldValue.serverTimestamp()});
               testCubit.saveTest(context, jsonData);
             }).catchError((error) {
               print('Error uploading file: $error');
@@ -130,20 +131,21 @@ class TestScreen extends StatelessWidget {
                   children: [
                     SafeArea(
                         child:Container(height: 400.h,width: 1.sw,
-                            child: userCubit.extension != null
-                                ? userCubit.extension == 'pdf'
-                                ? ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: PDFView(
-                                  filePath: userCubit.pickedFile?.path ?? "",
-                                  enableSwipe: true,
-                                  swipeHorizontal: true,
-                                  autoSpacing: false,
-                                  pageFling: false,
-                                  onRender: (_pages) {
-                                  }),
-                            )
-                                : ClipRRect(
+                            child: userCubit.extension == null?
+                            //     ? userCubit.extension == 'pdf'
+                            //     ? ClipRRect(
+                            //   borderRadius: BorderRadius.circular(15),
+                            //   child: PDFView(
+                            //       filePath: userCubit.pickedFile?.path ?? "",
+                            //       enableSwipe: true,
+                            //       swipeHorizontal: true,
+                            //       autoSpacing: false,
+                            //       pageFling: false,
+                            //       onRender: (_pages) {
+                            //       }),
+                            // )
+                            //     :
+                                ClipRRect(
                               borderRadius: BorderRadius.circular(15),
                               child: Image.file(
                                 userCubit.fileToDisplay!,

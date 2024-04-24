@@ -32,6 +32,7 @@ class UserCubit extends Cubit<UserState> {
   bool isOldPasswordObscured = true;
   bool isNewPasswordObscured = true;
   bool isConfirmNewPasswordObscured = true;
+  Stream? testStream;
   getUserData() {
     user = FirebaseAuth.instance.currentUser;
     print(user?.email ?? "de7ka");
@@ -186,5 +187,13 @@ class UserCubit extends Cubit<UserState> {
 
   void toggleConfirmNewPasswordVisibility() {
     isConfirmNewPasswordObscured = !isConfirmNewPasswordObscured;
+  }
+  Stream<List<dynamic>> getUserTestStream(String userEmail) {
+    return FirebaseFirestore.instance
+        .collection('tests')
+        .doc(userEmail)
+        .collection('userTest')
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs.map((doc) => doc.data()).toList());
   }
 }

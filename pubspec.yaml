@@ -72,6 +72,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   image: ^4.1.7
   flutter_image_compress: ^2.2.0
+  screenshot: ^2.3.0
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_test:
