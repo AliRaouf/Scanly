@@ -1,15 +1,9 @@
-import 'dart:io';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:scanly/bloc/api/api_cubit.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 
 import '../bloc/test/test_cubit.dart';
@@ -21,7 +15,6 @@ class TestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = ApiCubit.get(context);
     var testCubit = TestCubit.get(context);
     var userCubit = UserCubit.get(context);
     return Scaffold(
@@ -96,26 +89,40 @@ class TestScreen extends StatelessWidget {
                 ],
               ),
             );
-          }
-          else if (snapshot.hasError) {
+          } else if (snapshot.hasError) {
             print(snapshot.error);
-            return Center(
-              child: Text('Error: ${snapshot.error}'),
+            return Container(
+              width: 1.sw,
+              height: 1.sh,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/Scanly_bg.png"),
+                      fit: BoxFit.cover)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline_outlined,
+                    color: Color(0xffff0000),
+                  ),
+                  Text(
+                      "There was an Error Processing your image\nWe recommend taking a better photo of the test and trying again",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.nunito(
+                          fontSize: 12.sp, color: Color(0xff232425)))
+                ],
+              ),
             );
           } else if (snapshot.hasData) {
             Map<String, dynamic> jsonData = snapshot.data!;
-            // userCubit.extension == 'pdf'?
-            // testCubit.uploadPdf(userCubit.fileToDisplay!, context).then((downloadUrl) {
-            //   print('File uploaded successfully. Download URL: $downloadUrl');
-            //   jsonData.addAll({"image":downloadUrl,"uploadDate":FieldValue.serverTimestamp()});
-            //   print(jsonData["image"]);
-            //   testCubit.saveTest(context, jsonData);
-            // }).catchError((error) {
-            //   print('Error uploading file: $error');
-            // }):
-            testCubit.uploadImage(userCubit.image!, context).then((downloadUrl) {
+            testCubit
+                .uploadImage(userCubit.image!, context)
+                .then((downloadUrl) {
               print('image uploaded successfully. Download URL: $downloadUrl');
-              jsonData.addAll({"image":downloadUrl,"uploadDate":FieldValue.serverTimestamp()});
+              jsonData.addAll({
+                "image": downloadUrl,
+                "uploadDate": FieldValue.serverTimestamp()
+              });
               testCubit.saveTest(context, jsonData);
             }).catchError((error) {
               print('Error uploading file: $error');
@@ -132,31 +139,48 @@ class TestScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SafeArea(
-                        child:Container(height: 400.h,width: 1.sw,
+                        child: Container(
+                            height: 400.h,
+                            width: 1.sw,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(15),
                               child: Image(
-                                image: MemoryImage(userCubit.image ?? Uint8List(0)),
+                                image: MemoryImage(
+                                    userCubit.image ?? Uint8List(0)),
                                 fit: BoxFit.cover,
                               ),
                             ))),
-                    SizedBox(height: 10.h,),
-                    Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color:Color(0xfffafafa).withOpacity(0.3)),
-
-                      width: 1.sw,height: 200.h,
-                      child: ListView.builder(shrinkWrap: true,physics: ClampingScrollPhysics(),
-                        itemCount:jsonData["Explanation"].trim().split('. ').length,
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xfffafafa).withOpacity(0.3)),
+                      width: 1.sw,
+                      height: 200.h,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemCount:
+                            jsonData["Explanation"].trim().split('. ').length,
                         itemBuilder: (context, index) {
-                          return Row(crossAxisAlignment: CrossAxisAlignment.start,
+                          return Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding:EdgeInsets.only(right: 8.0,left: 8),
-                                child: Text("•",style: GoogleFonts.nunito(
-                                    fontSize: 12.sp, color: Color(0xff232425))),
+                                padding: EdgeInsets.only(right: 8.0, left: 8),
+                                child: Text("•",
+                                    style: GoogleFonts.nunito(
+                                        fontSize: 12.sp,
+                                        color: Color(0xff232425))),
                               ),
                               Expanded(
-                                child: Text("${jsonData["Explanation"].trim().split('. ')[index]}.",style: GoogleFonts.nunito(
-                                fontSize: 12.sp, color: Color(0xff232425))),
+                                child: Text(
+                                    "${jsonData["Explanation"].trim().split('. ')[index]}.",
+                                    style: GoogleFonts.nunito(
+                                        fontSize: 12.sp,
+                                        color: Color(0xff232425))),
                               ),
                             ],
                           );

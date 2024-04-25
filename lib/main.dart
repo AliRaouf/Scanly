@@ -9,22 +9,24 @@ import 'package:scanly/src/app_root.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'amplifyconfiguration.dart';
-Future<void>main()async{
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
-  final onboarding = prefs.getBool("onboarding")??false;
+  final onboarding = prefs.getBool("onboarding") ?? false;
   print(onboarding);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-
   ]);
   // Add Storage plugin to Amplify
-  await Amplify.addPlugins([AmplifyStorageS3(),AmplifyAuthCognito()]);
+  await Amplify.addPlugins([AmplifyStorageS3(), AmplifyAuthCognito()]);
 
   // Configure Amplify
   await Amplify.configure(amplifyconfig);
-  runApp(AppRoot(onboarding: onboarding,));
+  runApp(AppRoot(
+    onboarding: onboarding,
+  ));
 }

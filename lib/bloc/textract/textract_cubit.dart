@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:aws_common/vm.dart';
-
 part 'textract_state.dart';
 
 class TextractCubit extends Cubit<TextractState> {
@@ -18,11 +17,9 @@ class TextractCubit extends Cubit<TextractState> {
   File? fileImage;
   String? filePath;
   Map<String, dynamic>? jsonTest;
- Future createTempFileFromMemoryImage(MemoryImage image) async {
+  Future createTempFileFromMemoryImage(MemoryImage image) async {
     final tempDir = await Directory.systemTemp;
-    final fileName = '${DateTime
-        .now()
-        .microsecondsSinceEpoch}.jpg';
+    final fileName = '${DateTime.now().microsecondsSinceEpoch}.jpg';
     final file = File('${tempDir.path}/$fileName');
     await file.writeAsBytes(image.bytes);
     fileImage = file;
@@ -32,28 +29,22 @@ class TextractCubit extends Cubit<TextractState> {
     emit(TextractLoading());
     try {
       AWSFile awsFile = AWSFilePlatform.fromFile(imageFile);
-      final key = DateTime
-          .now()
-          .microsecondsSinceEpoch
-          .toString();
+      final key = DateTime.now().microsecondsSinceEpoch.toString();
       final uploadFileOption = StorageUploadFileOptions(
         accessLevel: StorageAccessLevel.guest,
-        metadata: {'fileName': imageFile.path
-            .split('/')
-            .last},
+        metadata: {'fileName': imageFile.path.split('/').last},
       );
 
       final result = await Amplify.Storage.uploadFile(
-        key: key,
-        localFile: awsFile,
-        options: uploadFileOption,
-        onProgress: (progress) {
-          safePrint('Progress: ${progress.fractionCompleted}');
-          if(progress.fractionCompleted==1){
-            emit(UploadImageSuccess());
-          }
-        }
-      );
+          key: key,
+          localFile: awsFile,
+          options: uploadFileOption,
+          onProgress: (progress) {
+            safePrint('Progress: ${progress.fractionCompleted}');
+            if (progress.fractionCompleted == 1) {
+              emit(UploadImageSuccess());
+            }
+          });
       imageTextFile = key;
       safePrint('Uploaded file: $result');
     } on StorageException catch (e) {
@@ -68,17 +59,18 @@ class TextractCubit extends Cubit<TextractState> {
 
     // Construct the nested key path
     final nestedKey = 'public/$imageTextFile.txt';
-print(nestedKey);
-print(filePath!);
+    print(nestedKey);
+    print(filePath!);
     try {
-      final result = await Amplify.Storage
-          .downloadFile(options: StorageDownloadFileOptions(accessLevel:StorageAccessLevel.guest ),
+      final result = await Amplify.Storage.downloadFile(
+        options:
+            StorageDownloadFileOptions(accessLevel: StorageAccessLevel.guest),
         key: nestedKey,
         onProgress: (progress) {
           safePrint('Fraction completed: ${progress.fractionCompleted}');
-        }, localFile: AWSFile.fromPath(filePath!),
-      )
-          .result;
+        },
+        localFile: AWSFile.fromPath(filePath!),
+      ).result;
       safePrint('Downloaded file is located at: ${result.downloadedItem.size}');
     } on StorageException catch (e) {
       safePrint(e.message);
@@ -105,14 +97,17 @@ print(filePath!);
 
     return text;
   }
+
   Future<void> listAlbum() async {
     try {
       String? nextToken;
       bool hasNextPage;
       do {
-        final result = await Amplify.Storage.list(path: "public/",
+        final result = await Amplify.Storage.list(
+          path: "public/",
           options: StorageListOptions(
-            accessLevel: StorageAccessLevel.guest, // Change access level as per your requirement (public/private/protected)
+            accessLevel: StorageAccessLevel
+                .guest, // Change access level as per your requirement (public/private/protected)
             pageSize: 1000,
             pluginOptions: S3ListPluginOptions(
               excludeSubPaths: false,
@@ -129,9 +124,7 @@ print(filePath!);
         // Fetch next page if available
         nextToken = result.nextToken;
         hasNextPage = result.hasNextPage;
-
       } while (hasNextPage);
-
     } on StorageException catch (e) {
       print('Error listing files: ${e.message}');
     }

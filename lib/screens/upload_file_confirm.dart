@@ -43,6 +43,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
   _startTimer() {
     _timer = Timer(Duration(seconds: 5), () => isClicked = false);
   }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -74,34 +75,26 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                 Container(
                     height: screenHeight * 0.6,
                     width: screenWidth * 0.9,
-                    child: cubit.extension != null
-                        ? cubit.extension == 'pdf'
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Screenshot(
-                                  controller:widget.screenshotController ,
-                                  child: PDFView(
-                                      filePath: cubit.pickedFile?.path ?? "",
-                                      enableSwipe: true,
-                                      swipeHorizontal: true,
-                                      autoSpacing: false,
-                                      pageFling: false,
-                                      onRender: (_pages) {
-                                        setState(() {
-                                          pages = _pages;
-                                          isReady = true;
-                                          print(pages);
-                                        });
-                                      }),
-                                ),
-                              )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Image.file(
-                                  cubit.fileToDisplay!,
-                                  fit: BoxFit.contain,
-                                ),
-                              )
+                    child: cubit.extension == 'pdf'
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: Screenshot(
+                              controller: widget.screenshotController,
+                              child: PDFView(
+                                  filePath: cubit.pickedFile?.path ?? "",
+                                  enableSwipe: true,
+                                  swipeHorizontal: true,
+                                  autoSpacing: false,
+                                  pageFling: false,
+                                  onRender: (_pages) {
+                                    setState(() {
+                                      pages = _pages;
+                                      isReady = true;
+                                      print(pages);
+                                    });
+                                  }),
+                            ),
+                          )
                         : ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: Image(
@@ -149,62 +142,56 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                           screenHeight: screenHeight * 0.0625,
                           text: "Continue",
                           onpressed: () async {
-                            // if (cubit.extension != null) {
-                            //   if (pages != 0 && pages! > 1) {
-                            //     print("The pdf should only have 1 page");
-                            //   } else {
-                            //     Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context)
-                            //         .uploadImage(File(cubit.pickedFile!.path!))
-                            //         .then((_) => Future.delayed(Duration(seconds: 15)))
-                            //         .then((_) => TextractCubit.get(context).downloadAndGetText())
-                            //         .then((text) => ApiCubit.get(context).getJSONFromPrompt(text,context));
-                            //     Navigator.push(
-                            //         context,
-                            //         AnimatedRoute(page:TestScreen(
-                            //           jsonDataFuture:jsonDataFuture,
-                            //         )));
-                            //   }
-                            // } else {
-
-                             if (cubit.extension=='pdf') {
-                               cubit.image= await TestCubit.get(context).captureImage(widget.screenshotController);
-                               await TextractCubit.get(context).createTempFileFromMemoryImage(MemoryImage(cubit.image!));
-                               Future<Map<String, dynamic>> jsonDataFuture = TextractCubit.get(context).createTempFileFromMemoryImage(MemoryImage(cubit.image!)).then((_)=>TextractCubit.get(context)
-                                   .uploadImage(
-                                   TextractCubit.get(context).fileImage!))
-                                   .then((_) => Future.delayed(Duration(seconds: 15)))
-                                   .then((_) => TextractCubit.get(context).downloadAndGetText())
-                                   .then((text) => ApiCubit.get(context).getJSONFromPrompt(text,context));
-                               Navigator.push(
-                                   context,
-                                   AnimatedRoute(page:TestScreen(
-                                     jsonDataFuture:jsonDataFuture,
-                                   )));
-                             }else
-                             {
-                               Future<Map<String,
-                                   dynamic>> jsonDataFuture = TextractCubit.get(
-                                   context).createTempFileFromMemoryImage(
-                                   MemoryImage(cubit.image!)).then((_) =>
-                                   TextractCubit.get(context)
-                                       .uploadImage(
-                                       TextractCubit
-                                           .get(context)
-                                           .fileImage!))
-                                   .then((_) =>
-                                   Future.delayed(Duration(seconds: 15)))
-                                   .then((_) => TextractCubit.get(context)
-                                   .downloadAndGetText())
-                                   .then((text) =>
-                                   ApiCubit.get(context).getJSONFromPrompt(
-                                       text, context));
-                               Navigator.push(
-                                   context,
-                                   AnimatedRoute(page: TestScreen(
-                                     jsonDataFuture: jsonDataFuture,
-                                   )));
-                             }
-                            },
+                            if (cubit.extension == 'pdf') {
+                              cubit.image = await TestCubit.get(context)
+                                  .captureImage(widget.screenshotController);
+                              await TextractCubit.get(context)
+                                  .createTempFileFromMemoryImage(
+                                      MemoryImage(cubit.image!));
+                              Future<Map<String, dynamic>> jsonDataFuture =
+                                  TextractCubit.get(context)
+                                      .createTempFileFromMemoryImage(
+                                          MemoryImage(cubit.image!))
+                                      .then((_) => TextractCubit.get(context)
+                                          .uploadImage(
+                                              TextractCubit.get(context)
+                                                  .fileImage!))
+                                      .then((_) =>
+                                          Future.delayed(Duration(seconds: 15)))
+                                      .then((_) => TextractCubit.get(context)
+                                          .downloadAndGetText())
+                                      .then((text) =>
+                                          ApiCubit.get(context).getJSONFromPrompt(text, context));
+                              Navigator.push(
+                                  context,
+                                  AnimatedRoute(
+                                      page: TestScreen(
+                                    jsonDataFuture: jsonDataFuture,
+                                  )));
+                            } else {
+                              print("de7k");
+                              Future<Map<String, dynamic>> jsonDataFuture =
+                                  TextractCubit.get(context)
+                                      .createTempFileFromMemoryImage(
+                                          MemoryImage(cubit.image!))
+                                      .then((_) => TextractCubit.get(context)
+                                          .uploadImage(
+                                              TextractCubit.get(context)
+                                                  .fileImage!))
+                                      .then((_) =>
+                                          Future.delayed(Duration(seconds: 15)))
+                                      .then((_) => TextractCubit.get(context)
+                                          .downloadAndGetText())
+                                      .then((text) =>
+                                          ApiCubit.get(context).getJSONFromPrompt(text, context));
+                              Navigator.push(
+                                  context,
+                                  AnimatedRoute(
+                                      page: TestScreen(
+                                    jsonDataFuture: jsonDataFuture,
+                                  )));
+                            }
+                          },
                           fontSize: screenWidth * 0.04444,
                           border: 30),
                     ],
