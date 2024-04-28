@@ -160,8 +160,8 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                           Future.delayed(Duration(seconds: 15)))
                                       .then((_) => TextractCubit.get(context)
                                           .downloadAndGetText())
-                                      .then((text) =>
-                                          ApiCubit.get(context).getJSONFromPrompt(text, context));
+                                      .then((text) =>text.isEmpty || text==null ? Future(() => {})
+                                          :ApiCubit.get(context).getJSONFromPrompt(text, context));
                               Navigator.push(
                                   context,
                                   AnimatedRoute(
@@ -182,8 +182,8 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                           Future.delayed(Duration(seconds: 15)))
                                       .then((_) => TextractCubit.get(context)
                                           .downloadAndGetText())
-                                      .then((text) =>
-                                          ApiCubit.get(context).getJSONFromPrompt(text, context));
+                                      .then((text) =>text.isEmpty || text==null ? Future(() => {})
+                                      :ApiCubit.get(context).getJSONFromPrompt(text, context));
                               Navigator.push(
                                   context,
                                   AnimatedRoute(

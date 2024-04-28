@@ -1,31 +1,23 @@
 import 'dart:async';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:scanly/bloc/test/test_cubit.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 
-import 'package:scanly/components/custom_form_text_field.dart';
-import 'package:scanly/components/gradient_button.dart';
-import 'package:scanly/components/line_chart.dart';
-import 'package:scanly/components/scan_bottomsheet_popup.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:scanly/screens/change_password_screen.dart';
-import 'package:scanly/screens/change_user_data_screen.dart';
-import 'package:scanly/screens/history_test_screen.dart';
-import 'package:scanly/screens/loading_screen.dart';
+import 'package:scanly/screens/health_screen.dart';
 import 'package:scanly/screens/login_screen.dart';
-import 'package:scanly/screens/profile_screen.dart';
+import 'package:scanly/screens/settings_screen.dart';
 
-import '../components/common_test_selection.dart';
 import '../components/custom_page_route.dart';
+import 'history_screen.dart';
+import 'home1_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -34,7 +26,6 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-var searchController = TextEditingController();
 final Completer<PDFViewController> controller = Completer<PDFViewController>();
 int? pages = 0;
 bool isReady = false;
@@ -43,12 +34,13 @@ late MemoryImage? _selectedImage;
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   late PageController _pageController;
-  List<double> score = [6, 7.5, 8, 7, 5, 4, 3, 2, 1, 10];
   var testHistory;
-
+  var testScores;
   @override
   void initState() {
     testHistory = UserCubit.get(context)
+        .getUserTestStream(FirebaseAuth.instance.currentUser!.email!);
+    testScores = UserCubit.get(context)
         .getUserTestStream(FirebaseAuth.instance.currentUser!.email!);
     TestCubit.get(context).filteredTests = TestCubit.get(context).tests;
     TestCubit.get(context).receiveTestList(context);
@@ -58,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
+    testHistory.dispose();
     _pageController.dispose();
     super.dispose();
   }
@@ -148,585 +141,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
               children: [
-                Container(
-                  width: 1.sw,
-                  height: 1.sh,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/Scanly_bg.png"),
-                          fit: BoxFit.cover)),
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 32.h),
-                      child: Column(
-                        children: [
-                          Stack(
-                            children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 12.w),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            AnimatedRoute(
-                                                page: ProfileScreen()));
-                                      },
-                                      child: CircleAvatar(
-                                        radius: 24.r,
-                                        backgroundColor: Colors.transparent,
-                                        child: ClipOval(
-                                          child: CachedNetworkImage(
-                                            errorWidget: (context, url,
-                                                    error) =>
-                                                const Image(
-                                                    image: NetworkImage(
-                                                        'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg')),
-                                            imageUrl: cubit.imageUrl,
-                                            fit: BoxFit.cover,
-                                            width: double.infinity,
-                                            height: double.infinity,
-                                            progressIndicatorBuilder: (context,
-                                                    url, downloadProgress) =>
-                                                CircularProgressIndicator(
-                                                    value: downloadProgress
-                                                        .progress),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Text(
-                                    "Welcome ${cubit.userName?.split(" ")[0] ?? ""}",
-                                    style: GoogleFonts.nunito(
-                                        fontSize: 14.sp,
-                                        color: Color(0xff232425),
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8.h),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            width: 240.w,
-                            child: CustomTextFormField(
-                                controller: searchController,
-                                icon: IconButton(
-                                    color: Color(0xff179BE8),
-                                    onPressed: () {
-                                      setState(() {
-                                        TestCubit.get(context)
-                                            .updateFilteredTests(
-                                                searchController.text);
-                                      });
-                                    },
-                                    icon: Icon(Icons.search_rounded)),
-                                readOnly: false,
-                                hint: "Search for a test",
-                                obscureText: false),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 15.w),
-                                child: Text(
-                                  "Common Tests",
-                                  style: GoogleFonts.nunito(
-                                      fontSize: 14.sp,
-                                      color: Color(0xff232425),
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              CommonTestSelection(
-                                  screenHeight: 1.sh, screenWidth: 1.sw),
-                              SizedBox(
-                                height: 16.h,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 18.w),
-                                child: Text(
-                                  "Tests",
-                                  style: GoogleFonts.nunito(
-                                      fontSize: 14.sp,
-                                      color: Color(0xff232425),
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              )
-                            ],
-                          ),
-                          Container(
-                            height: 380.h,
-                            child: ListView.builder(
-                                key: ValueKey<String>(TestCubit.get(context)
-                                    .filteredTests
-                                    .join(',')),
-                                itemCount:
-                                    TestCubit.get(context).filteredTests.length,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 4, horizontal: 16),
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 4),
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 8),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xfffafafa),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      height: 40.h,
-                                      width: 328.w,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              TestCubit.get(context)
-                                                  .filteredTests[index],
-                                              style: GoogleFonts.nunito(
-                                                  fontSize: 12.sp,
-                                                  color: Color(0xff232425),
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ),
-                                          BlocBuilder<UserCubit, UserState>(
-                                            builder: (context, state) {
-                                              return GradientButton(
-                                                screenWidth: 75.w,
-                                                screenHeight: 30.h,
-                                                text: "Scan",
-                                                onpressed: () {
-                                                  cubit.pickedFile = null;
-                                                  showModalBottomSheet(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return ScanBottomSheetPopup(
-                                                            testName: TestCubit.get(
-                                                                        context)
-                                                                    .filteredTests[
-                                                                index]);
-                                                      });
-                                                },
-                                                fontSize: 12.sp,
-                                                border: 6.r,
-                                              );
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                }),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                    width: 1.sw,
-                    height: 1.sh,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/Scanly_bg.png"),
-                            fit: BoxFit.cover)),
-                    child: StreamBuilder<List<dynamic>>(
-                      stream: testHistory,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          CircularProgressIndicator();
-                        } else if (snapshot.hasError) {
-                          return Center(
-                            child: Text("error"),
-                          );
-                        } else if (snapshot.hasData) {
-                          final tests = snapshot.data!;
-                          return SafeArea(
-                            child: ListView.builder(
-                                padding: EdgeInsets.symmetric(horizontal: 24.w),
-                                physics: BouncingScrollPhysics(),
-                                itemCount: tests.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 12.h),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            AnimatedRoute(
-                                                page: HistoryTestScreen(
-                                                    testData: tests[index])));
-                                      },
-                                      child: Container(
-                                          width: 1.sw,
-                                          height: 120.h,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1.5,
-                                                  color: Color(0xff1398b6)),
-                                              color: const Color(0xffADD8E6),
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Text(
-                                                  "Test Name: ${TestCubit.get(context).extractTestName(tests[index])}",
-                                                  style: GoogleFonts.nunito(
-                                                      color: Color(0xff232425),
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                                Text(
-                                                  "Test Date: ${tests[index]["Date"] ?? "Not Included"}",
-                                                  style: GoogleFonts.nunito(
-                                                      color: Color(0xff232425),
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                )
-                                              ],
-                                            ),
-                                          )),
-                                    ),
-                                  );
-                                }),
-                          );
-                        } else {
-                          return Center(
-                            child: Text("Empty"),
-                          );
-                        }
-                        return Center(
-                          child: Text("Start Adding Tests!"),
-                        );
-                      },
-                    )),
-                Container(
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/Scanly_bg.png"),
-                          fit: BoxFit.cover)),
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 32.h, horizontal: 8.w),
-                    child: Column(
-                      children: [
-                        const LineChartSample2(),
-                        Row(
-                          children: [
-                            Text(
-                              "Health Check:",
-                              style: GoogleFonts.nunito(
-                                  fontSize: 20.sp,
-                                  color: Color(0xff232425),
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ],
-                        ),
-                        score[(score.length - 1)] > score[(score.length - 2)]
-                            ? Container(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 8.0.w),
-                                      child: Icon(Icons.check_circle_rounded,
-                                          color: Color(0xff2a7f2d), size: 40.w),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        "Fantastic news!\nBased on your latest test results, your health is on an upward trend. Keep up the great work!",
-                                        style: GoogleFonts.nunito(
-                                            color: Color(0xff232425),
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            : Container(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 8.0.w),
-                                      child: Iconify(warningIcon,
-                                          color: Color(0xffd22424), size: 40.w),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        "We noticed a decline in your recent health data that need a closer look. While this doesn't necessarily indicate a problem, it's important to be careful about your well-being",
-                                        style: GoogleFonts.nunito(
-                                            color: Color(0xff232425),
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/Scanly_bg.png"),
-                          fit: BoxFit.cover)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Center(
-                      child: Container(
-                        height: 500.h,
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15.h, horizontal: 30.w),
-                        decoration: BoxDecoration(
-                            color: Color(0xfffafafa),
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Account",
-                                      style: GoogleFonts.nunito(
-                                          color: Color(0xff232425),
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 20.sp),
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  width: 1.sw,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xfffafafa),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(15.r))),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      AnimatedRoute(
-                                                          page:
-                                                              ChangeUserDataScreen()));
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          "Change User Data",
-                                                          style: GoogleFonts
-                                                              .nunito(
-                                                            color: Color(
-                                                                0xff232425),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Icon(
-                                                        Icons
-                                                            .arrow_forward_ios_rounded,
-                                                        size: 18,
-                                                        color:
-                                                            Color(0xff232425),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Security",
-                                      style: GoogleFonts.nunito(
-                                          color: Color(0xff232425),
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 20.sp),
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  width: 1.sw,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xfffafafa),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(15.r))),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      AnimatedRoute(
-                                                          page:
-                                                              ChangePasswordScreen()));
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          "Change Password",
-                                                          style: GoogleFonts
-                                                              .nunito(
-                                                            color: Color(
-                                                                0xff232425),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Icon(
-                                                        Icons
-                                                            .arrow_forward_ios_rounded,
-                                                        size: 18,
-                                                        color:
-                                                            Color(0xff232425),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Legal",
-                                      style: GoogleFonts.nunito(
-                                          color: Color(0xff232425),
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 20.sp),
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  width: 1.sw,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xfffafafa),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(15.r))),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      AnimatedRoute(
-                                                          page:
-                                                              LoadingScreen()));
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          "View Legal Terms & Conditions",
-                                                          style: GoogleFonts
-                                                              .nunito(
-                                                            color: Color(
-                                                                0xff232425),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Icon(
-                                                        Icons
-                                                            .arrow_forward_ios_rounded,
-                                                        size: 18,
-                                                        color:
-                                                            Color(0xff232425),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            GradientButton(
-                                screenWidth: 0.4.sw,
-                                screenHeight: 45.h,
-                                text: "Logout",
-                                onpressed: () {
-                                  cubit.logout();
-                                },
-                                fontSize: 20.sp,
-                                border: 10.r)
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                Home1Screen(),
+                HistoryScreen(testHistory: testHistory),
+                HealthScreen(testScores: testScores, warningIcon: warningIcon),
+                SettingsScreen(cubit: cubit),
               ],
             ),
           ),
@@ -735,3 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+
+

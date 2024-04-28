@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -113,8 +115,33 @@ class TestScreen extends StatelessWidget {
                 ],
               ),
             );
-          } else if (snapshot.hasData) {
+          }
+          else if (snapshot.hasData) {
             Map<String, dynamic> jsonData = snapshot.data!;
+            if(jsonData==null || jsonData.isEmpty){
+              return Container(
+                width: 1.sw,
+                height: 1.sh,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/Scanly_bg.png"),
+                        fit: BoxFit.cover)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_outline_outlined,
+                      color: Color(0xffff0000),
+                    ),
+                    Text(
+                        "There was an Error Processing your image\nWe recommend taking a better photo of the test and trying again",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.nunito(
+                            fontSize: 12.sp, color: Color(0xff232425)))
+                  ],
+                ),
+              );
+            }else{
             testCubit
                 .uploadImage(userCubit.image!, context)
                 .then((downloadUrl) {
@@ -127,8 +154,8 @@ class TestScreen extends StatelessWidget {
             }).catchError((error) {
               print('Error uploading file: $error');
             });
-
-            return Container(
+            return
+              Container(
               width: 1.sw,
               height: 1.sh,
               decoration: BoxDecoration(
@@ -163,7 +190,7 @@ class TestScreen extends StatelessWidget {
                         shrinkWrap: true,
                         physics: ClampingScrollPhysics(),
                         itemCount:
-                            jsonData["Explanation"].trim().split('. ').length,
+                        jsonData.isEmpty? 1:jsonData["diagnosis"].trim().split('. ').length,
                         itemBuilder: (context, index) {
                           return Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,8 +203,8 @@ class TestScreen extends StatelessWidget {
                                         color: Color(0xff232425))),
                               ),
                               Expanded(
-                                child: Text(
-                                    "${jsonData["Explanation"].trim().split('. ')[index]}.",
+                                child: Text(jsonData["diagnosis"]==null?"" :
+                                    "${jsonData["diagnosis"].trim().split('. ')[index]}.",
                                     style: GoogleFonts.nunito(
                                         fontSize: 12.sp,
                                         color: Color(0xff232425))),
@@ -211,7 +238,7 @@ class TestScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            );
+            );}
           } else {
             return Center(
               child: Text('No data'),
