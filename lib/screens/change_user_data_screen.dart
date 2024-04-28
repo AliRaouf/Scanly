@@ -214,7 +214,7 @@ class _ChangeUserDataScreenState extends State<ChangeUserDataScreen> {
                       border: 30,
                     ),
                   ],
-                )
+                  )
               ],
             ));
       },

@@ -13,8 +13,7 @@ class DiseaseDropDown extends StatelessWidget {
   final double screenHeight;
   List<ValueItem> chronicIllness = [
     const ValueItem(value: "none", label: "None"),
-    const ValueItem(
-        value: "Liver Cancer", label: "Liver Cancer (HighBloodPressure)"),
+    const ValueItem(value: "Pressure", label: "HighBloodPressure"),
     const ValueItem(value: "Cholestrol", label: "High Cholestrol"),
     const ValueItem(value: "Arthritis", label: "Arthritis"),
     const ValueItem(
@@ -34,7 +33,6 @@ class DiseaseDropDown extends StatelessWidget {
     const ValueItem(value: "Hyperlipidaemia", label: "Hyperlipidaemia"),
     const ValueItem(value: "Prostate Cancer", label: "Prostate Cancer"),
     const ValueItem(value: "Liver Cancer", label: "Liver Cancer"),
-
   ];
   @override
   Widget build(BuildContext context) {
@@ -42,22 +40,17 @@ class DiseaseDropDown extends StatelessWidget {
       alwaysShowOptionIcon: true,
       optionSeparator: Divider(),
       controller: diseaseController,
-      selectedOptionTextColor:
-      Color(0xff3DADA1),
+      selectedOptionTextColor: Color(0xff3DADA1),
       borderColor: Color(0xff3DADA1),
       focusedBorderColor: Color(0xff3DADA1),
-      onOptionSelected: (options) {
-      },
+      onOptionSelected: (options) {},
       options: chronicIllness,
       maxItems: 2,
       selectionType: SelectionType.multi,
-      chipConfig: const ChipConfig(
-          wrapType: WrapType.wrap),
+      chipConfig: const ChipConfig(wrapType: WrapType.wrap),
       dropdownHeight: screenHeight * 0.4,
-      optionTextStyle: GoogleFonts.nunito(
-          fontSize: 16),
-      selectedOptionIcon:
-      const Icon(Icons.check_circle),
+      optionTextStyle: GoogleFonts.nunito(fontSize: 16),
+      selectedOptionIcon: const Icon(Icons.check_circle),
     );
   }
 }
