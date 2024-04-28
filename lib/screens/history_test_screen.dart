@@ -40,7 +40,7 @@ class _HistoryTestScreenState extends State<HistoryTestScreen> {
 
               width: 1.sw,height: 200.h,
               child: ListView.builder(shrinkWrap: true,physics: ClampingScrollPhysics(),
-                itemCount:widget.testData["Explanation"].trim().split('. ').length,
+                itemCount:widget.testData["diagnosis"].trim().split('. ').length,
                 itemBuilder: (context, index) {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +52,7 @@ class _HistoryTestScreenState extends State<HistoryTestScreen> {
                                 fontSize: 12.sp, color: Color(0xff232425))),
                       ),
                       Expanded(
-                        child: Text("${widget.testData["Explanation"].trim().split('. ')[index]}.",style: GoogleFonts.nunito(
+                        child: Text("${widget.testData["diagnosis"].trim().split('. ')[index]}.",style: GoogleFonts.nunito(
                             fontSize: 12.sp, color: Color(0xff232425))),
                       ),
                     ],

@@ -12,6 +12,7 @@ import '../components/custom_form_text_field.dart';
 import '../components/custom_page_route.dart';
 import '../components/gradient_button.dart';
 import '../components/scan_bottomsheet_popup.dart';
+import '../generated/l10n.dart';
 
 class Home1Screen extends StatefulWidget {
   Home1Screen({super.key});
@@ -79,7 +80,7 @@ class _Home1ScreenState extends State<Home1Screen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        "Welcome ${cubit.userName?.split(" ")[0] ?? ""}",
+                        "${S.of(context).} ${cubit.userName?.split(" ")[0] ?? ""}",
                         style: GoogleFonts.nunito(
                             fontSize: 14.sp,
                             color: Color(0xff232425),
