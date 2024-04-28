@@ -24,30 +24,23 @@ class _HistoryTestScreenState extends State<HistoryTestScreen> {
         child: Column(
           children: [
             SafeArea(
-              child: Container(
-                height: 400.h,
-                child: widget.testData["image"].toString().contains(".Document")
-                    ? SizedBox.shrink()
-                    : Image(
-                        image: NetworkImage(widget.testData["image"]),
-                        fit: BoxFit.cover,
-                      ),
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(0xfffafafa).withOpacity(0.3)),
-              width: 1.sw,
-              height: 200.h,
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
-                itemCount:
-                    widget.testData["Explanation"].trim().split('. ').length,
+                child:Container(height: 400.h,
+                  child:
+                      widget.testData["image"].toString().contains(".Document")?
+                          SizedBox.shrink()
+                          :
+                  Image(
+                          image: NetworkImage(widget.testData["image"]),
+                          fit: BoxFit.cover,
+                        ),
+                ),
+                    ),
+            SizedBox(height: 10.h,),
+            Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color:Color(0xfffafafa).withOpacity(0.3)),
+
+              width: 1.sw,height: 200.h,
+              child: ListView.builder(shrinkWrap: true,physics: ClampingScrollPhysics(),
+                itemCount:widget.testData["Explanation"].trim().split('. ').length,
                 itemBuilder: (context, index) {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,10 +52,8 @@ class _HistoryTestScreenState extends State<HistoryTestScreen> {
                                 fontSize: 12.sp, color: Color(0xff232425))),
                       ),
                       Expanded(
-                        child: Text(
-                            "${widget.testData["Explanation"].trim().split('. ')[index]}.",
-                            style: GoogleFonts.nunito(
-                                fontSize: 12.sp, color: Color(0xff232425))),
+                        child: Text("${widget.testData["Explanation"].trim().split('. ')[index]}.",style: GoogleFonts.nunito(
+                            fontSize: 12.sp, color: Color(0xff232425))),
                       ),
                     ],
                   );

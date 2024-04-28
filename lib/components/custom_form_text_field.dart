@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class CustomTextFormField extends StatefulWidget {
   String? hint;
   TextEditingController? controller;
@@ -15,15 +14,15 @@ class CustomTextFormField extends StatefulWidget {
 
   CustomTextFormField(
       {super.key,
-        this.type,
-        required this.readOnly,
-        required this.hint,
-        this.controller,
-        required this.obscureText,
-        this.icon,
-        this.iconColor,
-        this.validate,
-        this.onTap,
+      this.type,
+      required this.readOnly,
+      required this.hint,
+      this.controller,
+      required this.obscureText,
+      this.icon,
+      this.iconColor,
+      this.validate,
+      this.onTap,
       this.preIcon});
 
   @override
@@ -33,25 +32,22 @@ class CustomTextFormField extends StatefulWidget {
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    double screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double screenWidth = MediaQuery.of(context).size.width;
     return TextFormField(
-      keyboardType:widget.type,
-      onTap:widget.onTap,
+      keyboardType: widget.type,
+      onTap: widget.onTap,
       readOnly: widget.readOnly,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: widget.controller,
       obscureText: widget.obscureText!,
       validator: widget.validate,
-      decoration: InputDecoration(alignLabelWithHint: true,prefixIcon: widget.preIcon,prefixIconColor: Color(0xff179BE8),
-          contentPadding:
-          EdgeInsets.symmetric(vertical:screenWidth*0.03819444444 , horizontal: screenWidth*0.03819444444),
+      decoration: InputDecoration(
+          alignLabelWithHint: true,
+          prefixIcon: widget.preIcon,
+          prefixIconColor: Color(0xff179BE8),
+          contentPadding: EdgeInsets.symmetric(
+              vertical: screenWidth * 0.03819444444,
+              horizontal: screenWidth * 0.03819444444),
           hintText: widget.hint,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           focusedBorder: OutlineInputBorder(

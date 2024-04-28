@@ -4,15 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LineChartSample2 extends StatefulWidget {
-  const LineChartSample2({super.key});
-
+   LineChartSample2({super.key,required this.score});
+  List<double> score;
   @override
   State<LineChartSample2> createState() => _LineChartSample2State();
 }
 
 class _LineChartSample2State extends State<LineChartSample2> {
   List<Color> gradientColors = [Colors.green, Color(0xff04657A)];
-  List<double> score = [6, 7.5, 8, 7, 5, 4, 3, 2, 1, 10];
 
   bool showAvg = false;
   int maxX = 10;
@@ -39,14 +38,15 @@ class _LineChartSample2State extends State<LineChartSample2> {
     );
   }
 
-  Widget bottomTitleWidgets(double value, TitleMeta meta) {
+  Widget bottomTitleWidgets(
+      double value, TitleMeta meta) {
     TextStyle style = GoogleFonts.nunito(
       fontWeight: FontWeight.w600,
       fontSize: 10.sp,
     );
     int index = value.toInt() - 1;
     Widget text;
-    if (index >= 0 && index < score.length-1) {
+    if (index >= 0 && index < widget.score.length-1) {
       text = Text('${index + 1}', style: style);
     } else {
       text = Text('', style: style);
@@ -63,35 +63,35 @@ class _LineChartSample2State extends State<LineChartSample2> {
       fontSize: 8.sp,
     );
     String text;
-    switch (value.toInt()) {
-      case 1:
+    switch (value*10.toInt()) {
+      case 10:
         text = '10%';
         break;
-      case 2:
+      case 20:
         text = '20%';
         break;
-      case 3:
+      case 30:
         text = '30%';
         break;
-      case 4:
+      case 40:
         text = '40%';
         break;
-      case 5:
+      case 50:
         text = '50%';
         break;
-      case 6:
+      case 60:
         text = '60%';
         break;
-      case 7:
+      case 70:
         text = '70%';
         break;
-      case 8:
+      case 80:
         text = '80%';
         break;
-      case 9:
+      case 90:
         text = '90%';
         break;
-      case 10:
+      case 100:
         text = '100%';
         break;
       default:
@@ -102,7 +102,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
   }
 
   LineChartData mainData() {
-    int maxY = score.length;
+    int maxY = widget.score.length;
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -157,7 +157,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
-          spots: score.asMap().entries.map((entry) {
+          spots: widget.score.asMap().entries.map((entry) {
             return FlSpot(entry.key.toDouble(), entry.value);
           }).toList(),
           isCurved: true,
