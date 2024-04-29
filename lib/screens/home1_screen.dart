@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:scanly/screens/profile_screen.dart';
-
+import 'package:flutter/material.dart';
 import '../bloc/test/test_cubit.dart';
 import '../bloc/user/user_cubit.dart';
 import '../components/common_test_selection.dart';
@@ -13,7 +13,6 @@ import '../components/custom_page_route.dart';
 import '../components/gradient_button.dart';
 import '../components/scan_bottomsheet_popup.dart';
 import '../generated/l10n.dart';
-
 class Home1Screen extends StatefulWidget {
   Home1Screen({super.key});
   @override
@@ -80,7 +79,7 @@ class _Home1ScreenState extends State<Home1Screen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        "${S.of(context).} ${cubit.userName?.split(" ")[0] ?? ""}",
+                        "${S.of(context).welcome_name}${cubit.userName?.split(" ")[0] ?? ""}",
                         style: GoogleFonts.nunito(
                             fontSize: 14.sp,
                             color: Color(0xff232425),
@@ -109,16 +108,16 @@ class _Home1ScreenState extends State<Home1Screen> {
                         },
                         icon: Icon(Icons.search_rounded)),
                     readOnly: false,
-                    hint: "Search for a test",
+                    hint: S.of(context).search_test,
                     obscureText: false),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 15.w),
+                    padding: EdgeInsets.only(left:Intl.getCurrentLocale()=="ar"? 0:15.w,right: Intl.getCurrentLocale()=="ar"?15.w:0),
                     child: Text(
-                      "Common Tests",
+                      S.of(context).commen_tests,
                       style: GoogleFonts.nunito(
                           fontSize: 14.sp,
                           color: Color(0xff232425),
@@ -131,9 +130,9 @@ class _Home1ScreenState extends State<Home1Screen> {
                     height: 16.h,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 18.w),
+                    padding: EdgeInsets.only(left:Intl.getCurrentLocale()=="ar"? 0:18.w,right: Intl.getCurrentLocale()=="ar"?18.w:0),
                     child: Text(
-                      "Tests",
+                      S.of(context).test,
                       style: GoogleFonts.nunito(
                           fontSize: 14.sp,
                           color: Color(0xff232425),
@@ -184,7 +183,7 @@ class _Home1ScreenState extends State<Home1Screen> {
                                   return GradientButton(
                                     screenWidth: 75.w,
                                     screenHeight: 30.h,
-                                    text: "Scan",
+                                    text: S.of(context).scan,
                                     onpressed: () {
                                       cubit.pickedFile = null;
                                       showModalBottomSheet(

@@ -14,6 +14,8 @@ import 'package:scanly/components/disease_dropdown.dart';
 import 'package:scanly/components/gender_dropdown.dart';
 import 'package:scanly/screens/home_screen.dart';
 
+import '../generated/l10n.dart';
+
 class ContinueLoginScreen extends StatefulWidget {
   ContinueLoginScreen({super.key, required this.user});
 
@@ -72,7 +74,7 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                           color: Color(0xff232425)),
                     ),
                     Text(
-                      "Add a profile picture",
+                      S.of(context).add_picture,
                       style: GoogleFonts.openSans(
                           fontSize: screenWidth * 0.04444,
                           color: Color(0xff232425)),
@@ -121,7 +123,7 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                 children: [
                   Row(
                     children: [
-                      Text("  Date Of Birth"),
+                      Text(S.of(context).birth),
                     ],
                   ),
                   CustomTextFormField(
@@ -151,7 +153,7 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                     margin: EdgeInsets.symmetric(horizontal: screenWidth*0.1),
                     child: Row(
                       children: [
-                        Text("  Gender"),
+                        Text(S.of(context).gender),
                       ],
                     )),
                 GenderDropDown(screenWidth: screenWidth, screenHeight: screenHeight, genderController: genderController),
@@ -167,7 +169,7 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                       Column(
                         children: [
                           Text(
-                            "Height",
+                            S.of(context).height,
                             style: GoogleFonts.openSans(
                                 fontSize:
                                 screenWidth * 0.04,
@@ -187,7 +189,7 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                       Column(
                         children: [
                           Text(
-                            "Weight",
+                            S.of(context).weight,
                             style: GoogleFonts.openSans(
                                 fontSize:
                                 screenWidth * 0.04,
@@ -217,7 +219,7 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                         padding: EdgeInsets.only(
                             left: screenWidth*0.02037037037),
                         child: Text(
-                          "Medical History",
+                          S.of(context).medical_history,
                           style: GoogleFonts.openSans(
                               fontSize:
                               screenWidth * 0.04,
@@ -234,7 +236,7 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                       child: CustomButton(
                           screenWidth: screenWidth * 0.7,
                           screenHeight: screenHeight * 0.0625,
-                          text: "Continue",
+                          text: S.of(context).continue_message,
                           onpressed: () async{
                             Uint8List image= await cubit.getDefaultImageBytesFromImage(widget.user.photoURL??"");
                             await cubit.saveUser(

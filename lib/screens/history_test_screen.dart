@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../generated/l10n.dart';
+
 class HistoryTestScreen extends StatefulWidget {
   HistoryTestScreen({super.key, required this.testData});
   Map<String, dynamic> testData;
@@ -67,7 +69,7 @@ class _HistoryTestScreenState extends State<HistoryTestScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Should You See a Doctor?",
+                    Text(S.of(context).See_Doctor,
                         style: GoogleFonts.nunito(
                             fontSize: 16.sp,
                             color: Color(0xff232425),

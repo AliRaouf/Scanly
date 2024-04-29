@@ -1,5 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +9,7 @@ import 'package:scanly/bloc/login/login_cubit.dart';
 
 import '../components/custom_form_text_field.dart';
 import '../components/gradient_button.dart';
+import '../generated/l10n.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
    ForgotPasswordScreen({super.key});
@@ -26,9 +29,9 @@ var emailController = TextEditingController();
               behavior: SnackBarBehavior.fixed,
               backgroundColor: Colors.transparent,
               content: AwesomeSnackbarContent(
-                title: 'Reset Password',
+                title: S.of(context).Reset_Password,
                 message:
-                'Successfully Sent an email to ${emailController.text}',
+                '${S.of(context).Successfully_Sent_email} ${emailController.text}',
                 contentType: ContentType.success,color: Color(0xff04657A),
               ),
             ));
@@ -41,14 +44,16 @@ var emailController = TextEditingController();
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: ListView(children: [
-              Row(
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back_ios_new_outlined)),
-                ],
+              Directionality(textDirection: TextDirection.ltr,
+                child: Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.arrow_back_ios_new_outlined)),
+                  ],
+                ),
               ),
               Column(
                 children: [
@@ -58,14 +63,14 @@ var emailController = TextEditingController();
                       child: Column(
                         children: [
                           Text(
-                            "Forgot your Password?",
+                            S.of(context).forget_password,
                             style: GoogleFonts.nunito(
                                 fontSize: 18.sp, color: Color(0xff232425)),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Don't Worry it happens, Please enter the email linked with your account.",
+                             S.of(context).Please_enter_email_linked,
                               style: GoogleFonts.nunito(
                                   fontSize: 12.sp, color: Color(0xff8c8c8c)),
                             ),
@@ -78,7 +83,7 @@ var emailController = TextEditingController();
                     child: Column(
                       children: [
                         CustomTextFormField(
-                          hint: "Enter your Email Address",
+                          hint: S.of(context).Enter_Email,
                           controller: emailController,
                           readOnly: false, obscureText: false,
                         ),
@@ -88,7 +93,7 @@ var emailController = TextEditingController();
                   GradientButton(
                     screenWidth: screenWidth * 0.5,
                     screenHeight: screenHeight * 0.075,
-                    text: 'Reset Password',
+                    text: S.of(context).Reset_Password,
                     onpressed: () {
                       cubit.resetUserPassword(emailController.text);
                     },

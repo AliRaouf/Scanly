@@ -7,6 +7,7 @@ import '../bloc/user/user_cubit.dart';
 import '../components/custom_form_text_field.dart';
 import '../components/custom_page_route.dart';
 import '../components/gradient_button.dart';
+import '../generated/l10n.dart';
 import 'login_screen.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -31,13 +32,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       listener: (context, state) {
         if (state is ChangeUserPasswordSuccessState) {
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Password Changed Successfully")));
+              SnackBar(content: Text(S.of(context).Password_Changed_Successfully)));
           Navigator.pushReplacement(
               context,
               AnimatedRoute(page: LoginScreen()));
         }else if (state is ChangeUserPasswordErrorState){
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Failed To Change Password")));
+              SnackBar(content: Text(S.of(context).Failed_Change_Password)));
         }
       },
       builder: (context, state) {
@@ -59,7 +60,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   margin: EdgeInsets.symmetric(
                       vertical: screenHeight * 0.04, horizontal: 16),
                   child: Text(
-                    "Want to Change your Password?",
+                    S.of(context).Want_Change_Password,
                     style: GoogleFonts.nunito(fontSize: 18.sp,color:Color(0xff232425)),
                   )),
               Form(key: formKey,
@@ -71,7 +72,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       child: Column(
                         children: [
                           CustomTextFormField(
-                            hint: "Old Password",
+                            hint: S.of(context).old_password,
                             controller: oldPasswordController,
                             obscureText: cubit.isOldPasswordObscured,
                             icon: IconButton(
@@ -96,7 +97,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       margin: EdgeInsets.only(bottom: screenHeight * 0.05),
                       child: Column(children: [
                         CustomTextFormField(
-                          hint: "New Password",
+                          hint: S.of(context).new_password,
                           controller: newPasswordController,
                           obscureText: cubit.isNewPasswordObscured,
                           icon: IconButton(
@@ -132,11 +133,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         validate: (data) {
                           if (confirmNewPasswordController.text !=
                               newPasswordController.text) {
-                            return 'Passwords do not match';
+                            return S.of(context).password_not_match;
                           }
                           return null;
                         },
-                        hint: "Confirm New Password",
+                        hint: S.of(context).confirm_password,
                         controller: confirmNewPasswordController,
                         obscureText: cubit.isConfirmNewPasswordObscured,
                         icon: IconButton(
@@ -157,7 +158,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     GradientButton(
                       screenWidth: screenWidth * 0.6,
                       screenHeight: screenHeight * 0.075,
-                      text: 'Change Password',
+                      text: S.of(context).change_password,
                       onpressed: () {
                         if (formKey.currentState!.validate()) {
                           cubit.changeUserPassword(oldPasswordController.text,

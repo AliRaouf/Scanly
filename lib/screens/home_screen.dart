@@ -16,6 +16,7 @@ import 'package:scanly/screens/login_screen.dart';
 import 'package:scanly/screens/settings_screen.dart';
 
 import '../components/custom_page_route.dart';
+import '../generated/l10n.dart';
 import 'history_screen.dart';
 import 'home1_screen.dart';
 
@@ -113,23 +114,23 @@ class _HomeScreenState extends State<HomeScreen> {
               items: [
                 SalomonBottomBarItem(
                   icon: Icon(Icons.home_outlined),
-                  title: Text("Home", style: GoogleFonts.nunito()),
+                  title: Text(S.of(context).home, style: GoogleFonts.nunito()),
                   activeIcon: Icon(Icons.home_rounded),
                 ),
                 SalomonBottomBarItem(
                   activeIcon: Iconify(historyIcon, color: Color(0xff04657A)),
                   icon: Iconify(historyIconOutlined, color: Color(0xff232425)),
-                  title: Text("History", style: GoogleFonts.nunito()),
+                  title: Text(S.of(context).history, style: GoogleFonts.nunito()),
                 ),
                 SalomonBottomBarItem(
                   icon: Iconify(heartOutlineIcon, color: Color(0xff232425)),
-                  title: Text("Health", style: GoogleFonts.nunito()),
+                  title: Text(S.of(context).health, style: GoogleFonts.nunito()),
                   activeIcon: Iconify(heartIcon, color: Color(0xff04657A)),
                 ),
                 SalomonBottomBarItem(
                   activeIcon: Icon(Icons.settings_rounded),
                   icon: Icon(Icons.settings_outlined),
-                  title: Text("Settings", style: GoogleFonts.nunito()),
+                  title: Text(S.of(context).setting, style: GoogleFonts.nunito()),
                 ),
               ],
             ),

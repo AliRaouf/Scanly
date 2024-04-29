@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../generated/l10n.dart';
 
 class GenderDropDown extends StatelessWidget {
  GenderDropDown({
@@ -12,12 +13,12 @@ class GenderDropDown extends StatelessWidget {
   final double screenHeight;
   final TextEditingController genderController;
 
-  List<DropdownMenuEntry<String>> genders = [
-    const DropdownMenuEntry(value: "Male", label: "Male"),
-    const DropdownMenuEntry(value: "Female", label: "Female"),
-  ];
   @override
   Widget build(BuildContext context) {
+    List<DropdownMenuEntry<String>> genders = [
+      DropdownMenuEntry(value: S.of(context).male, label: S.of(context).male),
+      DropdownMenuEntry(value: S.of(context).female, label: S.of(context).female),
+    ];
     return DropdownMenu<String>(
         width: screenWidth * 0.8,
         inputDecorationTheme:

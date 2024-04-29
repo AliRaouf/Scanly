@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:scanly/bloc/register/register_cubit.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
+
+import '../generated/l10n.dart';
 
 class RegisterStep1 extends StatelessWidget {
   const RegisterStep1({
@@ -37,7 +40,7 @@ class RegisterStep1 extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 8.w),
                       child: Text(
-                        "Name",
+                        S.of(context).user_name,
                         style: GoogleFonts.nunito(
                             fontSize: 12.sp, color: Color(0xff232425)),
                       ),
@@ -58,7 +61,7 @@ class RegisterStep1 extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 8.w),
                       child: Text(
-                        "Email",
+                        S.of(context).email,
                         style: GoogleFonts.nunito(
                             fontSize: 12.sp, color: Color(0xff232425)),
                       ),
@@ -80,37 +83,39 @@ class RegisterStep1 extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 8.w),
                       child: Text(
-                        "PhoneNumber",
+                        S.of(context).phone,
                         style: GoogleFonts.nunito(
                             fontSize: 12.sp, color: Color(0xff232425)),
                       ),
                     ),
                   ],
                 ),
-                IntlPhoneField(
-                  controller: phoneController,
-                  initialCountryCode: "EG",
-                  decoration: InputDecoration(
-                      alignLabelWithHint: true,
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 15.h, horizontal: 15.w),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              const BorderSide(color: Color(0xff3DADA1))),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              const BorderSide(color: Color(0xff3DADA1))),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              const BorderSide(color: Color(0xff3DADA1))),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              const BorderSide(color: Color(0xff3DADA1)))),
+                Directionality(textDirection: TextDirection.ltr,
+                  child: IntlPhoneField(
+                    controller: phoneController,
+                    initialCountryCode: "EG",
+                    decoration: InputDecoration(
+                        alignLabelWithHint: true,
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 15.h, horizontal: 15.w),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Color(0xff3DADA1))),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Color(0xff3DADA1))),
+                        focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Color(0xff3DADA1))),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Color(0xff3DADA1)))),
+                  ),
                 ),
               ],
             ),

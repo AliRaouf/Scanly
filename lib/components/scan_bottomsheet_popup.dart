@@ -6,6 +6,8 @@ import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/qrscan.dart';
 import 'package:scanly/screens/upload_file_confirm.dart';
 
+import '../generated/l10n.dart';
+
 
 class ScanBottomSheetPopup extends StatefulWidget {
   ScanBottomSheetPopup({
@@ -71,7 +73,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                       Padding(
                         padding: EdgeInsets.all(8),
                         child: Text(
-                          "Upload your test",
+                          S.of(context).Upload_test,
                           style: GoogleFonts.nunito(
                               fontSize: 14.sp,
                               color: Color(0xff232425),
@@ -120,7 +122,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                               padding: EdgeInsets.symmetric(
                                   vertical: 8.h),
                               child: Text(
-                                "Use your Camera",
+                                S.of(context).Use_Camera,
                                 style: GoogleFonts.nunito(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w600,
@@ -160,7 +162,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                                   EdgeInsets.all(8),
                               child: Center(
                                 child: Text(
-                                  "Scan QR Code",
+                                  S.of(context).Scan_QR,
                                   style: GoogleFonts.nunito(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w600,

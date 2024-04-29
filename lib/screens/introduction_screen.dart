@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:scanly/model/introduction_items.dart';
 import 'package:scanly/screens/start_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,7 +72,11 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                  SizedBox(height: 10.h,),
                 Text(controller.items[index].description,
                   style:GoogleFonts.nunito(color:Colors.grey,fontSize:14.sp), textAlign: TextAlign.center,),
-    ],
+                index==0?TextButton(onPressed: ()async{
+                  return await showLanguageDialog(context);
+
+                }, child: Text("Select Language")):SizedBox.shrink()
+              ],
               );
     }
       )
@@ -98,4 +103,31 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
     );
  }
 }
+Map<String, String> LocaleNames = {
+  'en': 'English',
+  'ar': 'العربية',
+};
+Future<void> showLanguageDialog(BuildContext context) async {
+  String? selectedLanguageCode = await showDialog<String>(
+    context: context,
+    builder: (context) {
+      return SimpleDialog(
+        title: const Text('Select language'),
+        children: [
+          SimpleDialogOption(
+            child: Text(LocaleNames['en'] ?? 'Unknown'),
+            onPressed: () => Navigator.pop(context, 'en'),
+          ),
+          SimpleDialogOption(
+            child: Text(LocaleNames['ar'] ?? 'Unknown'),
+            onPressed: () => Navigator.pop(context, 'ar'),
+          ),
+        ],
+      );
+    },
+  );
 
+  if (selectedLanguageCode != null) {
+    print(selectedLanguageCode);
+  }
+}

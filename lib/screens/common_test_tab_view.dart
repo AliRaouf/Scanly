@@ -9,6 +9,7 @@ import 'package:scanly/components/custom_page_route.dart';
 import 'package:scanly/screens/blood_screen.dart';
 import 'package:scanly/screens/home_screen.dart';
 import 'package:scanly/screens/urine_screen.dart';
+import '../generated/l10n.dart';
 import 'genetic_screen.dart';
 
 class CommonTestTabView extends StatefulWidget {
@@ -69,7 +70,7 @@ class _CommonTestTabViewState extends State<CommonTestTabView> {
                       color: Colors.red,
                       size: 42,
                     ),
-                    title: "Blood",
+                    title: S.of(context).blood,
                   ),
                 ),
                 PersistentTabConfig(
@@ -84,7 +85,7 @@ class _CommonTestTabViewState extends State<CommonTestTabView> {
                       size: 42,
                       color: Color(0xff9266cc),
                     ),
-                    title: "Genetic",
+                    title: S.of(context).genetic,
                   ),
                 ),
                 PersistentTabConfig(
@@ -95,7 +96,7 @@ class _CommonTestTabViewState extends State<CommonTestTabView> {
                     textStyle: GoogleFonts.nunito(fontWeight: FontWeight.w600),
                     inactiveIcon: Iconify(urineIdle),
                     icon: Iconify(urineIcon, size: 28),
-                    title: "Urine",
+                    title: S.of(context).urine,
                   ),
                 ),
               ],

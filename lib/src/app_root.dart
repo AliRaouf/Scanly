@@ -42,7 +42,7 @@ class _AppRootState extends State<AppRoot> {
             useInheritedMediaQuery: true,
             ensureScreenSize: true,
             builder: (_, child) {
-              return MaterialApp(
+              return MaterialApp(locale: Locale("EN"),
                 localizationsDelegates: [
                   S.delegate,
                   GlobalMaterialLocalizations.delegate,

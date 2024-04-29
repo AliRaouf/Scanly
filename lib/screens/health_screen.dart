@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 
 import '../components/line_chart.dart';
+import '../generated/l10n.dart';
 
 class HealthScreen extends StatelessWidget {
    HealthScreen({super.key,required this.testScores,required this.warningIcon});
@@ -53,7 +54,7 @@ String warningIcon;
                 children: [
                   Image.asset("assets/images/no_data.png"),
                   Text(
-                    "You haven't added any tests yet\nStart Adding Now!",
+                    S.of(context).no_tests_added,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.nunito(
                         fontSize: 18.sp,
@@ -69,7 +70,7 @@ String warningIcon;
                     Row(
                       children: [
                         Text(
-                          "Health Check:",
+                          S.of(context).health_check,
                           style: GoogleFonts.nunito(
                               fontSize: 20.sp,
                               color: Color(0xff232425),
@@ -94,7 +95,7 @@ String warningIcon;
                           ),
                           Expanded(
                             child: Text(
-                              "Fantastic news!\nBased on your latest test results, your health is on an upward trend. Keep up the great work!",
+                              S.of(context).good_health,
                               style: GoogleFonts.nunito(
                                   color: Color(0xff232425),
                                   fontSize: 14.sp,
@@ -119,7 +120,7 @@ String warningIcon;
                           ),
                           Expanded(
                             child: Text(
-                              "We noticed a decline in your recent health data that need a closer look. While this doesn't necessarily indicate a problem, it's important to be careful about your well-being",
+                              S.of(context).bad_health,
                               style: GoogleFonts.nunito(
                                   color: Color(0xff232425),
                                   fontSize: 14.sp,
@@ -139,7 +140,7 @@ String warningIcon;
               children: [
                 Image.asset("assets/images/no_data.png"),
                 Text(
-                  "You haven't added any tests yet\nStart Adding Now!",
+                  S.of(context).no_tests_added,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.nunito(
                       fontSize: 18.sp,

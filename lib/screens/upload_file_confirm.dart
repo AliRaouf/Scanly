@@ -15,6 +15,7 @@ import 'package:screenshot/screenshot.dart';
 import '../bloc/api/api_cubit.dart';
 import '../bloc/textract/textract_cubit.dart';
 import '../components/custom_page_route.dart';
+import '../generated/l10n.dart';
 
 class UploadFileConfirm extends StatefulWidget {
   UploadFileConfirm({super.key, required this.testName});
@@ -106,7 +107,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                   padding: EdgeInsets.all(screenWidth * 0.05590277777),
                   child: Center(
                       child: Text(
-                    "Are you sure you want to upload this Test?",
+                    S.of(context).upload_message,
                     style: GoogleFonts.nunito(
                         fontSize: screenWidth * 0.045,
                         color: Color(0xff4b4b4b)),
@@ -115,86 +116,89 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                 ),
                 Padding(
                   padding: EdgeInsets.all(screenWidth * 0.05590277777),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomButton(
-                          screenWidth: screenWidth * 0.35,
-                          screenHeight: screenHeight * 0.0625,
-                          text: "Back",
-                          onpressed: () {
-                            cubit.extension = null;
-                            cubit.pickedFile ??= null;
-                            cubit.image ??= null;
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreen()));
-                          },
-                          bColor: Color(0xffFAFAFA),
-                          borderColor: Color(0xff179BE8),
-                          textStyle: GoogleFonts.nunito(
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenWidth * 0.04444,
-                              color: Color(0xff179BE8))),
-                      GradientButton(
-                          screenWidth: screenWidth * 0.35,
-                          screenHeight: screenHeight * 0.0625,
-                          text: "Continue",
-                          onpressed: () async {
-                            if (cubit.extension == 'pdf') {
-                              cubit.image = await TestCubit.get(context)
-                                  .captureImage(widget.screenshotController);
-                              await TextractCubit.get(context)
-                                  .createTempFileFromMemoryImage(
-                                      MemoryImage(cubit.image!));
-                              Future<Map<String, dynamic>> jsonDataFuture =
-                                  TextractCubit.get(context)
-                                      .createTempFileFromMemoryImage(
-                                          MemoryImage(cubit.image!))
-                                      .then((_) => TextractCubit.get(context)
-                                          .uploadImage(
-                                              TextractCubit.get(context)
-                                                  .fileImage!))
-                                      .then((_) =>
-                                          Future.delayed(Duration(seconds: 15)))
-                                      .then((_) => TextractCubit.get(context)
-                                          .downloadAndGetText())
-                                      .then((text) =>text.isEmpty || text==null ? Future(() => {})
-                                          :ApiCubit.get(context).getJSONFromPrompt(text, context));
-                              Navigator.push(
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomButton(
+                            screenWidth: screenWidth * 0.35,
+                            screenHeight: screenHeight * 0.0625,
+                            text: S.of(context).back,
+                            onpressed: () {
+                              cubit.extension = null;
+                              cubit.pickedFile ??= null;
+                              cubit.image ??= null;
+                              Navigator.pushReplacement(
                                   context,
-                                  AnimatedRoute(
-                                      page: TestScreen(
-                                    jsonDataFuture: jsonDataFuture,
-                                  )));
-                            } else {
-                              print("de7k");
-                              Future<Map<String, dynamic>> jsonDataFuture =
-                                  TextractCubit.get(context)
-                                      .createTempFileFromMemoryImage(
-                                          MemoryImage(cubit.image!))
-                                      .then((_) => TextractCubit.get(context)
-                                          .uploadImage(
-                                              TextractCubit.get(context)
-                                                  .fileImage!))
-                                      .then((_) =>
-                                          Future.delayed(Duration(seconds: 15)))
-                                      .then((_) => TextractCubit.get(context)
-                                          .downloadAndGetText())
-                                      .then((text) =>text.isEmpty || text==null ? Future(() => {})
-                                      :ApiCubit.get(context).getJSONFromPrompt(text, context));
-                              Navigator.push(
-                                  context,
-                                  AnimatedRoute(
-                                      page: TestScreen(
-                                    jsonDataFuture: jsonDataFuture,
-                                  )));
-                            }
-                          },
-                          fontSize: screenWidth * 0.04444,
-                          border: 30),
-                    ],
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
+                            },
+                            bColor: Color(0xffFAFAFA),
+                            borderColor: Color(0xff179BE8),
+                            textStyle: GoogleFonts.nunito(
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenWidth * 0.04444,
+                                color: Color(0xff179BE8))),
+                        GradientButton(
+                            screenWidth: screenWidth * 0.35,
+                            screenHeight: screenHeight * 0.0625,
+                            text: S.of(context).continue_message,
+                            onpressed: () async {
+                              if (cubit.extension == 'pdf') {
+                                cubit.image = await TestCubit.get(context)
+                                    .captureImage(widget.screenshotController);
+                                await TextractCubit.get(context)
+                                    .createTempFileFromMemoryImage(
+                                        MemoryImage(cubit.image!));
+                                Future<Map<String, dynamic>> jsonDataFuture =
+                                    TextractCubit.get(context)
+                                        .createTempFileFromMemoryImage(
+                                            MemoryImage(cubit.image!))
+                                        .then((_) => TextractCubit.get(context)
+                                            .uploadImage(
+                                                TextractCubit.get(context)
+                                                    .fileImage!))
+                                        .then((_) =>
+                                            Future.delayed(Duration(seconds: 15)))
+                                        .then((_) => TextractCubit.get(context)
+                                            .downloadAndGetText())
+                                        .then((text) =>text.isEmpty || text==null ? Future(() => {})
+                                            :ApiCubit.get(context).getJSONFromPrompt(text, context));
+                                Navigator.push(
+                                    context,
+                                    AnimatedRoute(
+                                        page: TestScreen(
+                                      jsonDataFuture: jsonDataFuture,
+                                    )));
+                              } else {
+                                print("de7k");
+                                Future<Map<String, dynamic>> jsonDataFuture =
+                                    TextractCubit.get(context)
+                                        .createTempFileFromMemoryImage(
+                                            MemoryImage(cubit.image!))
+                                        .then((_) => TextractCubit.get(context)
+                                            .uploadImage(
+                                                TextractCubit.get(context)
+                                                    .fileImage!))
+                                        .then((_) =>
+                                            Future.delayed(Duration(seconds: 15)))
+                                        .then((_) => TextractCubit.get(context)
+                                            .downloadAndGetText())
+                                        .then((text) =>text.isEmpty || text==null ? Future(() => {})
+                                        :ApiCubit.get(context).getJSONFromPrompt(text, context));
+                                Navigator.push(
+                                    context,
+                                    AnimatedRoute(
+                                        page: TestScreen(
+                                      jsonDataFuture: jsonDataFuture,
+                                    )));
+                              }
+                            },
+                            fontSize: screenWidth * 0.04444,
+                            border: 30),
+                      ],
+                    ),
                   ),
                 ),
               ],

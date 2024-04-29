@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 import 'package:scanly/bloc/login/login_cubit.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/checkbox.dart';
@@ -19,6 +20,7 @@ import 'package:scanly/screens/home_screen.dart';
 import 'package:scanly/screens/register_screen.dart';
 
 import '../bloc/register/register_cubit.dart';
+import '../generated/l10n.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -58,9 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 behavior: SnackBarBehavior.fixed,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Congrats',
+                  title: S.of(context).Congrats,
                   message:
-                  'Welcome to Scanly',
+                  S.of(context).welcome,
                   contentType: ContentType.success,color: Color(0xff04657A),
                 ),
               ));
@@ -77,8 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 behavior: SnackBarBehavior.fixed,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Not Verified',
-                  message: 'We sent you a mail to verify your account',
+                  title: S.of(context).Not_Verified,
+                  message: S.of(context).sent_mail_verify_account,
                   contentType: ContentType.help,
                   color: Color(0xff6B7B8C),
                 ),
@@ -92,9 +94,9 @@ class _LoginScreenState extends State<LoginScreen> {
               behavior: SnackBarBehavior.fixed,
               backgroundColor: Colors.transparent,
               content: AwesomeSnackbarContent(
-                title: 'Error',
+                title: S.of(context).error,
                 message:
-                LoginCubit.get(context).error!,
+                S.of(context).login_Error,
                 contentType: ContentType.failure,
               ),
             ));
@@ -118,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 240.h,
                       child: Image.asset("assets/images/Logo.png")),
                   Text(
-                    "Sign in",
+                    S.of(context).sign_in,
                     style: GoogleFonts.montserrat(
                         fontSize: 38.sp,
                         fontWeight: FontWeight.bold,
@@ -135,9 +137,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             Row(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 45.w),
+                                  padding: EdgeInsets.only(left:Intl.getCurrentLocale()=="ar"?0:45.w,
+                                  right: Intl.getCurrentLocale()=="ar"?45.w:0),
                                   child: Text(
-                                    "Email",
+                                    S.of(context).email,
                                     style: GoogleFonts.nunito(
                                         fontSize: 12.sp,
                                         color: Color(0xff232425)),
@@ -163,9 +166,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             Row(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 45.w),
+                                  padding: EdgeInsets.only(left:Intl.getCurrentLocale()=="ar"?0:45.w,
+                                      right: Intl.getCurrentLocale()=="ar"?45.w:0),
                                   child: Text(
-                                    "Password",
+                                    S.of(context).password,
                                     style: GoogleFonts.nunito(
                                         fontSize: 12.sp,
                                         color: Color(0xff232425)),
@@ -196,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           CheckBox(),
                           Text(
-                            "Remember Me",
+                            S.of(context).remember_me,
                             style: GoogleFonts.nunito(
                                 color: Color(0xff232425), fontSize: 14.sp),
                           )
@@ -209,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 AnimatedRoute(page: ForgotPasswordScreen()));
                           },
                           child: Text(
-                            "Forgot Your Password?",
+                            S.of(context).forget_password,
                             style: GoogleFonts.nunito(
                                 color: Color(0xff232425).withOpacity(0.8),
                                 fontSize: 14.sp),
@@ -222,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomButton(
                       screenWidth: 280.w,
                       screenHeight: 50.h,
-                      text: "Login",
+                      text: S.of(context).login,
                       onpressed: () async {
                         if (isClicked == false) {
                           _startTimer();
@@ -234,7 +238,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           await UserCubit.get(context).getUserData();
                           await UserCubit.get(context).receiverUserData();
                         }else{
-                          print("please wait 5 seconds before each login");
                         }
                       },
                       bColor: Color(0xff1A83B6),
@@ -349,7 +352,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Dont have an account?",
+                        S.of(context).Dont_have_account,
                         style: GoogleFonts.nunito(
                           fontSize: 14.sp,
                           color: Color(0xff232425).withOpacity(0.8),
@@ -360,7 +363,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
                           },
                           child: Text(
-                            "Sign Up!",
+                            S.of(context).sign_up,
                             style: GoogleFonts.nunito(
                                 fontSize: 16.sp,
                                 color: Color(0xff1d80b5),

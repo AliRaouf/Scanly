@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
 
 import '../bloc/register/register_cubit.dart';
+import '../generated/l10n.dart';
 
 class RegisterStep2 extends StatefulWidget {
   RegisterStep2(
@@ -48,7 +49,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       Padding(
                         padding: EdgeInsets.only(left: 8.w,top: 20.h),
                         child: Text(
-                          "Date Of Birth",
+                          S.of(context).birth,
                           style: GoogleFonts.nunito(
                               fontSize: 12.sp, color: Color(0xff232425)),
                         ),
@@ -72,7 +73,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                         Padding(
                           padding: EdgeInsets.only(left: 8.w),
                           child: Text(
-                            "Password",
+                            S.of(context).password,
                             style: GoogleFonts.nunito(
                                 fontSize: 12.sp, color: Color(0xff232425)),
                           ),
@@ -107,7 +108,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       Padding(
                         padding: EdgeInsets.only(left: 8.w),
                         child: Text(
-                          "Confirm Password",
+                          S.of(context).confirm_password,
                           style: GoogleFonts.nunito(
                               fontSize: 12.sp, color: Color(0xff232425)),
                         ),
@@ -118,7 +119,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       validate: (data) {
                         if (widget.confirmPasswordController.text !=
                             widget.passwordController.text) {
-                          return 'Passwords do not match';
+                          return S.of(context).password_not_match;
                         }
                       },
                       controller: widget.confirmPasswordController,

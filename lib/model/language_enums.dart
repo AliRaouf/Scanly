@@ -1,0 +1,1 @@
+enum LanguageEnums {InitialLanguage,ArabicLanguage,EnglishLanguage}

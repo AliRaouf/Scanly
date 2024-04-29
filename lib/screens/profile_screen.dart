@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
 
+import '../generated/l10n.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -67,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
                                         left:
                                             screenWidth * 0.02037037037),
                                     child: Text(
-                                      "Name",
+                                      S.of(context).user_name,
                                       style: GoogleFonts.nunito(
                                           fontSize: screenWidth * 0.04,
                                           color: const Color(0xff232425)),
@@ -102,7 +104,7 @@ class ProfileScreen extends StatelessWidget {
                                         left:
                                             screenWidth * 0.02037037037),
                                     child: Text(
-                                      "Email",
+                                      S.of(context).email,
                                       style: GoogleFonts.nunito(
                                           fontSize: screenWidth * 0.04,
                                           color: const Color(0xff232425)),
@@ -136,7 +138,7 @@ class ProfileScreen extends StatelessWidget {
                                         left:
                                             screenWidth * 0.02037037037),
                                     child: Text(
-                                      "PhoneNumber",
+                                      S.of(context).phone,
                                       style: GoogleFonts.nunito(
                                           fontSize: screenWidth * 0.04,
                                           color: const Color(0xff232425)),
@@ -172,7 +174,7 @@ class ProfileScreen extends StatelessWidget {
                               Column(
                                 children: [
                                   Text(
-                                    "Height",
+                                    S.of(context).height,
                                     style: GoogleFonts.nunito(
                                         fontSize: screenWidth * 0.04,
                                         color: const Color(0xff232425)),
@@ -195,7 +197,7 @@ class ProfileScreen extends StatelessWidget {
                               Column(
                                 children: [
                                   Text(
-                                    "Weight",
+                                    S.of(context).weight,
                                     style: GoogleFonts.nunito(
                                         fontSize: screenWidth * 0.04,
                                         color: const Color(0xff232425)),
@@ -229,7 +231,7 @@ class ProfileScreen extends StatelessWidget {
                                         left:
                                             screenWidth * 0.02037037037),
                                     child: Text(
-                                      "Gender",
+                                      S.of(context).gender,
                                       style: GoogleFonts.nunito(
                                           fontSize: screenWidth * 0.04,
                                           color: const Color(0xff232425)),
@@ -265,7 +267,7 @@ class ProfileScreen extends StatelessWidget {
                                         left:
                                             screenWidth * 0.02037037037),
                                     child: Text(
-                                      "Medical History",
+                                      S.of(context).medical_history,
                                       style: GoogleFonts.nunito(
                                           fontSize: screenWidth * 0.04,
                                           color: const Color(0xff232425)),

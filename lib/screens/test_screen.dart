@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 
 import '../bloc/test/test_cubit.dart';
+import '../generated/l10n.dart';
 
 class TestScreen extends StatelessWidget {
   final Future<Map<String, dynamic>> jsonDataFuture;
@@ -30,7 +31,7 @@ class TestScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Getting Your Results!",
+                    S.of(context).loading1,
                     style: GoogleFonts.nunito(
                         fontSize: 24.sp,
                         fontWeight: FontWeight.w600,
@@ -53,32 +54,32 @@ class TestScreen extends StatelessWidget {
                       totalRepeatCount: 5,
                       animatedTexts: [
                         RotateAnimatedText(
-                          duration: Duration(seconds: 5),
-                          "Feeling tired? Drinking plenty of water can boost your energy levels.",
+                          duration: Duration(seconds: 7),
+                          S.of(context).loading2,
                           textStyle: GoogleFonts.nunito(
                             fontSize: 16.sp,
                             color: Color(0xff2b2b2b),
                           ),
                         ),
                         RotateAnimatedText(
-                          duration: Duration(seconds: 5),
-                          "Getting enough sleep is essential for managing stress, Aim for 7-9 hours of quality sleep per night",
+                          duration: Duration(seconds: 7),
+                          S.of(context).loading3,
                           textStyle: GoogleFonts.nunito(
                             fontSize: 16.sp,
                             color: Color(0xff2b2b2b),
                           ),
                         ),
                         RotateAnimatedText(
-                          duration: Duration(seconds: 5),
-                          "Swap out sugary snacks for healthier options like fruit, yogurt, or nuts to keep your energy up",
+                          duration: Duration(seconds: 7),
+                          S.of(context).loading4,
                           textStyle: GoogleFonts.nunito(
                             fontSize: 16.sp,
                             color: Color(0xff2b2b2b),
                           ),
                         ),
                         RotateAnimatedText(
-                          duration: Duration(seconds: 5),
-                          "Break up long periods of sitting by stretching or taking short walks to keep your body feeling good",
+                          duration: Duration(seconds: 7),
+                          S.of(context).loading5,
                           textStyle: GoogleFonts.nunito(
                             fontSize: 16.sp,
                             color: Color(0xff2b2b2b),
@@ -221,7 +222,7 @@ class TestScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Should You See a Doctor?",
+                            Text(S.of(context).See_Doctor,
                                 style: GoogleFonts.nunito(
                                     fontSize: 16.sp,
                                     color: Color(0xff232425),

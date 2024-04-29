@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../generated/l10n.dart';
 import '../screens/common_test_tab_view.dart';
 
 class CommonTestSelection extends StatelessWidget {
@@ -57,7 +58,7 @@ class CommonTestSelection extends StatelessWidget {
                               child: Image.asset("assets/images/blood.png")),
                         ),
                         Text(
-                          "Blood",
+                          S.of(context).blood,
                           style: GoogleFonts.nunito(
                               fontSize: screenWidth * 0.044442,
                               color: Color(0xff232425),
@@ -96,7 +97,7 @@ class CommonTestSelection extends StatelessWidget {
                             child: Image.asset("assets/images/gene.png")),
                       ),
                       Text(
-                        "Genetic",
+                        S.of(context).genetic,
                         style: GoogleFonts.nunito(
                             fontSize: screenWidth * 0.044442,
                             color: Color(0xff232425),
@@ -135,7 +136,7 @@ class CommonTestSelection extends StatelessWidget {
                             child: Image.asset("assets/images/urine.png")),
                       ),
                       Text(
-                        "Urine",
+                        S.of(context).urine,
                         style: GoogleFonts.nunito(
                             fontSize: screenWidth * 0.04442,
                             color: Color(0xff232425),

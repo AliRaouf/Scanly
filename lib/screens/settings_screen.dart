@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../bloc/user/user_cubit.dart';
 import '../components/custom_page_route.dart';
 import '../components/gradient_button.dart';
+import '../generated/l10n.dart';
 import 'change_password_screen.dart';
 import 'change_user_data_screen.dart';
 import 'legal_terms_conditions.dart';
@@ -42,7 +43,7 @@ class SettingsScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "Account",
+                          S.of(context).account,
                           style: GoogleFonts.nunito(
                               color: Color(0xff232425),
                               fontWeight: FontWeight.w700,
@@ -79,7 +80,7 @@ class SettingsScreen extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              "Change User Data",
+                                             S.of(context).change_userdata,
                                               style: GoogleFonts
                                                   .nunito(
                                                 color: Color(
@@ -110,7 +111,7 @@ class SettingsScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "Security",
+                          S.of(context).security,
                           style: GoogleFonts.nunito(
                               color: Color(0xff232425),
                               fontWeight: FontWeight.w700,
@@ -147,7 +148,7 @@ class SettingsScreen extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              "Change Password",
+                                              S.of(context).change_password,
                                               style: GoogleFonts
                                                   .nunito(
                                                 color: Color(
@@ -178,7 +179,7 @@ class SettingsScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "Legal",
+                          S.of(context).legal,
                           style: GoogleFonts.nunito(
                               color: Color(0xff232425),
                               fontWeight: FontWeight.w700,
@@ -215,7 +216,7 @@ class SettingsScreen extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              "View Legal Terms & Conditions",
+                                              S.of(context).view_legal,
                                               style: GoogleFonts
                                                   .nunito(
                                                 color: Color(
@@ -247,6 +248,7 @@ class SettingsScreen extends StatelessWidget {
                     text: "Logout",
                     onpressed: () {
                       cubit.logout();
+
                     },
                     fontSize: 20.sp,
                     border: 10.r)

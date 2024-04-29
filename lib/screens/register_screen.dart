@@ -16,6 +16,8 @@ import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:scanly/screens/login_screen.dart';
 import 'package:scanly/components/gender_dropdown.dart';
 
+import '../generated/l10n.dart';
+
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
 
@@ -60,9 +62,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           behavior: SnackBarBehavior.fixed,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Account Created',
+            title: S.of(context).Account_Created,
             message:
-            "We have sent an email for you to verify your account",
+            S.of(context).sent_mail_verify_account,
             contentType: ContentType.success,color: Color(0xff04657A),
           ),
         ));
@@ -95,14 +97,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Column(
                           children: [
                             Text(
-                              "Create a New Account",
+                              S.of(context).create_account,
                               style: GoogleFonts.nunito(
                                   fontSize: 22.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff232425)),
                             ),
                             Text(
-                              "Add a profile picture",
+                              S.of(context).add_picture,
                               style: GoogleFonts.nunito(
                                   fontSize: 18.sp, color: Color(0xff232425)),
                             ),
@@ -220,7 +222,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               padding:
                                                   EdgeInsets.only(left: 8.w),
                                               child: Text(
-                                                "Gender",
+                                                S.of(context).gender,
                                                 style: GoogleFonts.nunito(
                                                     fontSize: 12.sp,
                                                     color: Color(0xff232425)),
@@ -243,7 +245,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             Column(
                                               children: [
                                                 Text(
-                                                  "Height",
+                                                  S.of(context).height,
                                                   style: GoogleFonts.nunito(
                                                       fontSize: 12.sp,
                                                       color: Color(0xff232425)),
@@ -264,7 +266,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             Column(
                                               children: [
                                                 Text(
-                                                  "Weight",
+                                                  S.of(context).weight,
                                                   style: GoogleFonts.nunito(
                                                       fontSize: 12.sp,
                                                       color: Color(0xff232425)),
@@ -320,7 +322,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             CustomButton(
                                 screenWidth: 136.w,
                                 screenHeight: 50.h,
-                                text: "Continue",
+                                text: S.of(context).back,
+                                onpressed: () {
+                                  if (index <= 2 && index > 0) {
+                                    setState(() {
+                                      index--;
+                                      print(index);
+                                    });
+                                  } else if (index == 0) {
+                                    Navigator.pop(context);
+                                  }
+                                },
+                                bColor: Color(0xffFAFAFA),
+                                borderColor: Color(0xff179BE8),
+                                textStyle: GoogleFonts.nunito(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.sp,
+                                    color: Color(0xff179BE8))),
+                            CustomButton(
+                                screenWidth: 136.w,
+                                screenHeight: 50.h,
+                                text: S.of(context).continue_message,
                                 onpressed: () async {
                                   if (index == 2) {
                                     if(genderController.text==""){
@@ -331,9 +353,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           behavior: SnackBarBehavior.fixed,
                                           backgroundColor: Colors.transparent,
                                           content: AwesomeSnackbarContent(
-                                            title: 'Error',
+                                            title: S.of(context).error,
                                             message:
-                                            "Please Pick a Gender",
+                                            S.of(context).grnder_message,
                                             contentType: ContentType.failure,
                                           ),
                                         ));
@@ -345,9 +367,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           behavior: SnackBarBehavior.fixed,
                                           backgroundColor: Colors.transparent,
                                           content: AwesomeSnackbarContent(
-                                            title: 'Error',
+                                            title: S.of(context).error,
                                             message:
-                                            "Please add your height",
+                                            S.of(context).height_message,
                                             contentType: ContentType.failure,
                                           ),
                                         ));
@@ -359,9 +381,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           behavior: SnackBarBehavior.fixed,
                                           backgroundColor: Colors.transparent,
                                           content: AwesomeSnackbarContent(
-                                            title: 'Error',
+                                            title: S.of(context).error,
                                             message:
-                                            "Please add your weight",
+                                            S.of(context).weight_message,
                                             contentType: ContentType.failure,
                                           ),
                                         ));
@@ -426,26 +448,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.sp,
                                     color: Colors.white)),
-                            CustomButton(
-                                screenWidth: 136.w,
-                                screenHeight: 50.h,
-                                text: "Back",
-                                onpressed: () {
-                                  if (index <= 2 && index > 0) {
-                                    setState(() {
-                                      index--;
-                                      print(index);
-                                    });
-                                  } else if (index == 0) {
-                                    Navigator.pop(context);
-                                  }
-                                },
-                                bColor: Color(0xffFAFAFA),
-                                borderColor: Color(0xff179BE8),
-                                textStyle: GoogleFonts.nunito(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18.sp,
-                                    color: Color(0xff179BE8))),
                           ],
                         ),
                       );

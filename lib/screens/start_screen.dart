@@ -7,6 +7,7 @@ import 'package:scanly/screens/register_screen.dart';
 import 'package:scanly/screens/login_screen.dart';
 
 import '../components/custom_page_route.dart';
+import '../generated/l10n.dart';
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
 
@@ -39,25 +40,19 @@ class _StartScreenState extends State<StartScreen> {
                   Column(
                     children: [
                       Text(
-                        "Welcome To",
+                        "${S.of(context).welcome}",textAlign: TextAlign.center,
                         style: GoogleFonts.montserrat(
                             fontSize: 44.sp,
                             fontWeight: FontWeight.bold,
                             color: const Color(0xff232425)),
                       ),
-                      Text(
-                        "Scanly",
-                        style: GoogleFonts.montserrat(
-                            fontSize: 44.sp,
-                            fontWeight: FontWeight.bold,
-                            color: const Color(0xff232425)),
-                      ),
+
                       Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 12.w),
                         child: Center(
                             child: Text(
-                              "We are Happy that you are here our mission is to provide you with information about your tests from where you are",
+                              S.of(context).start,
                               style: GoogleFonts.nunito(
                                   fontSize: 16.sp,
                                   color: Color(0xff777777)),
@@ -74,7 +69,7 @@ class _StartScreenState extends State<StartScreen> {
                         CustomButton(
                             screenWidth: 280.w,
                             screenHeight: 50.h,
-                            text: "Login",
+                            text: S.of(context).login,
                             onpressed: () async {
                               await LoginCubit.get(context).loadUserEmailPassword();
                               Navigator.push(
@@ -90,7 +85,7 @@ class _StartScreenState extends State<StartScreen> {
                         CustomButton(
                             screenWidth: 280.w,
                             screenHeight: 50.h,
-                            text: "Create New Account",
+                            text: S.of(context).create_account,
                             onpressed: () {
                               Navigator.push(
                                   context,
