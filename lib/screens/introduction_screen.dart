@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:scanly/bloc/language/language_cubit.dart';
 import 'package:scanly/model/introduction_items.dart';
+import 'package:scanly/model/language_enums.dart';
 import 'package:scanly/screens/start_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../components/custom_page_route.dart';
+import '../generated/l10n.dart';
+import '../model/introduction_info.dart';
 
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({super.key});
@@ -24,6 +28,29 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<IntroductionInfo> items = [
+      IntroductionInfo(
+          title: S.of(context).welcome,
+          description: S.of(context).intro_description1,
+          image:("assets/images/logo_only.png")
+      ),
+      IntroductionInfo(
+          title: S.of(context).intro_title2,
+          description: S.of(context).intro_description2,
+          image:("assets/images/how_it_works.png")
+      ),
+      IntroductionInfo(
+          title: S.of(context).intro_title3,
+          description: S.of(context).intro_description3,
+          image:("assets/images/dr_recom.png")
+      ),
+      IntroductionInfo(
+          title: S.of(context).intro_title4,
+          description: S.of(context).intro_description4,
+          image:("assets/images/health.png")
+      ),
+
+    ];
     return Scaffold(
       bottomSheet: Container(
         color: Color(0xfffafafa),
@@ -41,7 +68,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 child: Text('Skip',style:GoogleFonts.montserrat(color:Color(0xff1684b5),fontSize:14.sp,fontWeight:FontWeight.w600),)),
             SmoothPageIndicator(
               controller: pageController,
-              count: controller.items.length,
+              count: items.length,
             onDotClicked: (index)=> pageController.animateToPage(index,
                 duration: const Duration(milliseconds: 600),
                 curve: Curves.easeIn),
@@ -65,12 +92,12 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(height: 400.h,
-                    child: Image.asset(controller.items[index].image,fit: BoxFit.contain,)),
-                Text(controller.items[index].title,
+                    child: Image.asset(items[index].image,fit: BoxFit.contain,)),
+                Text(items[index].title,
                 style: GoogleFonts.montserrat(color:Color(0xff232425),fontSize:16.sp,fontWeight:FontWeight.bold),
                 ),
                  SizedBox(height: 10.h,),
-                Text(controller.items[index].description,
+                Text(items[index].description,
                   style:GoogleFonts.nunito(color:Colors.grey,fontSize:14.sp), textAlign: TextAlign.center,),
                 index==0?TextButton(onPressed: ()async{
                   return await showLanguageDialog(context);
@@ -128,6 +155,10 @@ Future<void> showLanguageDialog(BuildContext context) async {
   );
 
   if (selectedLanguageCode != null) {
-    print(selectedLanguageCode);
+    if(selectedLanguageCode=="ar"){
+      LanguageCubit.get(context).languageFunction(LanguageEnums.ArabicLanguage);
+    }else{
+      LanguageCubit.get(context).languageFunction(LanguageEnums.EnglishLanguage);
+    }
   }
 }
