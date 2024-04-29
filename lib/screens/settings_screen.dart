@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../bloc/language/language_cubit.dart';
 import '../bloc/user/user_cubit.dart';
 import '../components/custom_page_route.dart';
 import '../components/gradient_button.dart';
@@ -81,6 +82,44 @@ class SettingsScreen extends StatelessWidget {
                                           Expanded(
                                             child: Text(
                                              S.of(context).change_userdata,
+                                              style: GoogleFonts
+                                                  .nunito(
+                                                color: Color(
+                                                    0xff232425),
+                                              ),
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons
+                                                .arrow_forward_ios_rounded,
+                                            size: 18,
+                                            color:
+                                            Color(0xff232425),
+                                          )
+                                        ],
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextButton(
+                                    onPressed: ()async{
+                                      return await LanguageCubit.get(context).showLanguageDialog(context);
+                                    },
+                                    child: Padding(
+                                      padding:
+                                      const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              S.of(context).change_language,
                                               style: GoogleFonts
                                                   .nunito(
                                                 color: Color(
@@ -245,10 +284,9 @@ class SettingsScreen extends StatelessWidget {
                 GradientButton(
                     screenWidth: 0.4.sw,
                     screenHeight: 45.h,
-                    text: "Logout",
+                    text: S.of(context).logout,
                     onpressed: () {
                       cubit.logout();
-
                     },
                     fontSize: 20.sp,
                     border: 10.r)

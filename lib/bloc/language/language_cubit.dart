@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:scanly/model/language_enums.dart';
@@ -29,6 +30,38 @@ class LanguageCubit extends Cubit<LanguageState> {
         prefs.setString('lang', 'en');
         emit(LanguageChange(languageCode: 'en'));
         break;
+    }
+  }
+  Map<String, String> LocaleNames = {
+    'en': 'English',
+    'ar': 'العربية',
+  };
+  Future<void> showLanguageDialog(BuildContext context) async {
+    String? selectedLanguageCode = await showDialog<String>(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: const Text('Select language'),
+          children: [
+            SimpleDialogOption(
+              child: Text(LocaleNames['en'] ?? 'Unknown'),
+              onPressed: () => Navigator.pop(context, 'en'),
+            ),
+            SimpleDialogOption(
+              child: Text(LocaleNames['ar'] ?? 'Unknown'),
+              onPressed: () => Navigator.pop(context, 'ar'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (selectedLanguageCode != null) {
+      if(selectedLanguageCode=="ar"){
+        LanguageCubit.get(context).languageFunction(LanguageEnums.ArabicLanguage);
+      }else{
+        LanguageCubit.get(context).languageFunction(LanguageEnums.EnglishLanguage);
+      }
     }
   }
 }

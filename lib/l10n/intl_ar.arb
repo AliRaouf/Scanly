@@ -1,5 +1,5 @@
 {
-    "welcome" : "مرحبا بكم في Scanly",
+"welcome" : "مرحبا بكم في Scanly",
 "intro_title2" : "عملية تحليل اختبار بسيطة",
 "intro_title3" : "توصيات مخصصة",
 "intro_title4" : "تابع صحتك",
@@ -150,5 +150,6 @@
 "test_Name" : "تحليل :",
 "Date_Test" : "تاريخ",
 "Account_Created" : "تم إنشاء الحساب",
-"login_Error" : "البريد الإلكتروني أو كلمة المرور خاطئة"
+"login_Error" : "البريد الإلكتروني أو كلمة المرور خاطئة",
+"change_language" : "اختار اللغة"
 }

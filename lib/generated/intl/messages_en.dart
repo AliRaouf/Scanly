@@ -142,6 +142,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "We noticed a decline in your recent health data that need a closer look. While this doesn\'t necessarily indicate a problem, it\'s important to be careful about your well-bein"),
         "birth": MessageLookupByLibrary.simpleMessage("Date Of Birth"),
         "blood": MessageLookupByLibrary.simpleMessage("Blood"),
+        "change_language":
+            MessageLookupByLibrary.simpleMessage("Select Language"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("Change Password"),
         "change_userdata":

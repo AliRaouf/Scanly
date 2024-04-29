@@ -760,7 +760,7 @@ class S {
     );
   }
 
-  /// `Veiw Legal Terms & Conditions`
+  /// `View Legal Terms & Conditions`
   String get view_legal {
     return Intl.message(
       'View Legal Terms & Conditions',
@@ -1530,7 +1530,7 @@ class S {
     );
   }
 
-  /// `test Name:`
+  /// `Test Name:`
   String get test_Name {
     return Intl.message(
       'Test Name:',
@@ -1565,6 +1565,16 @@ class S {
     return Intl.message(
       'Wrong Email or Password',
       name: 'login_Error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Language`
+  String get change_language {
+    return Intl.message(
+      'Select Language',
+      name: 'change_language',
       desc: '',
       args: [],
     );

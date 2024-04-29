@@ -138,6 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "لقد لاحظنا انخفاضًا في بياناتك الصحية الأخيرة والتي تحتاج إلى نظرة فاحصة. على الرغم من أن هذا لا يشير بالضرورة إلى وجود مشكلة، فمن المهم توخي الحذر بشأن سلامتك"),
         "birth": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),
         "blood": MessageLookupByLibrary.simpleMessage("الدم"),
+        "change_language": MessageLookupByLibrary.simpleMessage("اختار اللغة"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
         "change_userdata":
@@ -241,7 +242,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "start": MessageLookupByLibrary.simpleMessage(
             "يسعدنا وجودك هنا، ومهمتنا هي تزويدك بالمعلومات حول اختباراتك من مكان تواجدك"),
         "test": MessageLookupByLibrary.simpleMessage("التحاليل"),
-        "test_Name": MessageLookupByLibrary.simpleMessage("تحليل"),
+        "test_Name": MessageLookupByLibrary.simpleMessage("تحليل :"),
         "upload_message": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد تحميل هذا الاختبار؟"),
         "urine": MessageLookupByLibrary.simpleMessage("البول"),
