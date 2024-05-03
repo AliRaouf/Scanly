@@ -121,8 +121,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Reset_Password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "Scan_QR": MessageLookupByLibrary.simpleMessage("Scan QR Code"),
-        "See_Doctor": MessageLookupByLibrary.simpleMessage(
-            "Should You SeeShould You See a Doctor?"),
+        "See_Doctor":
+            MessageLookupByLibrary.simpleMessage("Should You See a Doctor?"),
         "Skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "Stroke": MessageLookupByLibrary.simpleMessage("Stroke"),
         "Success": MessageLookupByLibrary.simpleMessage("Success"),

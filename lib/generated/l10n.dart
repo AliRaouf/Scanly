@@ -900,10 +900,10 @@ class S {
     );
   }
 
-  /// `Should You SeeShould You See a Doctor?`
+  /// `Should You See a Doctor?`
   String get See_Doctor {
     return Intl.message(
-      'Should You SeeShould You See a Doctor?',
+      'Should You See a Doctor?',
       name: 'See_Doctor',
       desc: '',
       args: [],
