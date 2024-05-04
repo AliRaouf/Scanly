@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../generated/l10n.dart';
 
@@ -54,7 +55,10 @@ class _HistoryTestScreenState extends State<HistoryTestScreen> {
                                 fontSize: 12.sp, color: Color(0xff232425))),
                       ),
                       Expanded(
-                        child: Text("${widget.testData["diagnosis"].trim().split('. ')[index]}.",style: GoogleFonts.nunito(
+                        child:Intl.getCurrentLocale()=='ar'?Text(widget.testData["diagnosis_ar"].trim().split('. ')[index],
+                            style: GoogleFonts.nunito(
+                            fontSize: 12.sp, color: Color(0xff232425))):Text(widget.testData["diagnosis"].trim().split('. ')[index],
+                            style: GoogleFonts.nunito(
                             fontSize: 12.sp, color: Color(0xff232425))),
                       ),
                     ],
@@ -75,7 +79,7 @@ class _HistoryTestScreenState extends State<HistoryTestScreen> {
                             color: Color(0xff232425),
                             fontWeight: FontWeight.bold)),
                     Text(
-                      "${widget.testData["Recommendation"]}",
+                      Intl.getCurrentLocale()=='ar'?widget.testData["Recommendation_ar"] :widget.testData["Recommendation"],
                       style: GoogleFonts.nunito(
                           fontSize: 12.sp, color: Color(0xff232425)),
                     ),

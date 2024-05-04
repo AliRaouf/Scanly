@@ -22,41 +22,24 @@ class ApiCubit extends Cubit<ApiState> {
     print(prefs.getString('lang'));
     final request = CompleteText(maxTokens: 2500,
 
-      prompt:prefs.getString("lang")=='ar'?'''
+      prompt:'''
  Test:
  gender : ${UserCubit.get(context).gender}
  height : ${UserCubit.get(context).height}Cm
  weight : ${UserCubit.get(context).weight}Kg
  medical history : ${UserCubit.get(context).diseases!.join(', ')}
  $userTest
-  interpret this test and diagnose it thoroughly and add it to the explanation in the json and recommend which doctor specialization should the user go to if needed based on the test above
+  interpret this test and diagnose it thoroughly and add it to the explanation and translate it and add it into explanation_ar in the json and recommend which doctor specialization should the user go to if needed based on the test above
 extract the testName and add it to the JSON
 DON'T RETURN AN EXPLANATION OF THE TEST IT SELF RETURN EXPLANATION OF THE RESULTS OF THE TEST ABOVE THOROUGHLY and CONCISELY!
 {
 "testName":
 "diagnosis": Diagnose the patient concisely with clear understandable language (while explaining how you found out if anything is wrong) If the test values are within the reference range, explain what this means for the patient's health.
 If the test values are outside the reference range, explain the possible implications for the patient's health.
+"diagnosis_ar": same as diagnosis but translated to arabic
 "healthScore": "from 1 to 10 the output should be only the number"
 "Recommendation":
-"Date": dd/MM/YYYY Format         "Date of the test if there are multiple dates choose the earliest one"
-}
-translate the values of diagnosis and Recommendation to arabic thoroughly after you are done and only return the json at the end.
-      ''':'''
- Test:
- gender : ${UserCubit.get(context).gender}
- height : ${UserCubit.get(context).height}Cm
- weight : ${UserCubit.get(context).weight}Kg
- medical history : ${UserCubit.get(context).diseases!.join(', ')}
- $userTest
-  interpret this test and diagnose it thoroughly and add it to the explanation in the json and recommend which doctor specialization should the user go to if needed based on the test above
-extract the testName and add it to the JSON
-DON'T RETURN AN EXPLANATION OF THE TEST IT SELF RETURN EXPLANATION OF THE RESULTS OF THE TEST ABOVE THOROUGHLY and CONCISELY!
-{
-"testName":
-"diagnosis": Diagnose the patient concisely with clear understandable language (while explaining how you found out if anything is wrong) If the test values are within the reference range, explain what this means for the patient's health.
-If the test values are outside the reference range, explain the possible implications for the patient's health.
-"healthScore": "from 1 to 10 the output should be only the number"
-"Recommendation":
+"Recommendation_ar": same as Recommendation but in arabic
 "Date": dd/MM/YYYY Format         "Date of the test if there are multiple dates choose the earliest one"
 }
 only return the json at the end.

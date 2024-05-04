@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../bloc/register/register_cubit.dart';
 import '../generated/l10n.dart';
@@ -132,7 +131,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       uppercaseCharCount: 1,
                       numericCharCount: 1,
                       width: 1.sw,
-                      height: 105.h,
+                      height: 115.h,
                       onSuccess: () {
                         print("Success");
                         RegisterCubit.get(context).pwValidate=true;

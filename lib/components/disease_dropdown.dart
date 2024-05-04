@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 
+import '../generated/l10n.dart';
+
 class DiseaseDropDown extends StatelessWidget {
   DiseaseDropDown({
     super.key,
@@ -12,31 +14,32 @@ class DiseaseDropDown extends StatelessWidget {
 
   final MultiSelectController diseaseController;
   final double screenHeight;
-  List<ValueItem> chronicIllness = [
-    const ValueItem(value: "none", label: "None"),
-    const ValueItem(value: "Pressure", label: "HighBloodPressure"),
-    const ValueItem(value: "Cholestrol", label: "High Cholestrol"),
-    const ValueItem(value: "Arthritis", label: "Arthritis"),
-    const ValueItem(
-        value: "Heart Disease", label: "Ischemic/Coronary Heart Disease"),
-    const ValueItem(value: "Diabetes", label: "Diabetes"),
-    const ValueItem(
-        value: "Chronic Kidney Disease", label: "Chronic Kidney Disease"),
-    const ValueItem(value: "Heart Failure", label: "Heart Failure"),
-    const ValueItem(value: "Breast cancer", label: "Breast cancer"),
-    const ValueItem(value: "Alzheimer", label: "Alzheimer and Dementia"),
-    const ValueItem(
-        value: "COPD", label: "COPD (Chronic Obstructive Pulmonary Disease"),
-    const ValueItem(value: "Stroke", label: "Stroke"),
-    const ValueItem(value: "Lung cancer", label: "Lung cancer"),
-    const ValueItem(value: "Colorectal cancer", label: "Colorectal cancer"),
-    const ValueItem(value: "Cervical cancer", label: "Cervical cancer"),
-    const ValueItem(value: "Hyperlipidaemia", label: "Hyperlipidaemia"),
-    const ValueItem(value: "Prostate Cancer", label: "Prostate Cancer"),
-    const ValueItem(value: "Liver Cancer", label: "Liver Cancer"),
-  ];
+
   @override
   Widget build(BuildContext context) {
+    List<ValueItem> chronicIllness = [
+      const ValueItem(value: "none", label: "None"),
+      ValueItem(value: "HighBloodPressure", label: S.of(context).pressure),
+      ValueItem(value: "Cholestrol", label:S.of(context).Cholestrol),
+      ValueItem(value: "Arthritis", label: S.of(context).Arthritis),
+      ValueItem(
+          value: "Heart Disease", label: S.of(context).Heart_Disease),
+      ValueItem(value: "Diabetes", label: S.of(context).Diabetes),
+      ValueItem(
+          value: "Chronic Kidney Disease", label: S.of(context).Chronic_Kidney_Disease),
+      ValueItem(value: "Heart Failure", label: S.of(context).Heart_Failure),
+      ValueItem(value: "Breast cancer", label: S.of(context).Breast_cancer),
+      ValueItem(value: "Alzheimer", label: S.of(context).Alzheimer),
+      ValueItem(
+          value: "COPD", label: S.of(context).COPD),
+      ValueItem(value: "Stroke", label: S.of(context).Stroke),
+      ValueItem(value: "Lung cancer", label: S.of(context).Lung_cancer),
+      ValueItem(value: "Colorectal cancer", label: S.of(context).Colorectal_cancer),
+      ValueItem(value: "Cervical cancer", label: S.of(context).Cervical_cancer),
+      ValueItem(value: "Hyperlipidaemia", label: S.of(context).Hyperlipidaemia),
+      ValueItem(value: "Prostate Cancer", label: S.of(context).Prostate_Cancer),
+      ValueItem(value: "Liver Cancer", label: S.of(context).Liver_Cancer),
+    ];
     return MultiSelectDropDown(
       alwaysShowOptionIcon: true,
       optionSeparator: Divider(),
