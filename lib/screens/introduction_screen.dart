@@ -63,7 +63,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               Navigator.push(
                   context,
                   AnimatedRoute(page: StartScreen()));},
-                child: Text('Skip',style:GoogleFonts.montserrat(color:Color(0xff1684b5),fontSize:14.sp,fontWeight:FontWeight.w600),)),
+                child: Text(S.of(context).Skip,style:GoogleFonts.montserrat(color:Color(0xff1684b5),fontSize:14.sp,fontWeight:FontWeight.w600),)),
             SmoothPageIndicator(
               controller: pageController,
               count: items.length,
@@ -75,7 +75,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             ),),
             TextButton(
                 onPressed: ()=>pageController.nextPage(duration: Duration(microseconds: 600), curve: Curves.easeIn),
-                child: Text('Next',style:GoogleFonts.montserrat(color:Color(0xff1684b5),fontSize:14.sp,fontWeight:FontWeight.w600))),
+                child: Text(S.of(context).Next,style:GoogleFonts.montserrat(color:Color(0xff1684b5),fontSize:14.sp,fontWeight:FontWeight.w600))),
           ],
         ),
       ),
@@ -124,7 +124,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 context,
                 AnimatedRoute(page: StartScreen()));
             },
-          child: Text("Get started",style: GoogleFonts.nunito(color:Color(0xfffafafa),fontSize:20.sp,fontWeight:FontWeight.bold),)),
+          child: Text(S.of(context).Get_started,style: GoogleFonts.nunito(color:Color(0xfffafafa),fontSize:20.sp,fontWeight:FontWeight.bold),)),
     );
  }
 }

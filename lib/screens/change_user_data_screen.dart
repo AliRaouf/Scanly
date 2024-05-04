@@ -92,7 +92,7 @@ class _ChangeUserDataScreenState extends State<ChangeUserDataScreen> {
                                   left: 205.w,
                                   child: IconButton(
                                       onPressed: () {
-                                        cubit.selectImage().then((image) {
+                                        cubit.changeUserImage().then((image) {
                                           setState(() {
                                             _selectedImage = image;
                                           });

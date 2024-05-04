@@ -296,7 +296,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               padding:
                                                   EdgeInsets.only(left: 8.w),
                                               child: Text(
-                                                "Medical History",
+                                                S.of(context).medical_history,
                                                 style: GoogleFonts.nunito(
                                                     fontSize: 12.sp,
                                                     color: Color(0xff232425)),

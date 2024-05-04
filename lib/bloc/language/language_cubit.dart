@@ -5,6 +5,8 @@ import 'package:meta/meta.dart';
 import 'package:scanly/model/language_enums.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../generated/l10n.dart';
+
 part 'language_state.dart';
 
 class LanguageCubit extends Cubit<LanguageState> {
@@ -41,7 +43,7 @@ class LanguageCubit extends Cubit<LanguageState> {
       context: context,
       builder: (context) {
         return SimpleDialog(
-          title: const Text('Select language'),
+          title: Text(S.of(context).change_language),
           children: [
             SimpleDialogOption(
               child: Text(LocaleNames['en'] ?? 'Unknown'),

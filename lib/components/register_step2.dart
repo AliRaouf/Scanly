@@ -1,12 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pw_validator/Resource/Strings.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:scanly/components/custom_form_text_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../bloc/register/register_cubit.dart';
 import '../generated/l10n.dart';
 
+class CustomPwValidatorStringsAR extends FlutterPwValidatorStrings {
+  @override
+  final String atLeast = "- أحرف على الأقل";
+
+  @override
+  final String normalLetters = "- أحرف";
+
+  @override
+  final String uppercaseLetters = "- الأحرف الكبيرة";
+
+  @override
+  final String lowercaseLetters = "- أحرف صغيرة";
+
+  @override
+  final String numericCharacters = "- أرقام";
+
+  @override
+  final String specialCharacters = "- Special character";
+}
+class CustomPwValidatorStrings extends FlutterPwValidatorStrings {
+  @override
+  final String atLeast = "At least - character";
+
+  @override
+  final String normalLetters = "- Letter";
+
+  @override
+  final String uppercaseLetters = "- Uppercase letter";
+
+  @override
+  final String lowercaseLetters = "- Lowercase letter";
+
+  @override
+  final String numericCharacters = "- Numeric character";
+
+  @override
+  final String specialCharacters = "- Special character";
+}
 class RegisterStep2 extends StatefulWidget {
   RegisterStep2(
       {super.key,
@@ -85,7 +126,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                         readOnly: false,
                         hint: "********",
                         obscureText: true),
-                    FlutterPwValidator(
+                    FlutterPwValidator(strings:Intl.getCurrentLocale()=="ar"?CustomPwValidatorStringsAR():CustomPwValidatorStrings(),
                       controller: widget.passwordController,
                       minLength: 8,
                       uppercaseCharCount: 1,

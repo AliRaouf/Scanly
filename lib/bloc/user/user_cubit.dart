@@ -117,6 +117,14 @@ class UserCubit extends Cubit<UserState> {
       print("after: ${image!.length}");
     }
   }
+  changeUserImage()async{
+    Uint8List? img = await pickImage(ImageSource.gallery);
+    if (img != null) {
+      image = await FlutterImageCompress.compressWithList(img,quality: 70,);
+      print("before: ${img.length}");
+      print("after: ${image!.length}");
+    }
+  }
   Future<void> logout() async {
     emit(UserLogoutLoading());
     try {
