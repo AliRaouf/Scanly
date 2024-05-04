@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 
@@ -49,7 +50,7 @@ class DiseaseDropDown extends StatelessWidget {
       selectionType: SelectionType.multi,
       chipConfig: const ChipConfig(wrapType: WrapType.wrap),
       dropdownHeight: screenHeight * 0.4,
-      optionTextStyle: GoogleFonts.nunito(fontSize: 16),
+      optionTextStyle: GoogleFonts.nunito(fontSize: 14.sp),
       selectedOptionIcon: const Icon(Icons.check_circle),
     );
   }
