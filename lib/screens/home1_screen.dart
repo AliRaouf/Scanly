@@ -95,7 +95,13 @@ class _Home1ScreenState extends State<Home1Screen> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10)),
                 width: 240.w,
-                child: CustomTextFormField(
+                child: CustomTextFormField(onChanged: (value) {
+                  setState(() {
+                    TestCubit.get(context)
+                        .updateFilteredTests(
+                        value);
+                  });
+                },
                     controller: searchController,
                     icon: IconButton(
                         color: Color(0xff179BE8),

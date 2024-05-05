@@ -10,10 +10,11 @@ class CustomTextFormField extends StatefulWidget {
   String? Function(String?)? validate;
   bool readOnly;
   void Function()? onTap;
+  void Function(String)? onChanged;
   TextInputType? type;
 
   CustomTextFormField(
-      {super.key,
+      {super.key,this.onChanged,
       this.type,
       required this.readOnly,
       required this.hint,
@@ -36,6 +37,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return TextFormField(
       keyboardType: widget.type,
       onTap: widget.onTap,
+      onChanged: widget.onChanged,
       readOnly: widget.readOnly,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: widget.controller,
