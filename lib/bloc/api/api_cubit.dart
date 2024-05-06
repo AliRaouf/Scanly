@@ -1,14 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
-
+import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
-import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tflite_flutter/tflite_flutter.dart';
 
 import '../user/user_cubit.dart';
 
