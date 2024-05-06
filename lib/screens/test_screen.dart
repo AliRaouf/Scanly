@@ -119,7 +119,7 @@ class TestScreen extends StatelessWidget {
           }
           else if (snapshot.hasData) {
             Map<String, dynamic> jsonData = snapshot.data!;
-            if(jsonData==null || jsonData.isEmpty){
+            if(jsonData==null || jsonData.isEmpty || jsonData["diagnosis"].isEmpty || jsonData["diagnosis"] == null || jsonData["Date"] == 'dd/MM/YYYY' || jsonData["Date"]=="DD/MM/YYYY"){
               return Container(
                 width: 1.sw,
                 height: 1.sh,

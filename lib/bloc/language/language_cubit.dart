@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:scanly/bloc/test/test_cubit.dart';
 import 'package:scanly/model/language_enums.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -61,8 +62,10 @@ class LanguageCubit extends Cubit<LanguageState> {
     if (selectedLanguageCode != null) {
       if(selectedLanguageCode=="ar"){
         LanguageCubit.get(context).languageFunction(LanguageEnums.ArabicLanguage);
+        TestCubit.get(context).filteredTests=TestCubit.get(context).tests_ar;
       }else{
         LanguageCubit.get(context).languageFunction(LanguageEnums.EnglishLanguage);
+        TestCubit.get(context).filteredTests=TestCubit.get(context).tests;
       }
     }
   }

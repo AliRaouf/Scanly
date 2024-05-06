@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
+
 part 'test_state.dart';
 
 class TestCubit extends Cubit<TestState> {
@@ -109,30 +110,24 @@ class TestCubit extends Cubit<TestState> {
   ];
   List<String> filteredTests = [];
 
-  updateFilteredTests(String searchText) {
+  updateFilteredTests(String searchText,List<String> tests) {
     filteredTests = searchText.isEmpty
         ? tests
-        : tests.where((test) =>
-        test.toLowerCase().contains(searchText.toLowerCase())).toList();
+        : tests
+            .where(
+                (test) => test.toLowerCase().contains(searchText.toLowerCase()))
+            .toList();
   }
 
-   saveTest(BuildContext context,Map<String, dynamic> test) {
+  saveTest(BuildContext context, Map<String, dynamic> test) {
     emit(SaveTestLoading());
     try {
       FirebaseFirestore.instance
           .collection("tests")
-          .doc(UserCubit
-          .get(context)
-          .user!
-          .email)
+          .doc(UserCubit.get(context).user!.email)
           .collection("userTest")
-          .add(
-          test
-      );
-      print('Test entry added for ${UserCubit
-          .get(context)
-          .user!
-          .email}');
+          .add(test);
+      print('Test entry added for ${UserCubit.get(context).user!.email}');
       emit(SaveTestSuccess());
     } catch (e) {
       print('Error adding Test entry: $e');
@@ -145,10 +140,7 @@ class TestCubit extends Cubit<TestState> {
     try {
       testStream = FirebaseFirestore.instance
           .collection('nutrition')
-          .doc(UserCubit
-          .get(context)
-          .user!
-          .email)
+          .doc(UserCubit.get(context).user!.email)
           .collection('TestLog')
           .snapshots();
       emit(ReceiveTestSuccess());
@@ -161,47 +153,129 @@ class TestCubit extends Cubit<TestState> {
   }
 
   Future<String> uploadImage(Uint8List file, BuildContext context) async {
-    String imgName = "${DateTime
-        .now()
-        .microsecondsSinceEpoch
-        .toString()
-    },${UserCubit
-        .get(context)
-        .user!.email}.Image";
-    Reference ref = FirebaseStorage.instance.ref('userTests').child(
-        imgName);
+    String imgName =
+        "${DateTime.now().microsecondsSinceEpoch.toString()},${UserCubit.get(context).user!.email}.Image";
+    Reference ref = FirebaseStorage.instance.ref('userTests').child(imgName);
     UploadTask uploadTask = ref.putData(file);
     TaskSnapshot snapshot = await uploadTask;
     String downloadUrl = await snapshot.ref.getDownloadURL();
     return downloadUrl;
   }
+
   Future<String> uploadPdf(File file, BuildContext context) async {
-    String imgName = "${DateTime
-        .now()
-        .microsecondsSinceEpoch
-        .toString()
-    },${UserCubit
-        .get(context)
-        .userEmail}.Document";
-    Reference ref = FirebaseStorage.instance.ref('userTests').child(
-        imgName);
+    String imgName =
+        "${DateTime.now().microsecondsSinceEpoch.toString()},${UserCubit.get(context).userEmail}.Document";
+    Reference ref = FirebaseStorage.instance.ref('userTests').child(imgName);
     UploadTask uploadTask = ref.putFile(file);
     TaskSnapshot snapshot = await uploadTask;
     String downloadUrl = await snapshot.ref.getDownloadURL();
     return downloadUrl;
   }
-  String extractTestName(Map<String,dynamic> tests){
+
+  String extractTestName(Map<String, dynamic> tests) {
     String? testName;
-    var keys=tests.keys.toList();
-    for (int i = 0;i<keys.length;i++){
-      if (keys[i]!="Comment" && keys[i]!="Date" && keys[i]!="Explanation" && keys[i]!="Recommendation" && keys[i]!="healthScore" && keys[i]!="image" && keys[i]!= "uploadDate"){
-        testName=keys[i];
+    var keys = tests.keys.toList();
+    for (int i = 0; i < keys.length; i++) {
+      if (keys[i] != "Comment" &&
+          keys[i] != "Date" &&
+          keys[i] != "Explanation" &&
+          keys[i] != "Recommendation" &&
+          keys[i] != "healthScore" &&
+          keys[i] != "image" &&
+          keys[i] != "uploadDate") {
+        testName = keys[i];
       }
     }
-    return testName??"Not Visible";
+    return testName ?? "Not Visible";
   }
+
   Future<Uint8List?> captureImage(screenshotController) async {
     final image = await screenshotController.capture();
     return image;
   }
+
+  List<String> tests_ar = [
+    "هرمون الغدة الدرقية (pth)",
+    "Tsh",
+    "T3 إجمالي وخالي",
+    "T4 إجمالي وخالي",
+    "فيتامين د",
+    "إجمالي الكالسيوم" "الكالسيوم المتأين" "المغنيسيوم",
+    "Favism (اختبار نقص G6PD)",
+    "سكر الدم الصائم",
+    "الجلوكوز بعد ساعتين",
+    "HbA1c",
+    "ملف الدهون",
+    "حديد المصل",
+    "الفيريتين",
+    "TIBC (إجمالي سعة ربط الحديد)",
+    "تشبع الترانسفيرين",
+    "CBC (تعداد الدم الكامل)",
+    "PT (زمن البروثرومبين)",
+    "PTT (وقت الثرومبوبلاستين الجزئي)",
+    "وقت النزيف",
+    "وقت التخثر",
+    "AST (SGOT)",
+    "ALT (SGPT)",
+    "البيليروبين",
+    "الألبومين",
+    "البروتين الكلي",
+    "الفوسفاتيز القلوي",
+    "الكرياتينين",
+    "يوريا الدم",
+    "حمض اليوريك",
+    "BUN",
+    "الصوديوم",
+    "البوتاسيوم",
+    "CRP (بروتين سي التفاعلي)",
+    "ESR (معدل ترسيب كرات الدم الحمراء)",
+    "تحليل البول",
+    "حمض البوليك",
+    "الثلاسيميا",
+    "FMF (حمى البحر الأبيض المتوسط)",
+    "التنميط النووي"
+  ];
+  List<String> bloodTests_ar = [
+    "هرمون الغدة الدرقية (pth)",
+    "Tsh",
+    "T3 إجمالي وخالي",
+    "T4 إجمالي وخالي",
+    "فيتامين د",
+    "إجمالي الكالسيوم" "الكالسيوم المتأين" "المغنيسيوم",
+    "Favism (اختبار نقص G6PD)",
+    "سكر الدم الصائم",
+    "الجلوكوز بعد ساعتين",
+    "HbA1c",
+    "ملف الدهون",
+    "حديد المصل",
+    "الفيريتين",
+    "TIBC (إجمالي سعة ربط الحديد)",
+    "تشبع الترانسفيرين",
+    "CBC  الدم الكامل)",
+    "PT (زمن البروثرومبين)",
+    "PTT (وقت الثرومبوبلاستين الجزئي)",
+    "وقت النزيف",
+    "وقت التخثر",
+    "AST (SGOT)",
+    "ALT (SGPT)",
+    "البيليروبين",
+    "الألبومين",
+    "البروتين الكلي",
+    "الفوسفاتيز القلوي",
+    "الكرياتينين",
+    "يوريا الدم",
+    "حمض اليوريك",
+    "BUN",
+    "الصوديوم",
+    "البوتاسيوم",
+    "CRP (بروتين سي التفاعلي)",
+    "ESR (معدل ترسيب كرات الدم الحمراء)"
+  ];
+  List<String> geneticTests_ar = [
+    "الثلاسيميا",
+    "FMF (حمى البحر الأبيض المتوسط)",
+    "التنميط النووي"
+  ];
+  List<String> urineTests_ar = ["تحليل البول",
+    "حمض البوليك",];
 }

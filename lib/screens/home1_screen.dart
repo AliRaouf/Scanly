@@ -45,14 +45,10 @@ class _Home1ScreenState extends State<Home1Screen> {
                         padding: EdgeInsets.only(left: 12.w),
                         child: GestureDetector(
                           onTap: ()async{
-                            // Navigator.push(
-                            //     context,
-                            //     AnimatedRoute(
-                            //         page: ProfileScreen()));
-                           print(ApiCubit.get(context).modelPath);
-                           await Future.delayed(Duration(seconds: 2));
-                           final interpreter = await ApiCubit.get(context).loadModel(ApiCubit.get(context).modelPath!);
-                           print(interpreter?.isAllocated);
+                            Navigator.push(
+                                context,
+                                AnimatedRoute(
+                                    page: ProfileScreen()));
                           },
                           child: CircleAvatar(
                             radius: 24.r,
@@ -101,21 +97,22 @@ class _Home1ScreenState extends State<Home1Screen> {
                     borderRadius: BorderRadius.circular(10)),
                 width: 240.w,
                 child: CustomTextFormField(onChanged: (value) {
+                  Intl.getCurrentLocale()=='ar'?setState(() {
+                    TestCubit.get(context)
+                        .updateFilteredTests(
+                        value,TestCubit.get(context).tests_ar);
+                  }) :
                   setState(() {
                     TestCubit.get(context)
                         .updateFilteredTests(
-                        value);
+                        value,TestCubit.get(context).tests);
                   });
                 },
                     controller: searchController,
                     icon: IconButton(
                         color: Color(0xff179BE8),
                         onPressed: () {
-                          setState(() {
-                            TestCubit.get(context)
-                                .updateFilteredTests(
-                                searchController.text);
-                          });
+
                         },
                         icon: Icon(Icons.search_rounded)),
                     readOnly: false,

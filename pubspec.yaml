@@ -42,7 +42,6 @@ dependencies:
   firebase_auth: ^4.15.2
   cloud_firestore: ^4.15.5
   google_fonts: ^6.1.0
-  dio: ^5.4.0
   cached_network_image: ^3.3.0
   iconify_flutter: ^0.0.5
   intl: ^0.18.1
@@ -74,8 +73,6 @@ dependencies:
   image: ^4.1.7
   flutter_image_compress: ^2.2.0
   screenshot: ^2.3.0
-  firebase_ml_model_downloader: ^0.2.5+3
-  tflite_flutter: ^0.10.4
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_test:

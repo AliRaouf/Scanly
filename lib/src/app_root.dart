@@ -36,7 +36,7 @@ class _AppRootState extends State<AppRoot> {
           BlocProvider(create: (context) => UserCubit()),
           BlocProvider(create: (context) => TestCubit()),
           BlocProvider(create: (context) => TextractCubit()),
-          BlocProvider(create: (context) => ApiCubit()..getModel()),
+          BlocProvider(create: (context) => ApiCubit()),
           BlocProvider(create: (context) => LanguageCubit()..languageFunction(LanguageEnums.InitialLanguage)),
         ],
         child: ScreenUtilInit(

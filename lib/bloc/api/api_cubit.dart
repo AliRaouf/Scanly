@@ -27,12 +27,14 @@ class ApiCubit extends Cubit<ApiState> {
     final request = CompleteText(maxTokens: 2500,
 
       prompt:'''
- Test:
+      if the test provided below isn't a ($testName) lab test document Return Empty Values in all the JSON KEYS
+      if you cant give a proper diagnosis or understanding return Null values in the JSON.
+      if you cant find a date in the text return dd/MM/YYYY
+ Test: $userTest
  gender : ${UserCubit.get(context).gender}
  height : ${UserCubit.get(context).height}Cm
  weight : ${UserCubit.get(context).weight}Kg
  medical history : ${UserCubit.get(context).diseases!.join(', ')}
- $userTest
   interpret this test and diagnose it thoroughly and add it to the explanation and translate it and add it into explanation_ar in the json and recommend which doctor specialization should the user go to if needed based on the test above
 extract the testName and add it to the JSON
 DON'T RETURN AN EXPLANATION OF THE TEST IT SELF RETURN EXPLANATION OF THE RESULTS OF THE TEST ABOVE THOROUGHLY and CONCISELY!
@@ -44,7 +46,7 @@ If the test values are outside the reference range, explain the possible implica
 "healthScore": "from 1 to 10 the output should be only the number"
 "Recommendation":
 "Recommendation_ar": same as Recommendation but in arabic
-"Date": dd/MM/YYYY Format         "Date of the test if there are multiple dates choose the earliest one"
+"Date":                  //dd/MM/YYYY Format         "Date of the test if there are multiple dates choose the earliest one"
 }
 only return the json at the end.
       ''',
@@ -71,38 +73,5 @@ only return the json at the end.
 
     return nestedKeyValuePairs;
   }
-  getModel(){
-    FirebaseModelDownloader.instance
-        .getModel(
-        "Document-Detector",
-        FirebaseModelDownloadType.latestModel,
-        FirebaseModelDownloadConditions(
-          androidChargingRequired: false,
-          androidWifiRequired: false,
-          androidDeviceIdleRequired: false,
-        )
-    )
-        .then((customModel)async{
-      // Download complete. Depending on your app, you could enable the ML
-      // feature, or switch from the local model to the remote model, etc.
-
-      // The CustomModel object contains the local path of the model file,
-      // which you can use to instantiate a TensorFlow Lite interpreter.
-      final localModelPath = await customModel.file;
-      print(customModel.size);
-      modelPath = localModelPath.path;
-      print(modelPath);
-    });
-  }
-  Future<Interpreter?> loadModel(String modelPath) async {
-    try {
-      final interpreter = await Interpreter.fromFile(File(modelPath));
-      await interpreter.allocateTensors;
-      return interpreter;
-    } catch (e) {
-      print("Error loading model: $e");
-      return null;
     }
-  }
 
-}

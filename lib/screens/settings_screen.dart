@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:scanly/screens/test_model_screen.dart';
+
 
 import '../bloc/language/language_cubit.dart';
 import '../bloc/user/user_cubit.dart';
@@ -250,7 +250,7 @@ class SettingsScreen extends StatelessWidget {
                                         cubit.fileToDisplay==null? null :
                                         pushScreen(
                                           context,
-                                          screen: TestModelScreen(),
+                                          screen: LegalTermsConditions(),
                                           withNavBar: false,
                                         );
                                     },

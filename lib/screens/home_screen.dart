@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:scanly/bloc/test/test_cubit.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 
@@ -37,13 +38,16 @@ class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
   var testHistory;
   var testScores;
+
   @override
   void initState() {
     testHistory = UserCubit.get(context)
         .getUserTestStream(FirebaseAuth.instance.currentUser!.email!);
     testScores = UserCubit.get(context)
         .getUserTestStream(FirebaseAuth.instance.currentUser!.email!);
-    TestCubit.get(context).filteredTests = TestCubit.get(context).tests;
+    Intl.getCurrentLocale() == 'ar'
+        ? TestCubit.get(context).filteredTests = TestCubit.get(context).tests_ar
+        : TestCubit.get(context).filteredTests = TestCubit.get(context).tests;
     TestCubit.get(context).receiveTestList(context);
     _pageController = PageController(initialPage: _currentIndex);
     super.initState();
@@ -120,17 +124,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 SalomonBottomBarItem(
                   activeIcon: Iconify(historyIcon, color: Color(0xff04657A)),
                   icon: Iconify(historyIconOutlined, color: Color(0xff232425)),
-                  title: Text(S.of(context).history, style: GoogleFonts.nunito()),
+                  title:
+                      Text(S.of(context).history, style: GoogleFonts.nunito()),
                 ),
                 SalomonBottomBarItem(
                   icon: Iconify(heartOutlineIcon, color: Color(0xff232425)),
-                  title: Text(S.of(context).health, style: GoogleFonts.nunito()),
+                  title:
+                      Text(S.of(context).health, style: GoogleFonts.nunito()),
                   activeIcon: Iconify(heartIcon, color: Color(0xff04657A)),
                 ),
                 SalomonBottomBarItem(
                   activeIcon: Icon(Icons.settings_rounded),
                   icon: Icon(Icons.settings_outlined),
-                  title: Text(S.of(context).setting, style: GoogleFonts.nunito()),
+                  title:
+                      Text(S.of(context).setting, style: GoogleFonts.nunito()),
                 ),
               ],
             ),
@@ -154,7 +161,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-
-
