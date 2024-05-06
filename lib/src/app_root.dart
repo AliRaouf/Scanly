@@ -36,7 +36,7 @@ class _AppRootState extends State<AppRoot> {
           BlocProvider(create: (context) => UserCubit()),
           BlocProvider(create: (context) => TestCubit()),
           BlocProvider(create: (context) => TextractCubit()),
-          BlocProvider(create: (context) => ApiCubit()),
+          BlocProvider(create: (context) => ApiCubit()..getModel()),
           BlocProvider(create: (context) => LanguageCubit()..languageFunction(LanguageEnums.InitialLanguage)),
         ],
         child: ScreenUtilInit(
@@ -48,7 +48,8 @@ class _AppRootState extends State<AppRoot> {
               return BlocBuilder<LanguageCubit, LanguageState>(
   builder: (context, state) {
     if (state is LanguageChange) {
-      return MaterialApp(locale: Locale(state.languageCode??"EN"),
+      return MaterialApp(theme: ThemeData.from(colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff1A83B6))),
+      locale: Locale(state.languageCode??"EN"),
                   localizationsDelegates: [
                     S.delegate,
                     GlobalMaterialLocalizations.delegate,

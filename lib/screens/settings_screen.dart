@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:scanly/screens/test_model_screen.dart';
 
 import '../bloc/language/language_cubit.dart';
 import '../bloc/user/user_cubit.dart';
@@ -238,12 +240,19 @@ class SettingsScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
+                                    onPressed: ()async{
+                                      // Navigator.push(
+                                      //     context,
+                                      //     AnimatedRoute(
+                                      //         page:
+                                      //         LegalTermsConditions()));
+                                        await cubit.pickFile();
+                                        cubit.fileToDisplay==null? null :
+                                        pushScreen(
                                           context,
-                                          AnimatedRoute(
-                                              page:
-                                              LegalTermsConditions()));
+                                          screen: TestModelScreen(),
+                                          withNavBar: false,
+                                        );
                                     },
                                     child: Padding(
                                       padding:

@@ -100,7 +100,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 index==0?TextButton(onPressed: ()async{
                   return await LanguageCubit.get(context).showLanguageDialog(context);
 
-                }, child: Text(S.of(context).change_language)):SizedBox.shrink()
+                }, child: Text(S.of(context).change_language,style: GoogleFonts.nunito(color:Color(0xff1A83B6),fontWeight:FontWeight.w600),)):SizedBox.shrink()
               ],
               );
     }

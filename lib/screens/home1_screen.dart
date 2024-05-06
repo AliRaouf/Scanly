@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:scanly/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
+import '../bloc/api/api_cubit.dart';
 import '../bloc/test/test_cubit.dart';
 import '../bloc/user/user_cubit.dart';
 import '../components/common_test_selection.dart';
@@ -43,11 +44,15 @@ class _Home1ScreenState extends State<Home1Screen> {
                       Padding(
                         padding: EdgeInsets.only(left: 12.w),
                         child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                AnimatedRoute(
-                                    page: ProfileScreen()));
+                          onTap: ()async{
+                            // Navigator.push(
+                            //     context,
+                            //     AnimatedRoute(
+                            //         page: ProfileScreen()));
+                           print(ApiCubit.get(context).modelPath);
+                           await Future.delayed(Duration(seconds: 2));
+                           final interpreter = await ApiCubit.get(context).loadModel(ApiCubit.get(context).modelPath!);
+                           print(interpreter?.isAllocated);
                           },
                           child: CircleAvatar(
                             radius: 24.r,

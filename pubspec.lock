@@ -537,6 +537,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.6+32"
+  firebase_ml_model_downloader:
+    dependency: "direct main"
+    description:
+      name: firebase_ml_model_downloader
+      sha256: "4f7d715728ffca298b61fa423a74ca9cf6213f7c564de88bcf312a6ffa04a433"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.5+3"
+  firebase_ml_model_downloader_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_ml_model_downloader_platform_interface
+      sha256: "26f50b1526c0476bf90dfa0e4919a7a6b8388a4fbd169b11e95cc68030be094d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.4+30"
   firebase_storage:
     dependency: "direct main"
     description:
@@ -1277,6 +1293,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      sha256: b1c1ac5ce6688d77f65f3375a9abb9319b3cb32486bdc7a1e0fdf004d7ba4e47
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.1"
   retry:
     dependency: transitive
     description:
@@ -1498,6 +1522,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.1"
+  tflite_flutter:
+    dependency: "direct main"
+    description:
+      name: tflite_flutter
+      sha256: ffb8651fdb116ab0131d6dc47ff73883e0f634ad1ab12bb2852eef1bbeab4a6a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.4"
   tuple:
     dependency: transitive
     description:

@@ -74,6 +74,8 @@ dependencies:
   image: ^4.1.7
   flutter_image_compress: ^2.2.0
   screenshot: ^2.3.0
+  firebase_ml_model_downloader: ^0.2.5+3
+  tflite_flutter: ^0.10.4
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_test:
