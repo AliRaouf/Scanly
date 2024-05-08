@@ -48,7 +48,7 @@ String warningIcon;
               List<double> scoresList = scores.map((map) => double.parse(map['healthScore'].toString())).toList();
               List<double> lastTenItems = scoresList.sublist(max(0, scoresList.length - 10), scoresList.length);
               print(lastTenItems);
-              return scores.isEmpty?
+              return scores.isEmpty || scores.length==1?
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Intl.getCurrentLocale() == 'ar'
         ? TestCubit.get(context).filteredTests = TestCubit.get(context).tests_ar
         : TestCubit.get(context).filteredTests = TestCubit.get(context).tests;
-    TestCubit.get(context).receiveTestList(context);
+    // TestCubit.get(context).receiveTestList(context);
     _pageController = PageController(initialPage: _currentIndex);
     super.initState();
   }

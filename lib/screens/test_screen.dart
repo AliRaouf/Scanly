@@ -119,7 +119,7 @@ class TestScreen extends StatelessWidget {
           }
           else if (snapshot.hasData) {
             Map<String, dynamic> jsonData = snapshot.data!;
-            if(jsonData==null || jsonData.isEmpty || jsonData["diagnosis"].isEmpty || jsonData["diagnosis"] == null || jsonData["Date"] == 'dd/MM/YYYY' || jsonData["Date"]=="DD/MM/YYYY"){
+            if(jsonData==null || jsonData.isEmpty || jsonData["diagnosis_en"].isEmpty || jsonData["diagnosis_en"] == null || jsonData["Date"] == 'dd/MM/YYYY' || jsonData["Date"]=="DD/MM/YYYY"){
               return Container(
                 width: 1.sw,
                 height: 1.sh,
@@ -191,7 +191,7 @@ class TestScreen extends StatelessWidget {
                         shrinkWrap: true,
                         physics: ClampingScrollPhysics(),
                         itemCount:
-                        jsonData.isEmpty? 1:jsonData["diagnosis"].trim().split('. ').length,
+                        jsonData.isEmpty? 1:jsonData["diagnosis_en"].trim().split('. ').length,
                         itemBuilder: (context, index) {
                           return Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -204,8 +204,8 @@ class TestScreen extends StatelessWidget {
                                         color: Color(0xff232425))),
                               ),
                               Expanded(
-                                child: Text(jsonData["diagnosis"]==null?"" :
-                                    "${jsonData["diagnosis"].trim().split('. ')[index]}.",
+                                child: Text(jsonData["diagnosis_en"]==null?"" :
+                                    "${jsonData["diagnosis_en"].trim().split('. ')[index]}.",
                                     style: GoogleFonts.nunito(
                                         fontSize: 12.sp,
                                         color: Color(0xff232425))),
@@ -228,7 +228,7 @@ class TestScreen extends StatelessWidget {
                                     color: Color(0xff232425),
                                     fontWeight: FontWeight.bold)),
                             Text(
-                              "${jsonData["Recommendation"]}",
+                              "${jsonData["Recommendation_en"]}",
                               style: GoogleFonts.nunito(
                                   fontSize: 12.sp, color: Color(0xff232425)),
                             ),

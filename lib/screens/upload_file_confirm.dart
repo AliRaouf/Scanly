@@ -18,9 +18,10 @@ import '../components/custom_page_route.dart';
 import '../generated/l10n.dart';
 
 class UploadFileConfirm extends StatefulWidget {
-  UploadFileConfirm({super.key, required this.testName});
+  UploadFileConfirm({super.key, required this.testName,required this.testName_ar});
   ScreenshotController screenshotController = ScreenshotController();
   String testName;
+  String testName_ar;
 
   @override
   State<UploadFileConfirm> createState() => _UploadFileConfirmState();
@@ -164,7 +165,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                         .then((_) => TextractCubit.get(context)
                                             .downloadAndGetText())
                                         .then((text) =>text.isEmpty || text==null ? Future(() => {})
-                                            :ApiCubit.get(context).getJSONFromPrompt(text,widget.testName,context));
+                                            :ApiCubit.get(context).getJSONFromPrompt(text,widget.testName,context,widget.testName_ar));
                                 Navigator.push(
                                     context,
                                     AnimatedRoute(
@@ -172,7 +173,6 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                       jsonDataFuture: jsonDataFuture,
                                     )));
                               } else {
-                                print("de7k");
                                 Future<Map<String, dynamic>> jsonDataFuture =
                                     TextractCubit.get(context)
                                         .createTempFileFromMemoryImage(
@@ -186,7 +186,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                         .then((_) => TextractCubit.get(context)
                                             .downloadAndGetText())
                                         .then((text) =>text.isEmpty || text==null ? Future(() => {})
-                                        :ApiCubit.get(context).getJSONFromPrompt(text,widget.testName,context));
+                                        :ApiCubit.get(context).getJSONFromPrompt(text,widget.testName,context,widget.testName_ar));
                                 Navigator.push(
                                     context,
                                     AnimatedRoute(

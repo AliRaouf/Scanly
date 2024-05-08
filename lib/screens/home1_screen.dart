@@ -14,18 +14,21 @@ import '../components/custom_page_route.dart';
 import '../components/gradient_button.dart';
 import '../components/scan_bottomsheet_popup.dart';
 import '../generated/l10n.dart';
+
 class Home1Screen extends StatefulWidget {
   Home1Screen({super.key});
+
   @override
   State<Home1Screen> createState() => _Home1ScreenState();
 }
 
 class _Home1ScreenState extends State<Home1Screen> {
   var searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var cubit = UserCubit.get(context);
-    return  Container(
+    return Container(
       width: 1.sw,
       height: 1.sh,
       decoration: BoxDecoration(
@@ -44,7 +47,7 @@ class _Home1ScreenState extends State<Home1Screen> {
                       Padding(
                         padding: EdgeInsets.only(left: 12.w),
                         child: GestureDetector(
-                          onTap: ()async{
+                          onTap: () async {
                             Navigator.push(
                                 context,
                                 AnimatedRoute(
@@ -80,7 +83,10 @@ class _Home1ScreenState extends State<Home1Screen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        "${S.of(context).welcome_name}${cubit.userName?.split(" ")[0] ?? ""}",
+                        "${S
+                            .of(context)
+                            .welcome_name}${cubit.userName?.split(" ")[0] ??
+                            ""}",
                         style: GoogleFonts.nunito(
                             fontSize: 14.sp,
                             color: Color(0xff232425),
@@ -97,15 +103,19 @@ class _Home1ScreenState extends State<Home1Screen> {
                     borderRadius: BorderRadius.circular(10)),
                 width: 240.w,
                 child: CustomTextFormField(onChanged: (value) {
-                  Intl.getCurrentLocale()=='ar'?setState(() {
+                  Intl.getCurrentLocale() == 'ar' ? setState(() {
                     TestCubit.get(context)
                         .updateFilteredTests(
-                        value,TestCubit.get(context).tests_ar);
+                        value, TestCubit
+                        .get(context)
+                        .tests_ar);
                   }) :
                   setState(() {
                     TestCubit.get(context)
                         .updateFilteredTests(
-                        value,TestCubit.get(context).tests);
+                        value, TestCubit
+                        .get(context)
+                        .tests);
                   });
                 },
                     controller: searchController,
@@ -116,16 +126,22 @@ class _Home1ScreenState extends State<Home1Screen> {
                         },
                         icon: Icon(Icons.search_rounded)),
                     readOnly: false,
-                    hint: S.of(context).search_test,
+                    hint: S
+                        .of(context)
+                        .search_test,
                     obscureText: false),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left:Intl.getCurrentLocale()=="ar"? 0:15.w,right: Intl.getCurrentLocale()=="ar"?15.w:0),
+                    padding: EdgeInsets.only(
+                        left: Intl.getCurrentLocale() == "ar" ? 0 : 15.w,
+                        right: Intl.getCurrentLocale() == "ar" ? 15.w : 0),
                     child: Text(
-                      S.of(context).commen_tests,
+                      S
+                          .of(context)
+                          .commen_tests,
                       style: GoogleFonts.nunito(
                           fontSize: 14.sp,
                           color: Color(0xff232425),
@@ -138,9 +154,13 @@ class _Home1ScreenState extends State<Home1Screen> {
                     height: 16.h,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left:Intl.getCurrentLocale()=="ar"? 0:18.w,right: Intl.getCurrentLocale()=="ar"?18.w:0),
+                    padding: EdgeInsets.only(
+                        left: Intl.getCurrentLocale() == "ar" ? 0 : 18.w,
+                        right: Intl.getCurrentLocale() == "ar" ? 18.w : 0),
                     child: Text(
-                      S.of(context).test,
+                      S
+                          .of(context)
+                          .test,
                       style: GoogleFonts.nunito(
                           fontSize: 14.sp,
                           color: Color(0xff232425),
@@ -152,11 +172,15 @@ class _Home1ScreenState extends State<Home1Screen> {
               Container(
                 height: 380.h,
                 child: ListView.builder(
-                    key: ValueKey<String>(TestCubit.get(context)
+                    key: ValueKey<String>(TestCubit
+                        .get(context)
                         .filteredTests
                         .join(',')),
                     itemCount:
-                    TestCubit.get(context).filteredTests.length,
+                    TestCubit
+                        .get(context)
+                        .filteredTests
+                        .length,
                     padding: EdgeInsets.symmetric(
                         vertical: 4, horizontal: 16),
                     itemBuilder: (context, index) {
@@ -178,7 +202,8 @@ class _Home1ScreenState extends State<Home1Screen> {
                             children: [
                               Expanded(
                                 child: Text(
-                                  TestCubit.get(context)
+                                  TestCubit
+                                      .get(context)
                                       .filteredTests[index],
                                   style: GoogleFonts.nunito(
                                       fontSize: 12.sp,
@@ -191,17 +216,42 @@ class _Home1ScreenState extends State<Home1Screen> {
                                   return GradientButton(
                                     screenWidth: 75.w,
                                     screenHeight: 30.h,
-                                    text: S.of(context).scan,
+                                    text: S
+                                        .of(context)
+                                        .scan,
                                     onpressed: () {
+                                      int num = TestCubit
+                                          .get(
+                                          context)
+                                          .tests
+                                          .indexOf(TestCubit
+                                          .get(
+                                          context)
+                                          .filteredTests[index]);
+                                      print(TestCubit
+                                          .get(
+                                          context)
+                                          .tests[num]);
+                                      print(TestCubit
+                                          .get(
+                                          context)
+                                          .tests_ar[num]);
                                       cubit.pickedFile = null;
                                       showModalBottomSheet(
                                           context: context,
                                           builder: (context) {
-                                            return ScanBottomSheetPopup(
-                                                testName: TestCubit.get(
+                                            return
+                                              ScanBottomSheetPopup(
+                                                testName: TestCubit
+                                                    .get(
                                                     context)
-                                                    .filteredTests[
-                                                index]);
+                                                    .tests[
+                                                num],
+                                                testName_ar:TestCubit
+                                                  .get(
+                                                  context)
+                                                  .tests_ar[
+                                              num],);
                                           });
                                     },
                                     fontSize: 12.sp,

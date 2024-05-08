@@ -84,7 +84,9 @@ class _GeneticScreenState extends State<GeneticScreen> {
                     ),
                     Expanded(
                       child: ListView.builder(
-                          itemCount: Intl.getCurrentLocale()=='ar'?cubit.geneticTests_ar.length :cubit.geneticTests.length,
+                          itemCount: Intl.getCurrentLocale() == 'ar'
+                              ? cubit.geneticTests_ar.length
+                              : cubit.geneticTests.length,
                           padding:
                               EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                           itemBuilder: (context, index) {
@@ -104,7 +106,9 @@ class _GeneticScreenState extends State<GeneticScreen> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        Intl.getCurrentLocale()=='ar'?cubit.geneticTests_ar[index] :cubit.geneticTests[index],
+                                        Intl.getCurrentLocale() == 'ar'
+                                            ? cubit.geneticTests_ar[index]
+                                            : cubit.geneticTests[index],
                                         style: GoogleFonts.openSans(
                                             fontSize: screenWidth * 0.04,
                                             color: Color(0xff232425),
@@ -125,7 +129,10 @@ class _GeneticScreenState extends State<GeneticScreen> {
                                                   return ScanBottomSheetPopup(
                                                       testName: TestCubit.get(
                                                               context)
-                                                          .geneticTests[index]);
+                                                          .geneticTests[index],
+                                                      testName_ar: TestCubit
+                                                              .get(context)
+                                                          .geneticTests_ar[index]);
                                                 });
                                           },
                                           fontSize: screenWidth * 0.033,

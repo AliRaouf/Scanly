@@ -84,7 +84,9 @@ class _UrineScreenState extends State<UrineScreen> {
                     Container(
                       height: screenHeight * 0.78,
                       child: ListView.builder(
-                          itemCount: Intl.getCurrentLocale()=='ar'?cubit.urineTests_ar.length :cubit.urineTests.length,
+                          itemCount: Intl.getCurrentLocale() == 'ar'
+                              ? cubit.urineTests_ar.length
+                              : cubit.urineTests.length,
                           padding:
                               EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                           itemBuilder: (context, index) {
@@ -104,7 +106,9 @@ class _UrineScreenState extends State<UrineScreen> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        Intl.getCurrentLocale()=='ar'?cubit.urineTests_ar[index] :cubit.urineTests[index],
+                                        Intl.getCurrentLocale() == 'ar'
+                                            ? cubit.urineTests_ar[index]
+                                            : cubit.urineTests[index],
                                         style: GoogleFonts.nunito(
                                             fontSize: screenWidth * 0.04,
                                             color: Color(0xff232425),
@@ -123,9 +127,12 @@ class _UrineScreenState extends State<UrineScreen> {
                                                 context: context,
                                                 builder: (context) {
                                                   return ScanBottomSheetPopup(
-                                                      testName: TestCubit.get(
-                                                              context)
-                                                          .urineTests[index]);
+                                                    testName:
+                                                        TestCubit.get(context)
+                                                            .urineTests[index],
+                                                    testName_ar:TestCubit.get(context)
+                                                        .urineTests_ar[index] ,
+                                                  );
                                                 });
                                           },
                                           fontSize: screenWidth * 0.033,

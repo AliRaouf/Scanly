@@ -11,9 +11,10 @@ import '../generated/l10n.dart';
 
 class ScanBottomSheetPopup extends StatefulWidget {
   ScanBottomSheetPopup({
-    super.key,required this.testName
+    super.key,required this.testName,required this.testName_ar
   });
 String testName;
+String testName_ar;
   @override
   State<ScanBottomSheetPopup> createState() => _ScanBottomSheetPopupState();
 }
@@ -51,7 +52,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                   cubit.fileToDisplay==null? null :
                   pushScreen(
                     context,
-                    screen: UploadFileConfirm(testName: widget.testName),
+                    screen: UploadFileConfirm(testName: widget.testName,testName_ar: widget.testName_ar,),
                     withNavBar: false,
                               );
                 },
@@ -97,7 +98,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                           });
                           pushScreen(
                             context,
-                            screen: UploadFileConfirm(testName: widget.testName),
+                            screen: UploadFileConfirm(testName: widget.testName,testName_ar: widget.testName_ar,),
                             withNavBar: false,
                           );
                         });

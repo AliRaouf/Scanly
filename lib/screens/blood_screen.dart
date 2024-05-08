@@ -68,7 +68,9 @@ class BloodScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount:Intl.getCurrentLocale()=='ar'?cubit.bloodTests_ar.length :cubit.bloodTests.length,
+                      itemCount: Intl.getCurrentLocale() == 'ar'
+                          ? cubit.bloodTests_ar.length
+                          : cubit.bloodTests.length,
                       padding:
                           EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                       itemBuilder: (context, index) {
@@ -87,7 +89,9 @@ class BloodScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    Intl.getCurrentLocale()=='ar'?cubit.bloodTests_ar[index] :cubit.bloodTests[index],
+                                    Intl.getCurrentLocale() == 'ar'
+                                        ? cubit.bloodTests_ar[index]
+                                        : cubit.bloodTests[index],
                                     style: GoogleFonts.openSans(
                                         fontSize: screenWidth * 0.04,
                                         color: Color(0xff232425),
@@ -106,9 +110,11 @@ class BloodScreen extends StatelessWidget {
                                             context: context,
                                             builder: (context) {
                                               return ScanBottomSheetPopup(
-                                                  testName:
-                                                      TestCubit.get(context)
-                                                          .bloodTests[index]);
+                                                testName: TestCubit.get(context)
+                                                    .bloodTests[index],
+                                                testName_ar: TestCubit.get(context)
+                                                    .bloodTests_ar[index],
+                                              );
                                             });
                                       },
                                       fontSize: screenWidth * 0.033,

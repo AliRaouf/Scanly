@@ -60,6 +60,49 @@ class TestCubit extends Cubit<TestState> {
     "FMF (Familial Mediterranean Fever)",
     "Karyotyping"
   ];
+  List<String> tests_ar = [
+    "هرمون الغدة الدرقية (pth)",
+    "Tsh",
+    "T3 إجمالي وخالي",
+    "T4 إجمالي وخالي",
+    "فيتامين د",
+    "إجمالي الكالسيوم",
+    "الكالسيوم المتأين",
+    "المغنيسيوم",
+    "Favism (اختبار نقص G6PD)",
+    "سكر الدم الصائم",
+    "الجلوكوز بعد ساعتين",
+    "HbA1c",
+    "ملف الدهون",
+    "حديد المصل",
+    "الفيريتين",
+    "TIBC (إجمالي سعة ربط الحديد)",
+    "تشبع الترانسفيرين",
+    "CBC (تعداد الدم الكامل)",
+    "PT (زمن البروثرومبين)",
+    "PTT (وقت الثرومبوبلاستين الجزئي)",
+    "وقت النزيف",
+    "وقت التخثر",
+    "AST (SGOT)",
+    "ALT (SGPT)",
+    "البيليروبين",
+    "الألبومين",
+    "البروتين الكلي",
+    "الفوسفاتيز القلوي",
+    "الكرياتينين",
+    "يوريا الدم",
+    "حمض اليوريك",
+    "BUN",
+    "الصوديوم",
+    "البوتاسيوم",
+    "CRP (بروتين سي التفاعلي)",
+    "ESR (معدل ترسيب كرات الدم الحمراء)",
+    "تحليل البول",
+    "حمض البوليك",
+    "الثلاسيميا",
+    "FMF (حمى البحر الأبيض المتوسط)",
+    "التنميط النووي"
+  ];
   List<String> bloodTests = [
     "Parathyroid hormone (pth)",
     "Tsh",
@@ -110,7 +153,7 @@ class TestCubit extends Cubit<TestState> {
   ];
   List<String> filteredTests = [];
 
-  updateFilteredTests(String searchText,List<String> tests) {
+  updateFilteredTests(String searchText, List<String> tests) {
     filteredTests = searchText.isEmpty
         ? tests
         : tests
@@ -135,22 +178,22 @@ class TestCubit extends Cubit<TestState> {
     }
   }
 
-  receiveTestList(BuildContext context) {
-    emit(ReceiveTestLoading());
-    try {
-      testStream = FirebaseFirestore.instance
-          .collection('nutrition')
-          .doc(UserCubit.get(context).user!.email)
-          .collection('TestLog')
-          .snapshots();
-      emit(ReceiveTestSuccess());
-      print("Test Received Successfully");
-      print(testStream!.length);
-    } on Exception catch (e) {
-      print('Error receiving Test entry: $e');
-      emit(ReceiveTestError());
-    }
-  }
+  // receiveTestList(BuildContext context) {
+  //   emit(ReceiveTestLoading());
+  //   try {
+  //     testStream = FirebaseFirestore.instance
+  //         .collection('nutrition')
+  //         .doc(UserCubit.get(context).user!.email)
+  //         .collection('TestLog')
+  //         .snapshots();
+  //     emit(ReceiveTestSuccess());
+  //     print("Test Received Successfully");
+  //     print(testStream!.length);
+  //   } on Exception catch (e) {
+  //     print('Error receiving Test entry: $e');
+  //     emit(ReceiveTestError());
+  //   }
+  // }
 
   Future<String> uploadImage(Uint8List file, BuildContext context) async {
     String imgName =
@@ -194,47 +237,6 @@ class TestCubit extends Cubit<TestState> {
     return image;
   }
 
-  List<String> tests_ar = [
-    "هرمون الغدة الدرقية (pth)",
-    "Tsh",
-    "T3 إجمالي وخالي",
-    "T4 إجمالي وخالي",
-    "فيتامين د",
-    "إجمالي الكالسيوم" "الكالسيوم المتأين" "المغنيسيوم",
-    "Favism (اختبار نقص G6PD)",
-    "سكر الدم الصائم",
-    "الجلوكوز بعد ساعتين",
-    "HbA1c",
-    "ملف الدهون",
-    "حديد المصل",
-    "الفيريتين",
-    "TIBC (إجمالي سعة ربط الحديد)",
-    "تشبع الترانسفيرين",
-    "CBC (تعداد الدم الكامل)",
-    "PT (زمن البروثرومبين)",
-    "PTT (وقت الثرومبوبلاستين الجزئي)",
-    "وقت النزيف",
-    "وقت التخثر",
-    "AST (SGOT)",
-    "ALT (SGPT)",
-    "البيليروبين",
-    "الألبومين",
-    "البروتين الكلي",
-    "الفوسفاتيز القلوي",
-    "الكرياتينين",
-    "يوريا الدم",
-    "حمض اليوريك",
-    "BUN",
-    "الصوديوم",
-    "البوتاسيوم",
-    "CRP (بروتين سي التفاعلي)",
-    "ESR (معدل ترسيب كرات الدم الحمراء)",
-    "تحليل البول",
-    "حمض البوليك",
-    "الثلاسيميا",
-    "FMF (حمى البحر الأبيض المتوسط)",
-    "التنميط النووي"
-  ];
   List<String> bloodTests_ar = [
     "هرمون الغدة الدرقية (pth)",
     "Tsh",
@@ -276,6 +278,8 @@ class TestCubit extends Cubit<TestState> {
     "FMF (حمى البحر الأبيض المتوسط)",
     "التنميط النووي"
   ];
-  List<String> urineTests_ar = ["تحليل البول",
-    "حمض البوليك",];
+  List<String> urineTests_ar = [
+    "تحليل البول",
+    "حمض البوليك",
+  ];
 }

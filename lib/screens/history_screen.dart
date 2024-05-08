@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
+import '../bloc/user/user_cubit.dart';
 import '../components/custom_page_route.dart';
 import '../generated/l10n.dart';
 import 'history_test_screen.dart';
@@ -79,24 +81,60 @@ class HistoryScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(15)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                    child: Row(crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          "${S.of(context).test_Name} ${tests[index]["testName"]}",
-                                          style: GoogleFonts.nunito(
-                                              color: Color(0xff232425),
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        Text(
-                                          "${S.of(context).Date_Test}: ${tests[index]["Date"] ?? "Not Included"}",
-                                          style: GoogleFonts.nunito(
-                                              color: Color(0xff232425),
-                                              fontWeight: FontWeight.w600),
-                                        )
+                                        Container(width: 0.7.sw,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                "${S.of(context).test_Name} ${Intl.getCurrentLocale()=='ar'? tests[index]["testName_ar"]:tests[index]["testName"]}",
+                                                style: GoogleFonts.nunito(
+                                                    color: Color(0xff232425),
+                                                    fontWeight: FontWeight.w600),
+                                              ),
+                                              Text(
+                                                "${S.of(context).Date_Test}: ${tests[index]["Date"] ?? "Not Included"}",
+                                                style: GoogleFonts.nunito(
+                                                    color: Color(0xff232425),
+                                                    fontWeight: FontWeight.w600),
+                                              )
+                                            ],
+                                          ),
+                                        ),IconButton(onPressed: (){
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text('Delete Test'),
+                                                content: const Text('Are you sure you want to delete this test?'),
+                                                actions: <Widget>[
+                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      TextButton(style: ButtonStyle(side: MaterialStatePropertyAll(BorderSide(color: Color(0xff000000)))),
+                                                        child: const Text('Cancel',style: TextStyle(color: Color(0xff333333)),),
+                                                        onPressed: () {
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                      ),
+                                                      TextButton(style: ButtonStyle(side: MaterialStatePropertyAll(BorderSide(color: Color(0xffff0000)))),
+                                                        child: const Text('Delete',style: TextStyle(color: Color(0xffff0000)),),
+                                                        onPressed: () {
+                                                          UserCubit.get(context).deleteUserTest(context,tests[index]["uploadDate"]);
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+
+                                        }, icon: Icon(Icons.delete))
                                       ],
                                     ),
                                   )),

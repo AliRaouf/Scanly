@@ -16,7 +16,7 @@ class ApiCubit extends Cubit<ApiState> {
   final openAi = OpenAI.instance.build(
       token: "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",
       baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 60)),enableLog: true);
-  Future<Map<String, dynamic>> getJSONFromPrompt(String userTest,String testName,BuildContext context) async {
+  Future<Map<String, dynamic>> getJSONFromPrompt(String userTest,String testName,BuildContext context,String userTest_ar) async {
     final prefs = await SharedPreferences.getInstance();
     print(prefs.getString('lang'));
     final request = CompleteText(maxTokens: 2500,
@@ -24,7 +24,7 @@ class ApiCubit extends Cubit<ApiState> {
       prompt:'''
       if the test provided below isn't a ($testName) lab test document Return Empty Values in all the JSON KEYS
       if you cant give a proper diagnosis or understanding return Null values in the JSON.
-      if you cant find a date in the text return dd/MM/YYYY
+      if you cant find a date format in the text return dd/MM/YYYY
  Test: $userTest
  gender : ${UserCubit.get(context).gender}
  height : ${UserCubit.get(context).height}Cm
@@ -35,11 +35,12 @@ extract the testName and add it to the JSON
 DON'T RETURN AN EXPLANATION OF THE TEST IT SELF RETURN EXPLANATION OF THE RESULTS OF THE TEST ABOVE THOROUGHLY and CONCISELY!
 {
 "testName": $testName
-"diagnosis": Diagnose the patient concisely with clear understandable language (while explaining how you found out if anything is wrong) If the test values are within the reference range, explain what this means for the patient's health.
+"testName_ar":$userTest_ar
+"diagnosis_en": Diagnose the patient concisely with clear understandable language (while explaining how you found out if anything is wrong) If the test values are within the reference range, explain what this means for the patient's health.
 If the test values are outside the reference range, explain the possible implications for the patient's health.
 "diagnosis_ar": same as diagnosis but translated to arabic
 "healthScore": "from 1 to 10 the output should be only the number"
-"Recommendation":
+"Recommendation_en":
 "Recommendation_ar": same as Recommendation but in arabic
 "Date":                  //dd/MM/YYYY Format         "Date of the test if there are multiple dates choose the earliest one"
 }

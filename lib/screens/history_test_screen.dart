@@ -43,7 +43,7 @@ class _HistoryTestScreenState extends State<HistoryTestScreen> {
 
               width: 1.sw,height: 200.h,
               child: ListView.builder(shrinkWrap: true,physics: ClampingScrollPhysics(),
-                itemCount:widget.testData["diagnosis"].trim().split('. ').length,
+                itemCount:widget.testData["diagnosis_en"].trim().split('. ').length,
                 itemBuilder: (context, index) {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +57,7 @@ class _HistoryTestScreenState extends State<HistoryTestScreen> {
                       Expanded(
                         child:Intl.getCurrentLocale()=='ar'?Text(widget.testData["diagnosis_ar"].trim().split('. ')[index],
                             style: GoogleFonts.nunito(
-                            fontSize: 12.sp, color: Color(0xff232425))):Text(widget.testData["diagnosis"].trim().split('. ')[index],
+                            fontSize: 12.sp, color: Color(0xff232425))):Text(widget.testData["diagnosis_en"].trim().split('. ')[index],
                             style: GoogleFonts.nunito(
                             fontSize: 12.sp, color: Color(0xff232425))),
                       ),
@@ -79,7 +79,7 @@ class _HistoryTestScreenState extends State<HistoryTestScreen> {
                             color: Color(0xff232425),
                             fontWeight: FontWeight.bold)),
                     Text(
-                      Intl.getCurrentLocale()=='ar'?widget.testData["Recommendation_ar"] :widget.testData["Recommendation"],
+                      Intl.getCurrentLocale()=='ar'?widget.testData["Recommendation_ar"] :widget.testData["Recommendation_en"],
                       style: GoogleFonts.nunito(
                           fontSize: 12.sp, color: Color(0xff232425)),
                     ),

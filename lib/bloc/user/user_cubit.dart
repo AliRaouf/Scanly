@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:image_picker/image_picker.dart';
@@ -182,6 +183,18 @@ class UserCubit extends Cubit<UserState> {
         .get().then((QuerySnapshot querySnapshot) {
       var doc = querySnapshot.docs.first;
       doc.reference.update({'username': userName,'height':height,"weight":weight}).then((value) => emit(UpdateUserDataSuccess()))
+          .catchError((error)=>emit(UpdateUserDataFailure()));
+    });
+  }
+  deleteUserTest(BuildContext context,Timestamp timestamp) {
+    FirebaseFirestore.instance
+        .collection("tests")
+        .doc(UserCubit.get(context).user!.email)
+        .collection("userTest")
+        .where('uploadDate',isEqualTo: timestamp)
+        .get().then((QuerySnapshot querySnapshot) {
+      var doc = querySnapshot.docs.first;
+      doc.reference.delete()
           .catchError((error)=>emit(UpdateUserDataFailure()));
     });
   }
