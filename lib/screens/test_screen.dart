@@ -13,8 +13,10 @@ import '../generated/l10n.dart';
 
 class TestScreen extends StatelessWidget {
   final Future<Map<String, dynamic>> jsonDataFuture;
+  final String testName;
+  final String testName_ar;
 
-  TestScreen({required this.jsonDataFuture});
+  TestScreen({required this.jsonDataFuture, required this.testName, required this.testName_ar});
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +95,6 @@ class TestScreen extends StatelessWidget {
               ),
             );
           } else if (snapshot.hasError) {
-            print(snapshot.error);
             return Container(
               width: 1.sw,
               height: 1.sh,
@@ -119,7 +120,7 @@ class TestScreen extends StatelessWidget {
           }
           else if (snapshot.hasData) {
             Map<String, dynamic> jsonData = snapshot.data!;
-            if(jsonData==null || jsonData.isEmpty || jsonData["diagnosis_en"].isEmpty || jsonData["diagnosis_en"] == null || jsonData["Date"] == 'dd/MM/YYYY' || jsonData["Date"]=="DD/MM/YYYY"){
+            if(jsonData==null || jsonData.isEmpty || jsonData["Date"] == 'dd/MM/YYYY' || jsonData["Date"]=="DD/MM/YYYY"){
               return Container(
                 width: 1.sw,
                 height: 1.sh,
@@ -149,7 +150,9 @@ class TestScreen extends StatelessWidget {
               print('image uploaded successfully. Download URL: $downloadUrl');
               jsonData.addAll({
                 "image": downloadUrl,
-                "uploadDate": FieldValue.serverTimestamp()
+                "uploadDate": FieldValue.serverTimestamp(),
+                "testName" : testName,
+                "testName_ar" : testName_ar
               });
               testCubit.saveTest(context, jsonData);
             }).catchError((error) {

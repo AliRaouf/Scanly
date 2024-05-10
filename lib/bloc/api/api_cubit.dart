@@ -21,32 +21,34 @@ class ApiCubit extends Cubit<ApiState> {
     print(prefs.getString('lang'));
     final request = CompleteText(maxTokens: 2500,
 
-      prompt:'''
-      if the test provided below isn't a ($testName) lab test document Return Empty Values in all the JSON KEYS
-      if you cant give a proper diagnosis or understanding return Null values in the JSON.
-      if you cant find a date format in the text return dd/MM/YYYY
- Test: $userTest
- gender : ${UserCubit.get(context).gender}
- height : ${UserCubit.get(context).height}Cm
- weight : ${UserCubit.get(context).weight}Kg
- medical history : ${UserCubit.get(context).diseases!.join(', ')}
-  interpret this test and diagnose it thoroughly and add it to the explanation and translate it and add it into explanation_ar in the json and recommend which doctor specialization should the user go to if needed based on the test above
-extract the testName and add it to the JSON
-DON'T RETURN AN EXPLANATION OF THE TEST IT SELF RETURN EXPLANATION OF THE RESULTS OF THE TEST ABOVE THOROUGHLY and CONCISELY!
+        prompt:'''
+User:
+-Test: $userTest
+-Gender: ${UserCubit.get(context).gender}
+-Height: ${UserCubit.get(context).height} cm
+-Weight: ${UserCubit.get(context).weight} kg
+-Medical History: ${UserCubit.get(context).diseases!.join(', ')}
+Instructions:
+1. Firstly validate that the Test provided as an actual lab test (Blood, Genetic or Urine) if it is a lab test then proceed with the response if not return an empty response.
+2. after validating the test i want you to make all the responses coming next firstly to take the User data into consideration then to be easily understandable and familiar with everyone.
+3. interpret this test and diagnose it thoroughly explaining all the results of the user and add it to the diagnosis part then translate it and add it into diagnosis_ar in the json and recommend which doctor specialization should the user go to if needed based on the test above
+4. After diagnosing the patient,Translate the diagnosis into Arabic and include it in the JSON at diagnosis_ar.
+5. Recommend the appropriate doctor specialization based on the test results and add to Recommendation in the json.
+6. Provide the date of the test in the format dd/MM/YYYY if you cant find a date return dd/MM/YYYY.
+7. Only return the JSON at the end.
+JSON Structure:
 {
-"testName": $testName
-"testName_ar":$userTest_ar
 "diagnosis_en": Diagnose the patient concisely with clear understandable language (while explaining how you found out if anything is wrong) If the test values are within the reference range, explain what this means for the patient's health.
 If the test values are outside the reference range, explain the possible implications for the patient's health.
 "diagnosis_ar": same as diagnosis but translated to arabic
 "healthScore": "from 1 to 10 the output should be only the number"
-"Recommendation_en":
+"Recommendation_en": recommend the user which doctor specialization they should go to.
 "Recommendation_ar": same as Recommendation but in arabic
 "Date":                  //dd/MM/YYYY Format         "Date of the test if there are multiple dates choose the earliest one"
 }
-only return the json at the end.
-      ''',
-      model: Gpt3TurboInstruct(),
+Only return the json at the End.
+''',
+        model: Gpt3TurboInstruct(),
     );
 
     final response = await openAi.onCompletion(request: request);

@@ -27,15 +27,17 @@ class _HistoryTestScreenState extends State<HistoryTestScreen> {
         child: Column(
           children: [
             SafeArea(
-                child:Container(height: 400.h,
+                child:Container(height: 400.h,width: 1.sw,
                   child:
                       widget.testData["image"].toString().contains(".Document")?
                           SizedBox.shrink()
                           :
-                  Image(
-                          image: NetworkImage(widget.testData["image"]),
-                          fit: BoxFit.cover,
-                        ),
+                  ClipRRect(borderRadius: BorderRadius.circular(15),
+                    child: Image(
+                            image: NetworkImage(widget.testData["image"]),
+                            fit: BoxFit.fill,
+                          ),
+                  ),
                 ),
                     ),
             SizedBox(height: 10.h,),

@@ -45,9 +45,10 @@ String warningIcon;
                 DateTime date2 = DateTime(yearB, monthB, dayB);
                 return date1.compareTo(date2);
               });
+              Set testNames =scores.map((map) => (map['testName'].toString())).toSet();
               List<double> scoresList = scores.map((map) => double.parse(map['healthScore'].toString())).toList();
               List<double> lastTenItems = scoresList.sublist(max(0, scoresList.length - 10), scoresList.length);
-              print(lastTenItems);
+              print(testNames);
               return scores.isEmpty || scores.length==1?
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -170,7 +170,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                     context,
                                     AnimatedRoute(
                                         page: TestScreen(
-                                      jsonDataFuture: jsonDataFuture,
+                                      jsonDataFuture: jsonDataFuture, testName: widget.testName, testName_ar: widget.testName_ar,
                                     )));
                               } else {
                                 Future<Map<String, dynamic>> jsonDataFuture =
@@ -191,7 +191,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                     context,
                                     AnimatedRoute(
                                         page: TestScreen(
-                                      jsonDataFuture: jsonDataFuture,
+                                      jsonDataFuture: jsonDataFuture,testName: widget.testName, testName_ar: widget.testName_ar
                                     )));
                               }
                             },
