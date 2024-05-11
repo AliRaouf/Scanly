@@ -330,19 +330,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Image.asset("assets/images/google.png"),
                             ),
                           )),
-                      ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.transparent),
-                              elevation: MaterialStatePropertyAll(0)),
-                          onPressed: () {},
-                          child: Container(
-                            width: 45.w,
-                            height: 44.h,
-                            child: ClipRRect(
-                              child: Image.asset("assets/images/apple.png"),
-                            ),
-                          ))
                     ],
                   ),
                   SizedBox(
