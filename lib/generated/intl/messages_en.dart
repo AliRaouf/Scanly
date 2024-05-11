@@ -139,7 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add a profile picture"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bad_health": MessageLookupByLibrary.simpleMessage(
-            "We noticed a decline in your recent health data that need a closer look. While this doesn\'t necessarily indicate a problem, it\'s important to be careful about your well-bein"),
+            "We noticed a decline in your recent health data that need a closer look. While this doesn\'t necessarily indicate a problem, it\'s important to be careful about your well-being"),
         "birth": MessageLookupByLibrary.simpleMessage("Date Of Birth"),
         "blood": MessageLookupByLibrary.simpleMessage("Blood"),
         "change_language":

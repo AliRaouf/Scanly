@@ -8,10 +8,20 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import '../components/line_chart.dart';
 import '../generated/l10n.dart';
 
-class HealthScreen extends StatelessWidget {
-   HealthScreen({super.key,required this.testScores,required this.warningIcon});
-var testScores;
-String warningIcon;
+class HealthScreen extends StatefulWidget {
+  HealthScreen(
+      {super.key, required this.testScores, required this.warningIcon});
+
+  var testScores;
+  String warningIcon;
+
+  @override
+  State<HealthScreen> createState() => _HealthScreenState();
+}
+
+class _HealthScreenState extends State<HealthScreen> {
+  var testController = TextEditingController();
+  List<double>? testScr;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,10 +30,9 @@ String warningIcon;
               image: AssetImage("assets/images/Scanly_bg.png"),
               fit: BoxFit.cover)),
       child: StreamBuilder<List<dynamic>>(
-          stream: testScores,
+          stream: widget.testScores,
           builder: (context, snapshot) {
-            if (snapshot.connectionState ==
-                ConnectionState.waiting) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
               CircularProgressIndicator();
             } else if (snapshot.hasError) {
               return Center(
@@ -45,96 +54,140 @@ String warningIcon;
                 DateTime date2 = DateTime(yearB, monthB, dayB);
                 return date1.compareTo(date2);
               });
-              Set testNames =scores.map((map) => (map['testName'].toString())).toSet();
-              List<double> scoresList = scores.map((map) => double.parse(map['healthScore'].toString())).toList();
-              List<double> lastTenItems = scoresList.sublist(max(0, scoresList.length - 10), scoresList.length);
+              Set testNames =
+                  scores.map((map) => (map['testName'].toString())).toSet();
+              List<double> scoresList = scores
+                  .map((map) => double.parse(map['healthScore'].toString()))
+                  .toList();
+              List<double> lastTenItems = scoresList.sublist(
+                  max(0, scoresList.length - 10), scoresList.length);
               print(testNames);
-              return scores.isEmpty || scores.length==1?
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset("assets/images/no_data.png"),
-                  Text(
-                    S.of(context).no_tests_added,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.nunito(
-                        fontSize: 18.sp,
-                        color: Color(0xff232425)),
-                  )
-                ],
-              ) :Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: 32.h, horizontal: 8.w),
-                child: Column(
-                  children: [
-                    LineChartSample2(score:lastTenItems,),
-                    Row(
+              return scores.isEmpty || scores.length == 1
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Image.asset("assets/images/no_data.png"),
                         Text(
-                          S.of(context).health_check,
+                          S.of(context).no_tests_added,
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.nunito(
-                              fontSize: 20.sp,
-                              color: Color(0xff232425),
-                              fontWeight: FontWeight.w600),
-                        ),
+                              fontSize: 18.sp, color: Color(0xff232425)),
+                        )
                       ],
-                    ),
-                    lastTenItems[(lastTenItems.length - 1)] >=
-                        lastTenItems[(lastTenItems.length - 2)]
-                        ? Container(
-                      child: Row(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    )
+                  : Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 40.h, horizontal: 8.w),
+                      child: Column(
                         children: [
-                          Padding(
-                            padding:
-                            EdgeInsets.only(right: 8.0.w),
-                            child: Icon(
-                                Icons.check_circle_rounded,
-                                color: Color(0xff2a7f2d),
-                                size: 40.w),
-                          ),
-                          Expanded(
-                            child: Text(
-                              S.of(context).good_health,
-                              style: GoogleFonts.nunito(
-                                  color: Color(0xff232425),
-                                  fontSize: 14.sp,
-                                  fontWeight:
-                                  FontWeight.w600),
+                          Container(decoration: BoxDecoration(color: Color(0xfffefefe),borderRadius: BorderRadius.circular(10)),
+                            child: DropdownMenu(hintText: "Select a Test",
+                              onSelected: (value){
+                                testController.text=value;
+                                testScr=scores.where((element) => element['testName']==testController.text).map((map) => double.parse(map['healthScore'].toString()))
+                                    .toList();
+                              setState(() {
+                                print(testScr);
+                              });
+                            },
+                              controller: testController,
+                              inputDecorationTheme: InputDecorationTheme(
+                                constraints: BoxConstraints(maxHeight: 0.075.sh),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(
+                                        color: Color(0xff3DADA1))),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(
+                                        color: Color(0xff3DADA1))),
+                              ),
+                              dropdownMenuEntries: testNames.map((item) {
+                                return DropdownMenuEntry(
+                                  value: item,
+                                  label: item.toString(),
+                                );
+                              }).toList(),
                             ),
+                          ),
+                          Column(
+                            children: [
+                              testScr!=null?
+                              Column(
+                                children: [
+                                  LineChartSample2(
+                                    score: testScr!
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        S.of(context).health_check,
+                                        style: GoogleFonts.nunito(
+                                            fontSize: 20.sp,
+                                            color: Color(0xff232425),
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ],
+                                  ),
+                                  // lastTenItems[(lastTenItems.length - 1)] >=
+                                  //         lastTenItems[(lastTenItems.length - 2)]
+                                          testScr!.length>=2?testScr![(testScr!.length-1)] >= testScr![(testScr!.length-2)]
+                                      ? Container(
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.only(right: 8.0.w),
+                                                child: Icon(Icons.check_circle_rounded,
+                                                    color: Color(0xff2a7f2d),
+                                                    size: 40.w),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  S.of(context).good_health,
+                                                  style: GoogleFonts.nunito(
+                                                      color: Color(0xff232425),
+                                                      fontSize: 14.sp,
+                                                      fontWeight: FontWeight.w600),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      : Container(
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.only(right: 8.0.w),
+                                                child: Iconify(widget.warningIcon,
+                                                    color: Color(0xffd22424),
+                                                    size: 40.w),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  S.of(context).bad_health,
+                                                  style: GoogleFonts.nunito(
+                                                      color: Color(0xff232425),
+                                                      fontSize: 14.sp,
+                                                      fontWeight: FontWeight.w600),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ):
+                                              Text("You need at least 2 tests",style: GoogleFonts.nunito(),)
+                                ],
+                              ):SizedBox.shrink()
+                            ],
                           )
                         ],
                       ),
-                    )
-                        : Container(
-                      child: Row(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding:
-                            EdgeInsets.only(right: 8.0.w),
-                            child: Iconify(warningIcon,
-                                color: Color(0xffd22424),
-                                size: 40.w),
-                          ),
-                          Expanded(
-                            child: Text(
-                              S.of(context).bad_health,
-                              style: GoogleFonts.nunito(
-                                  color: Color(0xff232425),
-                                  fontSize: 14.sp,
-                                  fontWeight:
-                                  FontWeight.w600),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              );
+                    );
             }
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -144,8 +197,7 @@ String warningIcon;
                   S.of(context).no_tests_added,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.nunito(
-                      fontSize: 18.sp,
-                      color: Color(0xff232425)),
+                      fontSize: 18.sp, color: Color(0xff232425)),
                 )
               ],
             );

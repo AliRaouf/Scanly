@@ -893,7 +893,7 @@ class S {
   /// `We noticed a decline in your recent health data that need a closer look. While this doesn't necessarily indicate a problem, it's important to be careful about your well-bein`
   String get bad_health {
     return Intl.message(
-      'We noticed a decline in your recent health data that need a closer look. While this doesn\'t necessarily indicate a problem, it\'s important to be careful about your well-bein',
+      'We noticed a decline in your recent health data that need a closer look. While this doesn\'t necessarily indicate a problem, it\'s important to be careful about your well-being',
       name: 'bad_health',
       desc: '',
       args: [],

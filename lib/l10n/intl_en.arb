@@ -83,7 +83,7 @@
 "error" : "error",
 "no_tests_added" : "You have not added any tests yet\nStart Adding Now!",
 "good_health" : "Fantastic news!\nBased on your latest test results, your health is on an upward trend. Keep up the great work!",
-"bad_health" : "We noticed a decline in your recent health data that need a closer look. While this doesn't necessarily indicate a problem, it's important to be careful about your well-bein",
+"bad_health" : "We noticed a decline in your recent health data that need a closer look. While this doesn't necessarily indicate a problem, it's important to be careful about your well-being",
 "See_Doctor" : "Should You See a Doctor?",
 "loading1" : "Getting Your Results!",
 "loading2" : "Feeling tired? Drinking plenty of water can boost your energy levels.",
