@@ -40,15 +40,12 @@ class TextractCubit extends Cubit<TextractState> {
           localFile: awsFile,
           options: uploadFileOption,
           onProgress: (progress) {
-            safePrint('Progress: ${progress.fractionCompleted}');
             if (progress.fractionCompleted == 1) {
               emit(UploadImageSuccess());
             }
           });
       imageTextFile = key;
-      safePrint('Uploaded file: $result');
     } on StorageException catch (e) {
-      safePrint('Error uploading image: ${e.message}');
       emit(UploadImageError());
     }
   }
@@ -59,21 +56,16 @@ class TextractCubit extends Cubit<TextractState> {
 
     // Construct the nested key path
     final nestedKey = 'public/$imageTextFile.txt';
-    print(nestedKey);
-    print(filePath!);
     try {
       final result = await Amplify.Storage.downloadFile(
         options:
             StorageDownloadFileOptions(accessLevel: StorageAccessLevel.guest),
         key: nestedKey,
         onProgress: (progress) {
-          safePrint('Fraction completed: ${progress.fractionCompleted}');
         },
         localFile: AWSFile.fromPath(filePath!),
       ).result;
-      safePrint('Downloaded file is located at: ${result.downloadedItem.size}');
     } on StorageException catch (e) {
-      safePrint(e.message);
     }
   }
 
@@ -88,7 +80,6 @@ class TextractCubit extends Cubit<TextractState> {
         // Break the loop if text is not null or empty
         break;
       } on FileSystemException catch (e) {
-        safePrint('Error accessing downloaded file: $e');
         text = '';
       }
       // Wait 10 seconds before retrying
@@ -118,7 +109,6 @@ class TextractCubit extends Cubit<TextractState> {
 
         // Process the list of items
         for (StorageItem item in result.items) {
-          print('File Key: ${item.key}');
         }
 
         // Fetch next page if available
@@ -126,7 +116,6 @@ class TextractCubit extends Cubit<TextractState> {
         hasNextPage = result.hasNextPage;
       } while (hasNextPage);
     } on StorageException catch (e) {
-      print('Error listing files: ${e.message}');
     }
   }
 }

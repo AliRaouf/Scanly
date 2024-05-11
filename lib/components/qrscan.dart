@@ -60,7 +60,6 @@ class _QRScanState extends State<QRScan> {
       setState(() {
         result = scanData;
       });
-      print('Barcode Type: ${(result!.format.toString())}   Data: ${result!.code}');
     });
   }
 }

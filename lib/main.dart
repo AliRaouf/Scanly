@@ -14,7 +14,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   final onboarding = prefs.getBool("onboarding") ?? false;
-  print(onboarding);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

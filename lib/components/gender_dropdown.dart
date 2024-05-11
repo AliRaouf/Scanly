@@ -46,7 +46,6 @@ class GenderDropDown extends StatelessWidget {
         dropdownMenuEntries: genders,
         onSelected: (value) {
           genderController.text = value!;
-          print(genderController.text);
         });
   }
 }

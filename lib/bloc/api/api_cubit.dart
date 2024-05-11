@@ -18,7 +18,6 @@ class ApiCubit extends Cubit<ApiState> {
       baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 60)),enableLog: true);
   Future<Map<String, dynamic>> getJSONFromPrompt(String userTest,String testName,BuildContext context,String userTest_ar) async {
     final prefs = await SharedPreferences.getInstance();
-    print(prefs.getString('lang'));
     final request = CompleteText(maxTokens: 2500,
 
         prompt:'''
@@ -52,7 +51,6 @@ Only return the json at the End.
     );
 
     final response = await openAi.onCompletion(request: request);
-    print("$response");
     return jsonDecode(response!.choices[0].text);
   }
   List<MapEntry<String, Map<String, dynamic>>> getNestedKeyValuePairs(

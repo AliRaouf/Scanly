@@ -122,7 +122,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             width: 1.sw,
                             height: 105.h,
                             onSuccess: () {
-                              print("Success");
                             })
                       ]),
                     ),

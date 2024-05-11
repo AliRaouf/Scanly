@@ -53,7 +53,6 @@ class RegisterCubit extends Cubit<RegisterState> {
     if (file != null) {
       return await file.readAsBytes();
     } else {
-      print("No Image Selected");
     }
   }
 
@@ -81,7 +80,6 @@ class RegisterCubit extends Cubit<RegisterState> {
         password: password,
       );
       emit(RegisterUserSuccess());
-      print("UserCreated");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         error = 'The password provided is too weak.';
@@ -91,7 +89,6 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(RegisterUserError());
       }
     } catch (e) {
-      print(e);
       emit(RegisterUserError());
     }
   }
@@ -115,11 +112,9 @@ class RegisterCubit extends Cubit<RegisterState> {
         "weight":weight,
         "diseases":diseases
       });
-      print("user saved success");
       emit(SaveUserSuccessState());
     } on Exception catch (e) {
       emit(SaveUserErrorState());
-      print("couldnt save user $e");
     }
   }
   Future<Uint8List> getDefaultImageBytesFromImage(String imageUrl) async {

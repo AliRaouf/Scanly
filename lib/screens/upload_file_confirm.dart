@@ -92,7 +92,6 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                     setState(() {
                                       pages = _pages;
                                       isReady = true;
-                                      print(pages);
                                     });
                                   }),
                             ),

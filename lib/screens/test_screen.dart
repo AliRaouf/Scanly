@@ -147,7 +147,6 @@ class TestScreen extends StatelessWidget {
             testCubit
                 .uploadImage(userCubit.image!, context)
                 .then((downloadUrl) {
-              print('image uploaded successfully. Download URL: $downloadUrl');
               jsonData.addAll({
                 "image": downloadUrl,
                 "uploadDate": FieldValue.serverTimestamp(),
@@ -156,7 +155,6 @@ class TestScreen extends StatelessWidget {
               });
               testCubit.saveTest(context, jsonData);
             }).catchError((error) {
-              print('Error uploading file: $error');
             });
             return
               Container(

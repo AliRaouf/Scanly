@@ -141,7 +141,6 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                       setState(() {
                         dateController.text=DateFormat('d/M/yyyy').format(date!);
                       });
-                      print(dateController.text);
                     }
                   },),
                 ],

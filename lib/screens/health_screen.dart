@@ -61,7 +61,6 @@ class _HealthScreenState extends State<HealthScreen> {
                   .toList();
               List<double> lastTenItems = scoresList.sublist(
                   max(0, scoresList.length - 10), scoresList.length);
-              print(testNames);
               return scores.isEmpty || scores.length == 1
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,

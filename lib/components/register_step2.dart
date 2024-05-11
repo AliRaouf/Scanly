@@ -133,9 +133,8 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       width: 1.sw,
                       height: 115.h,
                       onSuccess: () {
-                        print("Success");
+
                         RegisterCubit.get(context).pwValidate=true;
-                        print(RegisterCubit.get(context).pwValidate);
                       },
                     )
                   ],

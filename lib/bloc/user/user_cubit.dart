@@ -36,7 +36,6 @@ class UserCubit extends Cubit<UserState> {
   Stream? testStream;
   getUserData() {
     user = FirebaseAuth.instance.currentUser;
-    print(user?.email ?? "de7ka");
     emit(GetUserDataState());
   }
   Future<String> uploadImage(Uint8List file, email) async {
@@ -66,14 +65,11 @@ class UserCubit extends Cubit<UserState> {
         weight=querySnapshot.docs.first.get("weight");
         phoneNumber=querySnapshot.docs.first.get("phoneNumber");
         emit(ReceiveUserNameSuccessState());
-        print("de7k");
       } else {
         emit(ReceiveUserNameErrorState());
-        print("error");
       }
     } catch (e) {
       emit(ReceiveUserNameErrorState());
-      print(e);
     }
   }
   Future<void> pickFile() async {
@@ -89,15 +85,11 @@ class UserCubit extends Cubit<UserState> {
         pickedFile = result!.files.first;
         fileToDisplay = File(pickedFile!.path!);
         image = await FlutterImageCompress.compressWithFile(pickedFile?.path??"",quality: 70,);
-        print("after: ${image!.length}");
-        print("$fileName.$extension");
         emit(PickFileSuccess());
       } else {
-        print("No file selected");
         emit(PickFileError());
       }
     } catch (e) {
-      print(e);
       emit(PickFileError());
     }
   }
@@ -107,23 +99,20 @@ class UserCubit extends Cubit<UserState> {
     if (file != null) {
       return await file.readAsBytes();
     } else {
-      print("No Image Selected");
     }
   }
   selectImage() async {
     Uint8List? img = await pickImage(ImageSource.camera);
     if (img != null) {
       image = await FlutterImageCompress.compressWithList(img,quality: 70,);
-      print("before: ${img.length}");
-      print("after: ${image!.length}");
+
     }
   }
   changeUserImage()async{
     Uint8List? img = await pickImage(ImageSource.gallery);
     if (img != null) {
       image = await FlutterImageCompress.compressWithList(img,quality: 70,);
-      print("before: ${img.length}");
-      print("after: ${image!.length}");
+
     }
   }
   Future<void> logout() async {
@@ -132,7 +121,6 @@ class UserCubit extends Cubit<UserState> {
       await FirebaseAuth.instance.signOut();
       emit(UserLogoutSuccess());
     } catch (e) {
-      print('Error signing out: $e');
       emit(UserLogoutError());
     }
   }
@@ -143,15 +131,12 @@ class UserCubit extends Cubit<UserState> {
     user!.reauthenticateWithCredential(credential)
         .then((_) {
       user!.updatePassword(newPassword).then((_) {
-        print('Password updated successfully');
         updateUserPassword(newPassword);
         emit(ChangeUserPasswordSuccessState());
       }).catchError((error) {
-        print('Error updating password: $error');
         emit(ChangeUserPasswordErrorState());
       });
     }).catchError((error) {
-      print('Error re-authenticating user: $error');
       emit(ChangeUserPasswordErrorState());
     });
   }
@@ -163,7 +148,7 @@ class UserCubit extends Cubit<UserState> {
         .get().then((QuerySnapshot querySnapshot) {
       var doc = querySnapshot.docs.first;
       doc.reference.update({'password': newPassword}).then((value) => print("Password Updated Successfully"))
-          .catchError((error)=>print("Failed To Update Password"));
+          .catchError((error)=>debugPrint("Failed To Update Password"));
     });
   }
   updateUserImage(String imageUrl) {

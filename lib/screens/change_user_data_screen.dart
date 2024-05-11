@@ -208,7 +208,6 @@ class _ChangeUserDataScreenState extends State<ChangeUserDataScreen> {
                             await cubit.updateUserData(nameController.text, int.parse(heightController.text), int.parse(weightController.text));
                             cubit.logout();
                           }else{
-                            print("else");
                             await cubit.updateUserData(nameController.text, int.parse(heightController.text), int.parse(weightController.text));
                             cubit.logout();
                           }

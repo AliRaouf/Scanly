@@ -36,7 +36,6 @@ class _CheckBoxState extends State<CheckBox> {
       onChanged: (bool? value) {
         setState(() {
           LoginCubit.get(context).isChecked  = value!;
-          print(LoginCubit.get(context).isChecked);
         });
       },
     );

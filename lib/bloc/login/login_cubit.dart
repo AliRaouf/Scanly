@@ -43,7 +43,6 @@ class LoginCubit extends Cubit<LoginState> {
           prefs.setBool("remember_me", isChecked);
           prefs.setString('email', email);
           prefs.setString('password', password);
-          print("success");
         },
       );
     } else if (isChecked == false) {
@@ -52,7 +51,6 @@ class LoginCubit extends Cubit<LoginState> {
           prefs.setBool("remember_me", isChecked);
           prefs.setString('email', '');
           prefs.setString('password', '');
-          print("success 0");
         },
       );
     }
@@ -70,7 +68,6 @@ class LoginCubit extends Cubit<LoginState> {
         isChecked = rememberMe;
       }
     } catch (e) {
-      print(e);
     }
   }
 
@@ -97,7 +94,6 @@ class LoginCubit extends Cubit<LoginState> {
         return null;
       }
     } catch (e) {
-      print("Error signing in with Google: $e");
       return null;
     }
   }
@@ -111,7 +107,6 @@ class LoginCubit extends Cubit<LoginState> {
           .signInWithCredential(facebookAuthCredential);
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
-      print(e.message);
       return null;
     }
   }
@@ -139,7 +134,6 @@ doesEmailExist(String email) async {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
 
     QuerySnapshot querySnapshot = await users.where('email', isEqualTo: email).get();
-    print(querySnapshot.docs.isNotEmpty);
     isExist=querySnapshot.docs.isNotEmpty;
 
   }

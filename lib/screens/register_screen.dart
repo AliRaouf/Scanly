@@ -327,7 +327,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   if (index <= 2 && index > 0) {
                                     setState(() {
                                       index--;
-                                      print(index);
                                     });
                                   } else if (index == 0) {
                                     Navigator.pop(context);

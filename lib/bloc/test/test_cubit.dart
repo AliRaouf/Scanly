@@ -170,10 +170,8 @@ class TestCubit extends Cubit<TestState> {
           .doc(UserCubit.get(context).user!.email)
           .collection("userTest")
           .add(test);
-      print('Test entry added for ${UserCubit.get(context).user!.email}');
       emit(SaveTestSuccess());
     } catch (e) {
-      print('Error adding Test entry: $e');
       emit(SaveTestError());
     }
   }
