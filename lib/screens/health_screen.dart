@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:intl/intl.dart';
 
 import '../components/line_chart.dart';
 import '../generated/l10n.dart';
@@ -22,6 +23,8 @@ class HealthScreen extends StatefulWidget {
 class _HealthScreenState extends State<HealthScreen> {
   var testController = TextEditingController();
   List<double>? testScr;
+  Set? testNames;
+  List<double>? scoresList;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,13 +57,21 @@ class _HealthScreenState extends State<HealthScreen> {
                 DateTime date2 = DateTime(yearB, monthB, dayB);
                 return date1.compareTo(date2);
               });
-              Set testNames =
-                  scores.map((map) => (map['testName'].toString())).toSet();
-              List<double> scoresList = scores
-                  .map((map) => double.parse(map['healthScore'].toString()))
-                  .toList();
-              List<double> lastTenItems = scoresList.sublist(
-                  max(0, scoresList.length - 10), scoresList.length);
+              if (Intl.getCurrentLocale()=='en') {
+                testNames =
+                    scores.map((map) => (map['testName'].toString())).toSet();
+                scoresList = scores
+                    .map((map) => double.parse(map['healthScore'].toString()))
+                    .toList();
+              }else{
+                testNames =
+                scores.map((map) => (map['testName_ar'].toString())).toSet();
+                scoresList = scores
+                    .map((map) => double.parse(map['healthScore'].toString()))
+                    .toList();
+              }
+              List<double> lastTenItems = scoresList!.sublist(
+                  max(0, scoresList!.length - 10), scoresList!.length);
               return scores.isEmpty || scores.length == 1
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -80,11 +91,16 @@ class _HealthScreenState extends State<HealthScreen> {
                       child: Column(
                         children: [
                           Container(decoration: BoxDecoration(color: Color(0xfffefefe),borderRadius: BorderRadius.circular(10)),
-                            child: DropdownMenu(hintText: "Select a Test",
+                            child: DropdownMenu(hintText: Intl.getCurrentLocale()=='en' ?"Select a Test":"اختار تحليل",
                               onSelected: (value){
                                 testController.text=value;
-                                testScr=scores.where((element) => element['testName']==testController.text).map((map) => double.parse(map['healthScore'].toString()))
-                                    .toList();
+                                if (Intl.getCurrentLocale()=='en') {
+                                  testScr=scores.where((element) => element['testName']==testController.text).map((map) => double.parse(map['healthScore'].toString()))
+                                      .toList();
+                                }else{
+                                  testScr=scores.where((element) => element['testName_ar']==testController.text).map((map) => double.parse(map['healthScore'].toString()))
+                                      .toList();
+                                }
                               setState(() {
                                 print(testScr);
                               });
@@ -103,7 +119,7 @@ class _HealthScreenState extends State<HealthScreen> {
                                     borderSide: const BorderSide(
                                         color: Color(0xff3DADA1))),
                               ),
-                              dropdownMenuEntries: testNames.map((item) {
+                              dropdownMenuEntries: testNames!.map((item) {
                                 return DropdownMenuEntry(
                                   value: item,
                                   label: item.toString(),
@@ -179,7 +195,7 @@ class _HealthScreenState extends State<HealthScreen> {
                                             ],
                                           ),
                                         ):
-                                              Text("You need at least 2 tests",style: GoogleFonts.nunito(),)
+                                          Intl.getCurrentLocale()=='en'?Text("You need at least 2 tests",style: GoogleFonts.nunito(),):Text("تحتاج إلى اختبارين على الأقل",style: GoogleFonts.nunito(),)
                                 ],
                               ):SizedBox.shrink()
                             ],

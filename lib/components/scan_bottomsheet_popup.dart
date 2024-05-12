@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/qrscan.dart';
@@ -38,7 +39,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    widget.testName,
+                    Intl.getCurrentLocale()=='ar'?widget.testName_ar:widget.testName,
                     style: GoogleFonts.nunito(
                         fontSize: 16.sp,
                         color: Color(0xff232425),

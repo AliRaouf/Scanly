@@ -220,39 +220,77 @@ class _Home1ScreenState extends State<Home1Screen> {
                                         .of(context)
                                         .scan,
                                     onpressed: () {
-                                      int num = TestCubit
-                                          .get(
-                                          context)
-                                          .tests
-                                          .indexOf(TestCubit
-                                          .get(
-                                          context)
-                                          .filteredTests[index]);
-                                      print(TestCubit
-                                          .get(
-                                          context)
-                                          .tests[num]);
-                                      print(TestCubit
-                                          .get(
-                                          context)
-                                          .tests_ar[num]);
-                                      cubit.pickedFile = null;
-                                      showModalBottomSheet(
-                                          context: context,
-                                          builder: (context) {
-                                            return
-                                              ScanBottomSheetPopup(
-                                                testName: TestCubit
+                                      if (Intl.getCurrentLocale()=='en') {
+                                        int num = TestCubit
+                                            .get(
+                                            context)
+                                            .tests
+                                            .indexOf(TestCubit
+                                            .get(
+                                            context)
+                                            .filteredTests[index]);
+                                        print(num);
+                                        print(TestCubit
+                                            .get(
+                                            context)
+                                            .tests[num]);
+                                        print(TestCubit
+                                            .get(
+                                            context)
+                                            .tests_ar[num]);
+                                        cubit.pickedFile = null;
+                                        showModalBottomSheet(
+                                            context: context,
+                                            builder: (context) {
+                                              return
+                                                ScanBottomSheetPopup(
+                                                  testName: TestCubit
+                                                      .get(
+                                                      context)
+                                                      .tests[
+                                                  num],
+                                                  testName_ar:TestCubit
                                                     .get(
                                                     context)
-                                                    .tests[
-                                                num],
-                                                testName_ar:TestCubit
-                                                  .get(
-                                                  context)
-                                                  .tests_ar[
-                                              num],);
-                                          });
+                                                    .tests_ar[
+                                                num],);
+                                            });
+                                      }else{
+                                        int num = TestCubit
+                                            .get(
+                                            context)
+                                            .tests_ar
+                                            .indexOf(TestCubit
+                                            .get(
+                                            context)
+                                            .filteredTests[index]);
+                                        print(num);
+                                        print(TestCubit
+                                            .get(
+                                            context)
+                                            .tests[num]);
+                                        print(TestCubit
+                                            .get(
+                                            context)
+                                            .tests_ar[num]);
+                                        cubit.pickedFile = null;
+                                        showModalBottomSheet(
+                                            context: context,
+                                            builder: (context) {
+                                              return
+                                                ScanBottomSheetPopup(
+                                                  testName: TestCubit
+                                                      .get(
+                                                      context)
+                                                      .tests[
+                                                  num],
+                                                  testName_ar:TestCubit
+                                                      .get(
+                                                      context)
+                                                      .tests_ar[
+                                                  num],);
+                                            });
+                                      }
                                     },
                                     fontSize: 12.sp,
                                     border: 6.r,

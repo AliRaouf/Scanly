@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 
 import '../bloc/test/test_cubit.dart';
@@ -192,7 +193,7 @@ class TestScreen extends StatelessWidget {
                         shrinkWrap: true,
                         physics: ClampingScrollPhysics(),
                         itemCount:
-                        jsonData.isEmpty? 1:jsonData["diagnosis_en"].trim().split('. ').length,
+                        Intl.getCurrentLocale()=='en'?jsonData["diagnosis_en"].trim().split('. ').length:jsonData["diagnosis_ar"].trim().split('. ').length,
                         itemBuilder: (context, index) {
                           return Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,8 +206,8 @@ class TestScreen extends StatelessWidget {
                                         color: Color(0xff232425))),
                               ),
                               Expanded(
-                                child: Text(jsonData["diagnosis_en"]==null?"" :
-                                    "${jsonData["diagnosis_en"].trim().split('. ')[index]}.",
+                                child: Text(
+                                    Intl.getCurrentLocale()=='en'?jsonData["diagnosis_en"].trim().split('. ')[index]:jsonData["diagnosis_ar"].trim().split('. ')[index],
                                     style: GoogleFonts.nunito(
                                         fontSize: 12.sp,
                                         color: Color(0xff232425))),
@@ -229,7 +230,7 @@ class TestScreen extends StatelessWidget {
                                     color: Color(0xff232425),
                                     fontWeight: FontWeight.bold)),
                             Text(
-                              "${jsonData["Recommendation_en"]}",
+                              Intl.getCurrentLocale()=='en'?jsonData["Recommendation_en"]:jsonData["Recommendation_ar"],
                               style: GoogleFonts.nunito(
                                   fontSize: 12.sp, color: Color(0xff232425)),
                             ),

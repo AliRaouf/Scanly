@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 class QRScan extends StatefulWidget {
   const QRScan({super.key});
 
@@ -59,7 +59,15 @@ class _QRScanState extends State<QRScan> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        _launchURL(Uri.parse(result!.code!));
       });
     });
+  }
+  _launchURL(Uri url) async {
+    try {
+        await launchUrl(url);
+    } catch (e) {
+      print('Error launching URL: $e');
+    }
   }
 }
