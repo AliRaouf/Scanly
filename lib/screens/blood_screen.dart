@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -93,7 +94,7 @@ class BloodScreen extends StatelessWidget {
                                         ? cubit.bloodTests_ar[index]
                                         : cubit.bloodTests[index],
                                     style: GoogleFonts.openSans(
-                                        fontSize: screenWidth * 0.04,
+                                        fontSize: 13.sp,
                                         color: Color(0xff232425),
                                         fontWeight: FontWeight.w600),
                                   ),
@@ -117,7 +118,7 @@ class BloodScreen extends StatelessWidget {
                                               );
                                             });
                                       },
-                                      fontSize: screenWidth * 0.033,
+                                      fontSize: Intl.getCurrentLocale()=='en'?13.sp:11.sp,
                                       border: 6,
                                     );
                                   },

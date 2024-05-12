@@ -206,7 +206,7 @@ class _Home1ScreenState extends State<Home1Screen> {
                                       .get(context)
                                       .filteredTests[index],
                                   style: GoogleFonts.nunito(
-                                      fontSize: 12.sp,
+                                      fontSize: 13.sp,
                                       color: Color(0xff232425),
                                       fontWeight: FontWeight.w600),
                                 ),
@@ -292,7 +292,7 @@ class _Home1ScreenState extends State<Home1Screen> {
                                             });
                                       }
                                     },
-                                    fontSize: 12.sp,
+                                    fontSize: Intl.getCurrentLocale()=='en'?13.sp:11.sp,
                                     border: 6.r,
                                   );
                                 },
