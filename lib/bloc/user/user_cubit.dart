@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +35,7 @@ class UserCubit extends Cubit<UserState> {
   bool isNewPasswordObscured = true;
   bool isConfirmNewPasswordObscured = true;
   Stream? testStream;
+  String error = '';
   getUserData() {
     user = FirebaseAuth.instance.currentUser;
     emit(GetUserDataState());
@@ -53,7 +55,7 @@ class UserCubit extends Cubit<UserState> {
       QuerySnapshot<
           Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
           .collection("users")
-          .where("email", isEqualTo: user!.email!)
+          .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email!)
           .get();
       if (querySnapshot.docs.isNotEmpty) {
         userName = querySnapshot.docs.first.get("username");
@@ -70,6 +72,57 @@ class UserCubit extends Cubit<UserState> {
       }
     } catch (e) {
       emit(ReceiveUserNameErrorState());
+    }
+  }
+  Future<User?> googleSignin() async {
+    emit(LoginLoadingState());
+    try {
+      final googleSignIn = GoogleSignIn(scopes: ['email']);
+
+      // Sign out the user to ensure they can choose an account each time
+      await googleSignIn.signOut();
+
+      final googleAccount = await googleSignIn.signIn();
+
+      if (googleAccount != null) {
+        final googleAuth = await googleAccount.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+
+        final userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        emit(LoginSuccessState());
+        return userCredential.user;
+      } else {
+        emit(LoginErrorState(error));
+        return null;
+      }
+    } catch (e) {
+      emit(LoginErrorState(error));
+      return null;
+    }
+  }
+  signInWithEmail(email,password)async{
+    emit(LoginLoadingState());
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password
+      );
+      emit(LoginSuccessState());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        error='No user found for that email.';
+        emit(LoginErrorState(error));
+      } else if (e.code == 'wrong-password') {
+        error='Wrong password provided for that user.';
+        emit(LoginErrorState(error));
+      }else{
+        error="Wrong Email or Password";
+        emit(LoginErrorState(error));
+      }
     }
   }
   Future<void> pickFile() async {

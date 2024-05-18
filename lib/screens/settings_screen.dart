@@ -4,13 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:scanly/screens/profile_screen.dart';
 
 import '../bloc/language/language_cubit.dart';
 import '../bloc/user/user_cubit.dart';
 import '../components/custom_page_route.dart';
-import '../components/gradient_button.dart';
 import '../generated/l10n.dart';
 import 'change_password_screen.dart';
 import 'change_user_data_screen.dart';
@@ -42,10 +40,13 @@ class SettingsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                S.of(context).account,
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.bold, fontSize: 20.sp),
+              Padding(
+                padding: const EdgeInsets.only(bottom:8.0),
+                child: Text(
+                  S.of(context).account,
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.bold, fontSize: 20.sp),
+                ),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -131,7 +132,7 @@ class SettingsScreen extends StatelessWidget {
                                     Icon(
                                         shadows: [BoxShadow()],
                                         color: Color(0xff232425),
-                                        Icons.language_outlined),
+                                        Icons.language_rounded),
                                     Text(
                                       "  ${S.of(context).change_language}",
                                       style: GoogleFonts.nunito(
@@ -176,10 +177,13 @@ class SettingsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Text(
-                S.of(context).security,
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.bold, fontSize: 20.sp),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical:8.0),
+                child: Text(
+                  S.of(context).security,
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.bold, fontSize: 20.sp),
+                ),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -215,10 +219,13 @@ class SettingsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Text(
-                S.of(context).legal,
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.bold, fontSize: 20.sp),
+              Padding(
+                  padding: const EdgeInsets.symmetric(vertical:8.0),
+                child: Text(
+                  S.of(context).legal,
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.bold, fontSize: 20.sp),
+                ),
               ),
               Container(
                 decoration: BoxDecoration(

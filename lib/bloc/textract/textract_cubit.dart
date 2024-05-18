@@ -118,4 +118,259 @@ class TextractCubit extends Cubit<TextractState> {
     } on StorageException catch (e) {
     }
   }
+  bool validateTest({required String testName, required String test}) {
+    if (testName == 'CBC (Complete Blood Count)') {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('complete blood')) {
+        return true;
+      }
+      return false;
+    } else if (testName == "Lipid profile") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('lipids profile')) {
+        return true;
+      }
+      return false;
+    } else if (testName == "Uric acid") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('lipids profile')) {
+        return true;
+      }
+      return false;
+    } else if (testName == "Parathyroid hormone (pth)") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('parathyroid hormone') ||
+          test.toLowerCase().contains('pth')) {
+        return true;
+      }
+      return false;
+    } else if (testName == "Vitamin D") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    } else if (testName == "Fasting blood sugar") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('fasting blood')) {
+        return true;
+      }
+      return false;
+    } else if (testName == "Tsh") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    } else if (testName == "T3 total and free") {
+      if (test.toLowerCase().contains('t3')) {
+        return true;
+      }
+      return false;
+    } else if (testName == "T4 total and free") {
+      if (test.toLowerCase().contains('t4')) {
+        return true;
+      }
+      return false;
+    }else if (testName == "Calcium") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Magnesium") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Favism (G6PD deficiency test)") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('favism')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Glucose after 2 hours") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('glucose')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "HbA1c") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('hb a1c')||
+          test.toLowerCase().contains('glycated haemoglobin')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Serum Iron") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('serum')||
+          test.toLowerCase().contains('iron')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "TIBC (Total Iron Binding Capacity)") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('tibc')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Transferrin saturation") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('transferrin')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "PT (Prothrombin Time)") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('pt')||
+          test.toLowerCase().contains('prothrombin')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == 'PTT (Partial Thromboplastin Time)') {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('ptt')||
+          test.toLowerCase().contains('thromboplastin')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Bleeding time") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('bleeding')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Clotting time") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('clotting')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "AST (SGOT)") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('ast')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "ALT (SGPT)") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('alt')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Bilirubin") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Albumin") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Total protein") {
+      if (test.toLowerCase().contains(testName.toLowerCase())||
+          test.toLowerCase().contains('protein')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Total protein") {
+      if (test.toLowerCase().contains(testName.toLowerCase())||
+          test.toLowerCase().contains('phosphatase')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Creatinine") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    }else if (testName == "Blood urea") {
+      if (test.toLowerCase().contains(testName.toLowerCase())||
+          test.toLowerCase().contains('blood')) {
+        return true;
+      }
+      return false;
+    }else if (testName == "Uric acid") {
+      if (test.toLowerCase().contains(testName.toLowerCase())||
+          test.toLowerCase().contains('uric')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "BUN") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    }else if (testName == "Sodium") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Potassium") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "CRP (C-Reactive Protein)") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('crp')||
+          test.toLowerCase().contains('reactive')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "ESR (Erythrocyte Sedimentation Rate)") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('esr')||
+          test.toLowerCase().contains('Sedimentation')) {
+        return true;
+      }
+      return false;
+    } else if (testName == "Urinalysis") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('urine analysis')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Thalassemia") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    }else if (testName == "FMF (Familial Mediterranean Fever)") {
+      if (test.toLowerCase().contains(testName.toLowerCase()) ||
+          test.toLowerCase().contains('mediterranean')) {
+        return true;
+      }
+      return false;
+    }
+    else if (testName == "Karyotyping") {
+      if (test.toLowerCase().contains(testName.toLowerCase())) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
 }

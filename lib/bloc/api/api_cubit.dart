@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../user/user_cubit.dart';
 
@@ -17,7 +16,6 @@ class ApiCubit extends Cubit<ApiState> {
       token: "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",
       baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 60)),enableLog: true);
   Future<Map<String, dynamic>> getJSONFromPrompt(String userTest,String testName,BuildContext context,String userTest_ar) async {
-    final prefs = await SharedPreferences.getInstance();
     final request = CompleteText(maxTokens: 2500,
 
         prompt:'''

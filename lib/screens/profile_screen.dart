@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     var nameController = TextEditingController(text: cubit.userName);
-    var emailController = TextEditingController(text: cubit.user!.email);
+    var emailController = TextEditingController(text: FirebaseAuth.instance.currentUser!.email);
     var phoneController = TextEditingController(text: "${cubit.phoneNumber}");
     var genderController = TextEditingController(text: "${cubit.gender}");
     var heightController = TextEditingController(text: " ${cubit.height} CM");

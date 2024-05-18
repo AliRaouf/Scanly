@@ -19,7 +19,9 @@ import '../components/custom_page_route.dart';
 import '../generated/l10n.dart';
 
 class UploadFileConfirm extends StatefulWidget {
-  UploadFileConfirm({super.key, required this.testName,required this.testName_ar});
+  UploadFileConfirm(
+      {super.key, required this.testName, required this.testName_ar});
+
   ScreenshotController screenshotController = ScreenshotController();
   String testName;
   String testName_ar;
@@ -43,6 +45,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
   String? text;
   var isClicked = false;
   late Timer _timer;
+
   _startTimer() {
     _timer = Timer(Duration(seconds: 5), () => isClicked = false);
   }
@@ -68,7 +71,9 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                 Padding(
                   padding: EdgeInsets.only(top: screenHeight * 0.05),
                   child: Text(
-                    Intl.getCurrentLocale()=='en'?widget.testName:widget.testName_ar,
+                    Intl.getCurrentLocale() == 'en'
+                        ? widget.testName
+                        : widget.testName_ar,
                     style: GoogleFonts.nunito(
                         fontSize: screenWidth * 0.06,
                         color: Color(0xff232425),
@@ -160,15 +165,16 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                                   .fileImage!))
                                       .then((_) =>
                                           Future.delayed(Duration(seconds: 15)))
-                                      .then((_) => TextractCubit.get(context)
-                                          .downloadAndGetText())
-                                      .then((text) =>text.isEmpty || text==null ? Future(() => {})
-                                          :ApiCubit.get(context).getJSONFromPrompt(text,widget.testName,context,widget.testName_ar));
+                                      .then((_) =>
+                                          TextractCubit.get(context).downloadAndGetText())
+                                      .then((text) => TextractCubit.get(context).validateTest(testName: widget.testName, test: text) ? ApiCubit.get(context).getJSONFromPrompt(text, widget.testName, context, widget.testName_ar) : Future(() => {}));
                               Navigator.push(
                                   context,
                                   AnimatedRoute(
                                       page: TestScreen(
-                                    jsonDataFuture: jsonDataFuture, testName: widget.testName, testName_ar: widget.testName_ar,
+                                    jsonDataFuture: jsonDataFuture,
+                                    testName: widget.testName,
+                                    testName_ar: widget.testName_ar,
                                   )));
                             } else {
                               Future<Map<String, dynamic>> jsonDataFuture =
@@ -181,16 +187,16 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                                                   .fileImage!))
                                       .then((_) =>
                                           Future.delayed(Duration(seconds: 15)))
-                                      .then((_) => TextractCubit.get(context)
-                                          .downloadAndGetText())
-                                      .then((text) =>text.isEmpty || text==null ? Future(() => {})
-                                      :ApiCubit.get(context).getJSONFromPrompt(text,widget.testName,context,widget.testName_ar));
+                                      .then((_) =>
+                                          TextractCubit.get(context).downloadAndGetText())
+                                      .then((text) => TextractCubit.get(context).validateTest(testName: widget.testName, test: text) ? ApiCubit.get(context).getJSONFromPrompt(text, widget.testName, context, widget.testName_ar) : Future(() => {}));
                               Navigator.push(
                                   context,
                                   AnimatedRoute(
                                       page: TestScreen(
-                                    jsonDataFuture: jsonDataFuture,testName: widget.testName, testName_ar: widget.testName_ar
-                                  )));
+                                          jsonDataFuture: jsonDataFuture,
+                                          testName: widget.testName,
+                                          testName_ar: widget.testName_ar)));
                             }
                           },
                           fontSize: screenWidth * 0.04444,

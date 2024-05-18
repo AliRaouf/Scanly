@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     var cubit = LoginCubit.get(context);
-    return BlocConsumer<LoginCubit, LoginState>(
+    return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) async {
         if (state is LoginSuccessState) {
          await FirebaseAuth.instance.currentUser!.reload();
@@ -103,6 +103,22 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       builder: (context, state) {
+        if(state is LoginLoadingState||state is LoginSuccessState||state is ReceiveUserNameLoadingState){
+          return Scaffold(
+            body:
+            Container(decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/Scanly_bg.png"),
+                    fit: BoxFit.cover)),
+              child:Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  Text("Logging in",style: GoogleFonts.montserrat(fontSize:20.sp,color:Color(0xff232425),fontWeight:FontWeight.w600),)
+                ],
+              )) ,
+            ),
+          );
+        }
         return Scaffold(
           body: Container(
             width: 1.sw,
@@ -233,10 +249,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           isClicked=true;
                           await cubit.handleRemeberme(
                               emailController.text, passwordController.text);
-                          await cubit.signInWithEmail(
+                          await UserCubit.get(context).signInWithEmail(
                               emailController.text, passwordController.text);
-                          await UserCubit.get(context).getUserData();
-                          await UserCubit.get(context).receiverUserData();
                         }else{
                         }
                       },
@@ -298,17 +312,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               elevation: MaterialStatePropertyAll(0)),
                           onPressed: () async {
                             try {
-                              final user = await cubit.googleSignin();
+                              final user = await UserCubit.get(context).googleSignin();
                               print(user!.email);
                               await cubit.doesEmailExist(user.email!);
-                              if (cubit.isExist == true) {
-                                await UserCubit.get(context).getUserData();
-                                await UserCubit.get(context).receiverUserData();
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => HomeScreen()));
-                              } else if (cubit.isExist == false) {
+                            if (cubit.isExist == false) {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

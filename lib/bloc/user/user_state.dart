@@ -24,3 +24,10 @@ class UpdateUserDataFailure extends UserState {}
 class ReceiveTestLoading extends UserState {}
 class ReceiveTestSuccess extends UserState {}
 class ReceiveTestFailure extends UserState {}
+class LoginLoadingState extends UserState {}
+class LoginSuccessState extends UserState {}
+class LoginErrorState extends UserState {
+  final error;
+
+  LoginErrorState(this.error);
+}
