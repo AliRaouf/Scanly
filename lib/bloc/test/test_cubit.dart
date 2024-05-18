@@ -19,6 +19,7 @@ class TestCubit extends Cubit<TestState> {
   Stream? testStream;
   List<String> tests = [
     "CBC (Complete Blood Count)",
+    "Cholesterol",
     "Lipid profile",
     "Uric acid",
     "Parathyroid hormone (pth)",
@@ -61,6 +62,7 @@ class TestCubit extends Cubit<TestState> {
   ];
   List<String> tests_ar = [
     "CBC (تعداد الدم الكامل)",
+    "الكوليسترول",
     "ملف الدهون",
     "حمض البوليك",
     "هرمون الغدة الدرقية (pth)",
@@ -103,6 +105,7 @@ class TestCubit extends Cubit<TestState> {
   ];
   List<String> bloodTests = [
     "Parathyroid hormone (pth)",
+    "Cholesterol",
     "Tsh",
     "T3 total and free",
     "T4 total and free",
@@ -140,6 +143,7 @@ class TestCubit extends Cubit<TestState> {
   ];
   List<String> bloodTests_ar = [
     "هرمون الغدة الدرقية (pth)",
+    "الكوليسترول",
     "Tsh",
     "T3 إجمالي وخالي",
     "T4 إجمالي وخالي",

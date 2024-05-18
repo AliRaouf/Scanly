@@ -276,6 +276,13 @@ class TextractCubit extends Cubit<TextractState> {
       }
       return false;
     }
+    else if (testName == "Cholesterol") {
+      if (test.toLowerCase().contains(testName.toLowerCase())||
+          test.toLowerCase().contains('cholestrol')) {
+        return true;
+      }
+      return false;
+    }
     else if (testName == "Albumin") {
       if (test.toLowerCase().contains(testName.toLowerCase())) {
         return true;
