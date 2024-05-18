@@ -136,7 +136,7 @@ class _GeneticScreenState extends State<GeneticScreen> {
                                                           .geneticTests_ar[index]);
                                                 });
                                           },
-                                          fontSize: Intl.getCurrentLocale()=='en'?13.sp:11.sp,
+                                          fontSize: Intl.getCurrentLocale()=='en'?12.sp:11.sp,
                                           border: 6,
                                         );
                                       },
@@ -147,10 +147,6 @@ class _GeneticScreenState extends State<GeneticScreen> {
                             );
                           }),
                     ),
-                    // Padding(
-                    //   padding: EdgeInsets.all(screenWidth*0.02430555555),
-                    //   child: BottomTestAppBar(),
-                    // )
                   ],
                 ),
               )),

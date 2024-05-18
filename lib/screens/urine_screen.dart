@@ -136,7 +136,7 @@ class _UrineScreenState extends State<UrineScreen> {
                                                   );
                                                 });
                                           },
-                                          fontSize: Intl.getCurrentLocale()=='en'?13.sp:11.sp,
+                                          fontSize: Intl.getCurrentLocale()=='en'?12.sp:11.sp,
                                           border: 6,
                                         );
                                       },
