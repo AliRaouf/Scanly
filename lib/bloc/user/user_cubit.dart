@@ -207,7 +207,7 @@ class UserCubit extends Cubit<UserState> {
   updateUserImage(String imageUrl) {
     FirebaseFirestore.instance
         .collection('users')
-        .where('email', isEqualTo: user!.email)
+        .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
         .get().then((QuerySnapshot querySnapshot) {
       var doc = querySnapshot.docs.first;
       doc.reference.update({'image': imageUrl}).then((value) => emit(UpdateUserImageSuccess()))

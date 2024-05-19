@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -203,7 +204,7 @@ class _ChangeUserDataScreenState extends State<ChangeUserDataScreen> {
                         onpressed: () async {
                           if (cubit.image != null) {
                             String imageUrl = await cubit.uploadImage(
-                                cubit.image!, cubit.user!.email);
+                                cubit.image!, FirebaseAuth.instance.currentUser!.email);
                             cubit.updateUserImage(imageUrl);
                             await cubit.updateUserData(nameController.text, int.parse(heightController.text), int.parse(weightController.text));
                             cubit.logout();
