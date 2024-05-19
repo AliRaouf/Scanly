@@ -68,9 +68,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
             contentType: ContentType.success,color: Color(0xff04657A),
           ),
         ));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  LoginScreen()));
     }
   },
   builder: (context, state) {
+    if(state is SaveUserLoadingState || state is SaveUserSuccessState || state is RegisterUserSuccess || state is RegisterUserLoading){
+      return Scaffold(
+        body:
+        Container(decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/Scanly_bg.png"),
+                fit: BoxFit.cover)),
+          child:Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Text("Creating Account",style: GoogleFonts.montserrat(fontSize:20.sp,color:Color(0xff232425),fontWeight:FontWeight.w600),)
+            ],
+          )) ,
+        ),
+      );
+    }
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
       body: Stack(
@@ -413,11 +434,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             cubit.weight ?? 0,
                                             cubit.diseases ?? [],
                                             cubit.image);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginScreen()));
                                       }
                                     }
                                   } else if (index == 0 &&

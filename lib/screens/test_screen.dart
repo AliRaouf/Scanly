@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
 
 import '../bloc/test/test_cubit.dart';
+import '../bloc/textract/textract_cubit.dart';
 import '../generated/l10n.dart';
 
 class TestScreen extends StatelessWidget {
@@ -146,7 +147,7 @@ class TestScreen extends StatelessWidget {
               );
             }else{
             testCubit
-                .uploadImage(userCubit.image!, context)
+                .uploadImage(TextractCubit.get(context).image!, context)
                 .then((downloadUrl) {
               jsonData.addAll({
                 "image": downloadUrl,
@@ -176,7 +177,7 @@ class TestScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                               child: Image(
                                 image: MemoryImage(
-                                    userCubit.image ?? Uint8List(0)),
+                                    TextractCubit.get(context).image ?? Uint8List(0)),
                                 fit: BoxFit.cover,
                               ),
                             ))),

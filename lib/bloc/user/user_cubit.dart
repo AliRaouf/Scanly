@@ -19,7 +19,6 @@ class UserCubit extends Cubit<UserState> {
   String? userName;
   String? gender;
   String? password;
-  User? user;
   String imageUrl="";
   List? diseases;
   int? height;
@@ -36,10 +35,6 @@ class UserCubit extends Cubit<UserState> {
   bool isConfirmNewPasswordObscured = true;
   Stream? testStream;
   String error = '';
-  getUserData() {
-    user = FirebaseAuth.instance.currentUser;
-    emit(GetUserDataState());
-  }
   Future<String> uploadImage(Uint8List file, email) async {
     String imgName = email;
     Reference ref = FirebaseStorage.instance.ref('profile_image').child(
@@ -97,9 +92,11 @@ class UserCubit extends Cubit<UserState> {
         return userCredential.user;
       } else {
         emit(LoginErrorState(error));
+        print(error);
         return null;
       }
     } catch (e) {
+      print(e);
       emit(LoginErrorState(error));
       return null;
     }
@@ -180,16 +177,18 @@ class UserCubit extends Cubit<UserState> {
   changeUserPassword(oldPassword, newPassword) {
     emit(ChangeUserPasswordLoadingState());
     AuthCredential credential = EmailAuthProvider.credential(
-        email: user!.email!, password: oldPassword);
-    user!.reauthenticateWithCredential(credential)
+        email: FirebaseAuth.instance.currentUser!.email!, password: oldPassword);
+    FirebaseAuth.instance.currentUser!.reauthenticateWithCredential(credential)
         .then((_) {
-      user!.updatePassword(newPassword).then((_) {
+      FirebaseAuth.instance.currentUser!.updatePassword(newPassword).then((_) {
         updateUserPassword(newPassword);
         emit(ChangeUserPasswordSuccessState());
       }).catchError((error) {
+        print(error);
         emit(ChangeUserPasswordErrorState());
       });
     }).catchError((error) {
+      print(error);
       emit(ChangeUserPasswordErrorState());
     });
   }
@@ -197,7 +196,7 @@ class UserCubit extends Cubit<UserState> {
   updateUserPassword(newPassword) {
     FirebaseFirestore.instance
         .collection('users')
-        .where('email', isEqualTo: user!.email)
+        .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
         .get().then((QuerySnapshot querySnapshot) {
       var doc = querySnapshot.docs.first;
       doc.reference.update({'password': newPassword}).then((value) => print("Password Updated Successfully"))
@@ -217,7 +216,7 @@ class UserCubit extends Cubit<UserState> {
   updateUserData(String userName,int height,int weight) {
     FirebaseFirestore.instance
         .collection('users')
-        .where('email', isEqualTo: user!.email)
+        .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
         .get().then((QuerySnapshot querySnapshot) {
       var doc = querySnapshot.docs.first;
       doc.reference.update({'username': userName,'height':height,"weight":weight}).then((value) => emit(UpdateUserDataSuccess()))
@@ -227,7 +226,7 @@ class UserCubit extends Cubit<UserState> {
   deleteUserTest(BuildContext context,Timestamp timestamp) {
     FirebaseFirestore.instance
         .collection("tests")
-        .doc(UserCubit.get(context).user!.email)
+        .doc(FirebaseAuth.instance.currentUser!.email)
         .collection("userTest")
         .where('uploadDate',isEqualTo: timestamp)
         .get().then((QuerySnapshot querySnapshot) {

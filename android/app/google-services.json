@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "839390457504-sukqjve9k3vuvckt3hggvelcpqi2jbbc.apps.googleusercontent.com",
+          "client_id": "839390457504-i1j7054inmns5nlmp8aap3sq0hl4i64f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.scanly",
-            "certificate_hash": "8901e3801975b48768fde505762579f48152992b"
+            "package_name": "com.AliRaouf.scanly",
+            "certificate_hash": "06df6aded3070aa09b75f7c7be662b70f49fcd6f"
           }
         },
         {

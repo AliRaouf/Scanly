@@ -7,6 +7,7 @@ import 'package:scanly/bloc/user/user_cubit.dart';
 import 'package:scanly/components/qrscan.dart';
 import 'package:scanly/screens/upload_file_confirm.dart';
 
+import '../bloc/textract/textract_cubit.dart';
 import '../generated/l10n.dart';
 
 
@@ -49,8 +50,8 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
               ),
               GestureDetector(
                 onTap: () async {
-                  await cubit.pickFile();
-                  cubit.fileToDisplay==null? null :
+                  await TextractCubit.get(context).pickFile();
+                  TextractCubit.get(context).fileToDisplay==null? null :
                   pushScreen(
                     context,
                     screen: UploadFileConfirm(testName: widget.testName,testName_ar: widget.testName_ar,),

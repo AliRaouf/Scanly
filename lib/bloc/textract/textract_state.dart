@@ -13,3 +13,6 @@ class TextractTasksCompleted extends TextractState {
   final Map<String, dynamic>? jsonTest;
   TextractTasksCompleted({required this.jsonTest});
 }
+class PickFileLoading extends TextractState {}
+class PickFileSuccess extends TextractState {}
+class PickFileError extends TextractState {}

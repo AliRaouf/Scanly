@@ -38,7 +38,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
   @override
   void initState() {
     TextractCubit.get(context).createTempFileFromMemoryImage(
-        MemoryImage(UserCubit.get(context).image ?? Uint8List(0)));
+        MemoryImage(TextractCubit.get(context).image ?? Uint8List(0)));
     super.initState();
   }
 
@@ -83,13 +83,13 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                 Container(
                     height: screenHeight * 0.6,
                     width: screenWidth * 0.9,
-                    child: cubit.extension == 'pdf'
+                    child: TextractCubit.get(context).extension == 'pdf'
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: Screenshot(
                               controller: widget.screenshotController,
                               child: PDFView(
-                                  filePath: cubit.pickedFile?.path ?? "",
+                                  filePath: TextractCubit.get(context).pickedFile?.path ?? "",
                                   enableSwipe: true,
                                   swipeHorizontal: true,
                                   autoSpacing: false,
@@ -105,7 +105,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                         : ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: Image(
-                              image: MemoryImage(cubit.image ?? Uint8List(0)),
+                              image: MemoryImage(TextractCubit.get(context).image ?? Uint8List(0)),
                               fit: BoxFit.cover,
                             ),
                           )),
@@ -130,9 +130,9 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                           screenHeight: screenHeight * 0.0625,
                           text: S.of(context).back,
                           onpressed: () {
-                            cubit.extension = null;
-                            cubit.pickedFile ??= null;
-                            cubit.image ??= null;
+                            TextractCubit.get(context).extension = null;
+                            TextractCubit.get(context).pickedFile ??= null;
+                            TextractCubit.get(context).image ??= null;
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -149,16 +149,16 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                           screenHeight: screenHeight * 0.0625,
                           text: S.of(context).continue_message,
                           onpressed: () async {
-                            if (cubit.extension == 'pdf') {
-                              cubit.image = await TestCubit.get(context)
+                            if (TextractCubit.get(context).extension == 'pdf') {
+                              TextractCubit.get(context).image = await TestCubit.get(context)
                                   .captureImage(widget.screenshotController);
                               await TextractCubit.get(context)
                                   .createTempFileFromMemoryImage(
-                                      MemoryImage(cubit.image!));
+                                      MemoryImage(TextractCubit.get(context).image!));
                               Future<Map<String, dynamic>> jsonDataFuture =
                                   TextractCubit.get(context)
                                       .createTempFileFromMemoryImage(
-                                          MemoryImage(cubit.image!))
+                                          MemoryImage(TextractCubit.get(context).image!))
                                       .then((_) => TextractCubit.get(context)
                                           .uploadImage(
                                               TextractCubit.get(context)
@@ -180,7 +180,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                               Future<Map<String, dynamic>> jsonDataFuture =
                                   TextractCubit.get(context)
                                       .createTempFileFromMemoryImage(
-                                          MemoryImage(cubit.image!))
+                                          MemoryImage(TextractCubit.get(context).image!))
                                       .then((_) => TextractCubit.get(context)
                                           .uploadImage(
                                               TextractCubit.get(context)

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -205,7 +206,7 @@ class TestCubit extends Cubit<TestState> {
     try {
       FirebaseFirestore.instance
           .collection("tests")
-          .doc(UserCubit.get(context).user!.email)
+          .doc(FirebaseAuth.instance.currentUser!.email)
           .collection("userTest")
           .add(test);
       emit(SaveTestSuccess());
@@ -233,7 +234,7 @@ class TestCubit extends Cubit<TestState> {
 
   Future<String> uploadImage(Uint8List file, BuildContext context) async {
     String imgName =
-        "${DateTime.now().microsecondsSinceEpoch.toString()},${UserCubit.get(context).user!.email}.Image";
+        "${DateTime.now().microsecondsSinceEpoch.toString()},${FirebaseAuth.instance.currentUser!.email}.Image";
     Reference ref = FirebaseStorage.instance.ref('userTests').child(imgName);
     UploadTask uploadTask = ref.putData(file);
     TaskSnapshot snapshot = await uploadTask;

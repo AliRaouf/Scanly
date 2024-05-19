@@ -1,5 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +21,48 @@ class TextractCubit extends Cubit<TextractState> {
   File? fileImage;
   String? filePath;
   Map<String, dynamic>? jsonTest;
+  Uint8List? image;
+  File? fileToDisplay;
+  FilePickerResult? result;
+  String? fileName;
+  PlatformFile? pickedFile;
+  String? extension;
+  Future<void> pickFile() async {
+    emit(PickFileLoading());
+    try {
+      result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['png', 'pdf', 'jpeg', 'jpg'],
+      );
+      if (result != null) {
+        fileName = result!.files.first.name;
+        extension = result!.files.first.extension;
+        pickedFile = result!.files.first;
+        fileToDisplay = File(pickedFile!.path!);
+        image = await FlutterImageCompress.compressWithFile(pickedFile?.path??"",quality: 70,);
+        emit(PickFileSuccess());
+      } else {
+        emit(PickFileError());
+      }
+    } catch (e) {
+      emit(PickFileError());
+    }
+  }
+  pickImage(ImageSource source) async {
+    final ImagePicker imagePicker = ImagePicker();
+    XFile? file = await imagePicker.pickImage(source: source);
+    if (file != null) {
+      return await file.readAsBytes();
+    } else {
+    }
+  }
+  selectImage() async {
+    Uint8List? img = await pickImage(ImageSource.camera);
+    if (img != null) {
+      image = await FlutterImageCompress.compressWithList(img,quality: 70,);
+
+    }
+  }
   Future createTempFileFromMemoryImage(MemoryImage image) async {
     final tempDir = await Directory.systemTemp;
     final fileName = '${DateTime.now().microsecondsSinceEpoch}.jpg';

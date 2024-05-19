@@ -101,9 +101,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ));
         }
+
       },
       builder: (context, state) {
-        if(state is LoginLoadingState||state is LoginSuccessState||state is ReceiveUserNameLoadingState){
+        if(state is LoginLoadingState||state is ReceiveUserNameLoadingState){
           return Scaffold(
             body:
             Container(decoration: BoxDecoration(
@@ -119,257 +120,268 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
         }
-        return Scaffold(
-          body: Container(
-            width: 1.sw,
-            height: 1.sh,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/Scanly_bg.png"),
-                    fit: BoxFit.cover)),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 32.h),
-                child: Column(children: [
-                  Container(
-                      margin: EdgeInsets.only(bottom: 5.h),
-                      height: 240.h,
-                      child: Image.asset("assets/images/Logo.png")),
-                  Text(
-                    S.of(context).sign_in,
-                    style: GoogleFonts.montserrat(
-                        fontSize: 38.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xff232425)),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 5.h),
-                    height: 160.h,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left:Intl.getCurrentLocale()=="ar"?0:45.w,
-                                  right: Intl.getCurrentLocale()=="ar"?45.w:0),
-                                  child: Text(
-                                    S.of(context).email,
-                                    style: GoogleFonts.nunito(
-                                        fontSize: 12.sp,
-                                        color: Color(0xff232425)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              width: 280.w,
-                              child: CustomTextFormField(
-                                  controller: emailController,
-                                  readOnly: false,
-                                  hint: "Email@mail.com",
-                                  obscureText: false),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left:Intl.getCurrentLocale()=="ar"?0:45.w,
-                                      right: Intl.getCurrentLocale()=="ar"?45.w:0),
-                                  child: Text(
-                                    S.of(context).password,
-                                    style: GoogleFonts.nunito(
-                                        fontSize: 12.sp,
-                                        color: Color(0xff232425)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              width: 280.w,
-                              child: CustomTextFormField(
-                                  controller: passwordController,
-                                  readOnly: false,
-                                  hint: " ********",
-                                  obscureText: true),
-                            ),
-                          ],
-                        ),
-                      ],
+          return Scaffold(
+            body: Container(
+              width: 1.sw,
+              height: 1.sh,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/Scanly_bg.png"),
+                      fit: BoxFit.cover)),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 32.h),
+                  child: Column(children: [
+                    Container(
+                        margin: EdgeInsets.only(bottom: 5.h),
+                        height: 240.h,
+                        child: Image.asset("assets/images/Logo.png")),
+                    Text(
+                      S.of(context).sign_in,
+                      style: GoogleFonts.montserrat(
+                          fontSize: 38.sp,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xff232425)),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+                    Container(
+                      margin: EdgeInsets.only(top: 5.h),
+                      height: 160.h,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CheckBox(),
-                          Text(
-                            S.of(context).remember_me,
-                            style: GoogleFonts.nunito(
-                                color: Color(0xff232425), fontSize: 14.sp),
-                          )
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: Intl.getCurrentLocale() == "ar"
+                                            ? 0
+                                            : 45.w,
+                                        right: Intl.getCurrentLocale() == "ar"
+                                            ? 45.w
+                                            : 0),
+                                    child: Text(
+                                      S.of(context).email,
+                                      style: GoogleFonts.nunito(
+                                          fontSize: 12.sp,
+                                          color: Color(0xff232425)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10)),
+                                width: 280.w,
+                                child: CustomTextFormField(
+                                    controller: emailController,
+                                    readOnly: false,
+                                    hint: "Email@mail.com",
+                                    obscureText: false),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: Intl.getCurrentLocale() == "ar"
+                                            ? 0
+                                            : 45.w,
+                                        right: Intl.getCurrentLocale() == "ar"
+                                            ? 45.w
+                                            : 0),
+                                    child: Text(
+                                      S.of(context).password,
+                                      style: GoogleFonts.nunito(
+                                          fontSize: 12.sp,
+                                          color: Color(0xff232425)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10)),
+                                width: 280.w,
+                                child: CustomTextFormField(
+                                    controller: passwordController,
+                                    readOnly: false,
+                                    hint: " ********",
+                                    obscureText: true),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                AnimatedRoute(page: ForgotPasswordScreen()));
-                          },
-                          child: Text(
-                            S.of(context).forget_password,
-                            style: GoogleFonts.nunito(
-                                color: Color(0xff232425).withOpacity(0.8),
-                                fontSize: 14.sp),
-                          )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  CustomButton(
-                      screenWidth: 280.w,
-                      screenHeight: 50.h,
-                      text: S.of(context).login,
-                      onpressed: () async {
-                        if (isClicked == false) {
-                          _startTimer();
-                          isClicked=true;
-                          await cubit.handleRemeberme(
-                              emailController.text, passwordController.text);
-                          await UserCubit.get(context).signInWithEmail(
-                              emailController.text, passwordController.text);
-                        }else{
-                        }
-                      },
-                      bColor: Color(0xff1A83B6),
-                      borderColor: Colors.transparent,
-                      textStyle: GoogleFonts.nunito(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22.sp,
-                          color: Colors.white)),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.transparent),
-                              elevation: MaterialStatePropertyAll(0)),
-                          onPressed: () async {
-                            try {
-                              final user = await cubit.signInWithFacebook();
-                              await cubit.doesEmailExist(user!.email!);
-                              if (cubit.isExist == true) {
-                                await UserCubit.get(context).getUserData();
-                                await UserCubit.get(context).receiverUserData();
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => HomeScreen()));
-                              } else if (cubit.isExist == false) {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ContinueLoginScreen(
-                                              user: user,
-                                            )));
-                              }
-                            } on FirebaseAuthException catch (error) {
-                              print(error.message);
-                            } catch (e) {
-                              print(e);
-                            }
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(),
-                            width: 45.w,
-                            height: 44.h,
-                            child: ClipRRect(
-                              child: Image.asset("assets/images/facebook.png"),
-                            ),
-                          )),
-                      ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.transparent),
-                              elevation: MaterialStatePropertyAll(0)),
-                          onPressed: () async {
-                            try {
-                              final user = await UserCubit.get(context).googleSignin();
-                              print(user!.email);
-                              await cubit.doesEmailExist(user.email!);
-                            if (cubit.isExist == false) {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ContinueLoginScreen(
-                                              user: user,
-                                            )));
-                              }
-                            } on FirebaseAuthException catch (error) {
-                              print(error.message);
-                            } catch (e) {
-                              print(e);
-                            }
-                          },
-                          child: Container(
-                            width: 45.w,
-                            height: 44.h,
-                            child: ClipRRect(
-                              child: Image.asset("assets/images/google.png"),
-                            ),
-                          )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        S.of(context).Dont_have_account,
-                        style: GoogleFonts.nunito(
-                          fontSize: 14.sp,
-                          color: Color(0xff232425).withOpacity(0.8),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            CheckBox(),
+                            Text(
+                              S.of(context).remember_me,
+                              style: GoogleFonts.nunito(
+                                  color: Color(0xff232425), fontSize: 14.sp),
+                            )
+                          ],
                         ),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
-                          },
-                          child: Text(
-                            S.of(context).sign_up,
-                            style: GoogleFonts.nunito(
-                                fontSize: 16.sp,
-                                color: Color(0xff1d80b5),
-                                fontWeight: FontWeight.bold),
-                          ))
-                    ],
-                  )
-                ]),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(context,
+                                  AnimatedRoute(page: ForgotPasswordScreen()));
+                            },
+                            child: Text(
+                              S.of(context).forget_password,
+                              style: GoogleFonts.nunito(
+                                  color: Color(0xff232425).withOpacity(0.8),
+                                  fontSize: 14.sp),
+                            )),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    CustomButton(
+                        screenWidth: 280.w,
+                        screenHeight: 50.h,
+                        text: S.of(context).login,
+                        onpressed: () async {
+                          if (isClicked == false) {
+                            _startTimer();
+                            isClicked = true;
+                            await cubit.handleRemeberme(
+                                emailController.text, passwordController.text);
+                            await UserCubit.get(context).signInWithEmail(
+                                emailController.text, passwordController.text);
+                          } else {}
+                        },
+                        bColor: Color(0xff1A83B6),
+                        borderColor: Colors.transparent,
+                        textStyle: GoogleFonts.nunito(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22.sp,
+                            color: Colors.white)),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     ElevatedButton(
+                    //         style: ButtonStyle(
+                    //             backgroundColor:
+                    //                 MaterialStatePropertyAll(Colors.transparent),
+                    //             elevation: MaterialStatePropertyAll(0)),
+                    //         onPressed: () async {
+                    //           try {
+                    //             final user = await cubit.signInWithFacebook();
+                    //             await cubit.doesEmailExist(user!.email!);
+                    //             if (cubit.isExist == true) {
+                    //               await UserCubit.get(context).receiverUserData();
+                    //               Navigator.pushReplacement(
+                    //                   context,
+                    //                   MaterialPageRoute(
+                    //                       builder: (context) => HomeScreen()));
+                    //             } else if (cubit.isExist == false) {
+                    //               Navigator.pushReplacement(
+                    //                   context,
+                    //                   MaterialPageRoute(
+                    //                       builder: (context) =>
+                    //                           ContinueLoginScreen(
+                    //                             user: user,
+                    //                           )));
+                    //             }
+                    //           } on FirebaseAuthException catch (error) {
+                    //             print(error.message);
+                    //           } catch (e) {
+                    //             print(e);
+                    //           }
+                    //         },
+                    //         child: Container(
+                    //           decoration: BoxDecoration(),
+                    //           width: 45.w,
+                    //           height: 44.h,
+                    //           child: ClipRRect(
+                    //             child: Image.asset("assets/images/facebook.png"),
+                    //           ),
+                    //         )),
+                    //     // ElevatedButton(
+                    //     //     style: ButtonStyle(
+                    //     //         backgroundColor:
+                    //     //             MaterialStatePropertyAll(Colors.transparent),
+                    //     //         elevation: MaterialStatePropertyAll(0)),
+                    //     //     onPressed: () async {
+                    //     //       try {
+                    //     //         final user = await UserCubit.get(context).googleSignin();
+                    //     //         print(user!.email);
+                    //     //         await cubit.doesEmailExist(user.email!);
+                    //     //       if (cubit.isExist == false) {
+                    //     //           Navigator.pushReplacement(
+                    //     //               context,
+                    //     //               MaterialPageRoute(
+                    //     //                   builder: (context) =>
+                    //     //                       ContinueLoginScreen(
+                    //     //                         user: user,
+                    //     //                       )));
+                    //     //         }
+                    //     //       } on FirebaseAuthException catch (error) {
+                    //     //         print(error.message);
+                    //     //       } catch (e) {
+                    //     //         print(e);
+                    //     //       }
+                    //     //     },
+                    //     //     child: Container(
+                    //     //       width: 45.w,
+                    //     //       height: 44.h,
+                    //     //       child: ClipRRect(
+                    //     //         child: Image.asset("assets/images/google.png"),
+                    //     //       ),
+                    //     //     )),
+                    //   ],
+                    // ),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          S.of(context).Dont_have_account,
+                          style: GoogleFonts.nunito(
+                            fontSize: 14.sp,
+                            color: Color(0xff232425).withOpacity(0.8),
+                          ),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegisterScreen()));
+                            },
+                            child: Text(
+                              S.of(context).sign_up,
+                              style: GoogleFonts.nunito(
+                                  fontSize: 16.sp,
+                                  color: Color(0xff1d80b5),
+                                  fontWeight: FontWeight.bold),
+                            ))
+                      ],
+                    )
+                  ]),
+                ),
               ),
             ),
-          ),
-        );
+          );
+
       },
     );
   }

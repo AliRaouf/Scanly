@@ -252,7 +252,6 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                                     .toList(),
                               cubit.image ?? image
                                 );
-                            await UserCubit.get(context).getUserData();
                             await UserCubit.get(context).receiverUserData();
                             Navigator.pushReplacement(
                                 context,
