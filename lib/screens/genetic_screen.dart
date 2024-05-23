@@ -136,7 +136,7 @@ class _GeneticScreenState extends State<GeneticScreen> {
                                                           .geneticTests_ar[index]);
                                                 });
                                           },
-                                          fontSize: Intl.getCurrentLocale()=='en'?12.sp:11.sp,
+                                          fontSize: 11.sp,
                                           border: 6,
                                         );
                                       },

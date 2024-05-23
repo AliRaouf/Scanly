@@ -271,4 +271,11 @@ class UserCubit extends Cubit<UserState> {
         .snapshots()
         .map((querySnapshot) => querySnapshot.docs.map((doc) => doc.data()).toList());
   }
+  Future<bool> doesEmailExist(String email) async {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+    QuerySnapshot querySnapshot = await users.where('email', isEqualTo: email).get();
+    return querySnapshot.docs.isNotEmpty;
+
+  }
 }

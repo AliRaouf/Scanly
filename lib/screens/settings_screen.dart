@@ -160,12 +160,12 @@ class SettingsScreen extends StatelessWidget {
                                   children: [
                                     Icon(
                                       Icons.logout,
-                                      color: Color(0xff232425),
+                                      color: Color(0xffFF0000),
                                     ),
                                     Text(
                                       "  ${S.of(context).logout}",
                                       style: GoogleFonts.nunito(
-                                          color: Color(0xff232425),
+                                          color: Color(0xffFF0000),
                                           fontSize: 16.sp),
                                     ),
                                   ],

@@ -285,21 +285,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () async {
                               try {
                                 final user = await UserCubit.get(context).signInWithFacebook();
-                                await cubit.doesEmailExist(user!.email!);
-                                if (cubit.isExist == true) {
-                                  await UserCubit.get(context).receiverUserData();
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => HomeScreen()));
-                                } else if (cubit.isExist == false) {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ContinueLoginScreen(
-                                                user: user,
-                                              )));
+                                if (user != null) {
+                                  print(user.email);
+                                  if (await UserCubit.get(context).doesEmailExist(user.email!)==false) {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ContinueLoginScreen(
+                                                  user: user,
+                                                )));
+                                  }
+                                } else {
                                 }
                               } on FirebaseAuthException catch (error) {
                                 print(error.message);
@@ -308,8 +305,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             },
                             child: Container(
-                              decoration: BoxDecoration(),
-                              width: 45.w,
+                              width: 44.w,
                               height: 44.h,
                               child: ClipRRect(
                                 child: Image.asset("assets/images/facebook.png"),
@@ -326,8 +322,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 final user = await UserCubit.get(context).googleSignin();
                                 if (user != null) {
                                   print(user.email);
-                                  await cubit.doesEmailExist(user.email??"");
-                                  if (cubit.isExist == false) {
+                                  if (await UserCubit.get(context).doesEmailExist(user.email!)==false) {
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
@@ -337,7 +332,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 )));
                                   }
                                 } else {
-                                  print('Sign in cancelled or failed');
                                 }
                               } on FirebaseAuthException catch (error) {
                                 print(error.message);

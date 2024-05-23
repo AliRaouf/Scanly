@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
@@ -38,83 +39,103 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     late MemoryImage? _selectedImage;
     var cubit = RegisterCubit.get(context);
-    return BlocConsumer<RegisterCubit, RegisterState>(
+    return BlocConsumer<UserCubit, UserState>(
   listener: (context, state) {
   },
   builder: (context, state) {
+    if(state is SaveUserLoadingState || state is SaveUserSuccessState || state is ReceiveUserNameLoadingState){
+      return Scaffold(
+        body:
+        Container(decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/Scanly_bg.png"),
+                fit: BoxFit.cover)),
+          child:Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Text("Logging in",style: GoogleFonts.montserrat(fontSize:20.sp,color:Color(0xff232425),fontWeight:FontWeight.w600),)
+            ],
+          )) ,
+        ),
+      );
+    }
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(
                   children: [
-            Container(
-              height: screenHeight * 0.3758,
-              width: screenWidth,
-              decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(blurRadius: 4)],
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/Scanly_bg.png"),
-                      fit: BoxFit.cover),
-                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(30))),
-              child: Padding(
-                padding:EdgeInsets.symmetric(horizontal: screenWidth*0.06111111111),
-                child: Column(
-                  children: [
-                    Text(
-                      "Hi ${widget.user.displayName ?? ""}",
-                      style: GoogleFonts.openSans(
-                          fontSize: screenWidth *0.05092592592,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff232425)),
+            Container(decoration: BoxDecoration(borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),color: Color(0xffaaddf1)),
+              child: SafeArea(
+                child: Container(
+                  height: screenHeight * 0.3758,
+                  width: screenWidth,
+                  decoration: BoxDecoration(
+                      boxShadow: [BoxShadow(blurRadius: 4)],
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/Scanly_bg.png"),
+                          fit: BoxFit.cover),
+                      borderRadius: BorderRadius.vertical(bottom: Radius.circular(30))),
+                  child: Padding(
+                    padding:EdgeInsets.symmetric(horizontal: screenWidth*0.06111111111),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Hi ${widget.user.displayName ?? ""}",
+                          style: GoogleFonts.openSans(
+                              fontSize: screenWidth *0.05092592592,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff232425)),
+                        ),
+                        Text(
+                          "Continue With Login Process",
+                          style: GoogleFonts.openSans(
+                              fontSize: screenWidth *0.05092592592,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff232425)),
+                        ),
+                        Text(
+                          S.of(context).add_picture,
+                          style: GoogleFonts.openSans(
+                              fontSize: screenWidth * 0.04444,
+                              color: Color(0xff232425)),
+                        ),
+                        Stack(children: [
+                          Center(
+                              child: Container(
+                            margin: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                            child: RegisterCubit.get(context).image != null
+                                ? CircleAvatar(
+                                    radius: screenWidth*0.2037037037,
+                                    backgroundImage:
+                                        MemoryImage(cubit.image!),
+                                  )
+                                : CircleAvatar(
+                                    backgroundColor: Colors.transparent,
+                                    radius: screenWidth*0.2037037037,
+                                    backgroundImage:
+                                        NetworkImage(widget.user.photoURL!),
+                                  ),
+                          )),
+                          Positioned(
+                              bottom: 0,
+                              left: screenWidth * 0.57,
+                              child: IconButton(
+                                  onPressed: () {
+                                    RegisterCubit.get(context)
+                                        .selectImage()
+                                        .then((image) {
+                                      setState(() {
+                                        _selectedImage = image;
+                                      });
+                                    });
+                                  },
+                                  icon: const Icon(
+                                    Icons.add_a_photo_outlined,
+                                    color: Colors.black87,
+                                  )))
+                        ]),
+                      ],
                     ),
-                    Text(
-                      "Continue With Login Process",
-                      style: GoogleFonts.openSans(
-                          fontSize: screenWidth *0.05092592592,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff232425)),
-                    ),
-                    Text(
-                      S.of(context).add_picture,
-                      style: GoogleFonts.openSans(
-                          fontSize: screenWidth * 0.04444,
-                          color: Color(0xff232425)),
-                    ),
-                    Stack(children: [
-                      Center(
-                          child: Container(
-                        margin: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
-                        child: RegisterCubit.get(context).image != null
-                            ? CircleAvatar(
-                                radius: screenWidth*0.2037037037,
-                                backgroundImage:
-                                    MemoryImage(cubit.image!),
-                              )
-                            : CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                radius: screenWidth*0.2037037037,
-                                backgroundImage:
-                                    NetworkImage(widget.user.photoURL!),
-                              ),
-                      )),
-                      Positioned(
-                          bottom: 0,
-                          left: screenWidth * 0.57,
-                          child: IconButton(
-                              onPressed: () {
-                                RegisterCubit.get(context)
-                                    .selectImage()
-                                    .then((image) {
-                                  setState(() {
-                                    _selectedImage = image;
-                                  });
-                                });
-                              },
-                              icon: const Icon(
-                                Icons.add_a_photo_outlined,
-                                color: Colors.black87,
-                              )))
-                    ]),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -237,28 +258,30 @@ class _ContinueLoginScreenState extends State<ContinueLoginScreen> {
                           screenHeight: screenHeight * 0.0625,
                           text: S.of(context).continue_message,
                           onpressed: () async{
-                            Uint8List image= await cubit.getDefaultImageBytesFromImage(widget.user.photoURL??"");
-                            await cubit.saveUser(
-                                widget.user.email,
-                                "",
-                                widget.user.displayName,
-                                1,
-                                DateFormat('d/M/yyyy').format(date!),
-                                genderController.text,
-                                int.parse(heightController.text),
-                                int.parse(weightController.text),
-                                diseaseController.selectedOptions
-                                    .map((option) => option.value)
-                                    .toList(),
-                              cubit.image ?? image
-                                );
-                            await UserCubit.get(context).receiverUserData();
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        HomeScreen()
-                                        ));
+                            if (genderController.text.isNotEmpty && heightController.text.isNotEmpty && weightController.text.isNotEmpty) {
+                              Uint8List image= await cubit.getDefaultImageBytesFromImage(widget.user.photoURL??"");
+                              await cubit.saveUser(
+                                  widget.user.email,
+                                  "",
+                                  widget.user.displayName,
+                                  1,
+                                  DateFormat('d/M/yyyy').format(date!),
+                                  genderController.text,
+                                  int.parse(heightController.text),
+                                  int.parse(weightController.text),
+                                  diseaseController.selectedOptions
+                                      .map((option) => option.value)
+                                      .toList(),
+                                cubit.image ?? image
+                                  );
+                              await UserCubit.get(context).receiverUserData();
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          HomeScreen()
+                                          ));
+                            }
                           },
                           bColor: Color(0xff179BE8),
                           borderColor: Colors.transparent,
