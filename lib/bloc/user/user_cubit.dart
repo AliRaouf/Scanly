@@ -9,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 part 'user_state.dart';
 
@@ -67,6 +68,22 @@ class UserCubit extends Cubit<UserState> {
       }
     } catch (e) {
       emit(ReceiveUserNameErrorState());
+    }
+  }
+  Future<User?> signInWithFacebook() async {
+    emit(LoginLoadingState());
+    try {
+      final LoginResult loginResult = await FacebookAuth.instance.login();
+      final OAuthCredential facebookAuthCredential =
+      FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      final userCredential = await FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential);
+      emit(LoginSuccessState());
+      return userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      emit(LoginErrorState(error));
+      return null;
     }
   }
   Future<User?> googleSignin() async {

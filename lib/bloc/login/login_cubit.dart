@@ -3,10 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 part 'login_state.dart';
 
@@ -72,18 +70,6 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
 
-  Future<User?> signInWithFacebook() async {
-    try {
-      final LoginResult loginResult = await FacebookAuth.instance.login();
-      final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(loginResult.accessToken!.token);
-      final userCredential = await FirebaseAuth.instance
-          .signInWithCredential(facebookAuthCredential);
-      return userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      return null;
-    }
-  }
 
 doesEmailExist(String email) async {
     CollectionReference users = FirebaseFirestore.instance.collection('users');

@@ -26,6 +26,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   Uint8List? image;
   bool? pwValidate;
 
+  Future<bool> doesEmailExist(String email) async {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+    QuerySnapshot querySnapshot = await users.where('email', isEqualTo: email).get();
+    return querySnapshot.docs.isNotEmpty;
+
+  }
   String? validateEmail(String? value) {
     const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
         r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'

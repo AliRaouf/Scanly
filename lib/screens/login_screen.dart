@@ -272,81 +272,88 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 24.h,
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     ElevatedButton(
-                    //         style: ButtonStyle(
-                    //             backgroundColor:
-                    //                 MaterialStatePropertyAll(Colors.transparent),
-                    //             elevation: MaterialStatePropertyAll(0)),
-                    //         onPressed: () async {
-                    //           try {
-                    //             final user = await cubit.signInWithFacebook();
-                    //             await cubit.doesEmailExist(user!.email!);
-                    //             if (cubit.isExist == true) {
-                    //               await UserCubit.get(context).receiverUserData();
-                    //               Navigator.pushReplacement(
-                    //                   context,
-                    //                   MaterialPageRoute(
-                    //                       builder: (context) => HomeScreen()));
-                    //             } else if (cubit.isExist == false) {
-                    //               Navigator.pushReplacement(
-                    //                   context,
-                    //                   MaterialPageRoute(
-                    //                       builder: (context) =>
-                    //                           ContinueLoginScreen(
-                    //                             user: user,
-                    //                           )));
-                    //             }
-                    //           } on FirebaseAuthException catch (error) {
-                    //             print(error.message);
-                    //           } catch (e) {
-                    //             print(e);
-                    //           }
-                    //         },
-                    //         child: Container(
-                    //           decoration: BoxDecoration(),
-                    //           width: 45.w,
-                    //           height: 44.h,
-                    //           child: ClipRRect(
-                    //             child: Image.asset("assets/images/facebook.png"),
-                    //           ),
-                    //         )),
-                    //     // ElevatedButton(
-                    //     //     style: ButtonStyle(
-                    //     //         backgroundColor:
-                    //     //             MaterialStatePropertyAll(Colors.transparent),
-                    //     //         elevation: MaterialStatePropertyAll(0)),
-                    //     //     onPressed: () async {
-                    //     //       try {
-                    //     //         final user = await UserCubit.get(context).googleSignin();
-                    //     //         print(user!.email);
-                    //     //         await cubit.doesEmailExist(user.email!);
-                    //     //       if (cubit.isExist == false) {
-                    //     //           Navigator.pushReplacement(
-                    //     //               context,
-                    //     //               MaterialPageRoute(
-                    //     //                   builder: (context) =>
-                    //     //                       ContinueLoginScreen(
-                    //     //                         user: user,
-                    //     //                       )));
-                    //     //         }
-                    //     //       } on FirebaseAuthException catch (error) {
-                    //     //         print(error.message);
-                    //     //       } catch (e) {
-                    //     //         print(e);
-                    //     //       }
-                    //     //     },
-                    //     //     child: Container(
-                    //     //       width: 45.w,
-                    //     //       height: 44.h,
-                    //     //       child: ClipRRect(
-                    //     //         child: Image.asset("assets/images/google.png"),
-                    //     //       ),
-                    //     //     )),
-                    //   ],
-                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                            style:
+                            ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.zero),shape: WidgetStatePropertyAll(RoundedRectangleBorder()),fixedSize: WidgetStatePropertyAll(Size(45.w,
+                              44.h,)),
+                                backgroundColor:
+                                    WidgetStatePropertyAll(Colors.transparent),
+                                elevation: WidgetStatePropertyAll(0)),
+                            onPressed: () async {
+                              try {
+                                final user = await UserCubit.get(context).signInWithFacebook();
+                                await cubit.doesEmailExist(user!.email!);
+                                if (cubit.isExist == true) {
+                                  await UserCubit.get(context).receiverUserData();
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomeScreen()));
+                                } else if (cubit.isExist == false) {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ContinueLoginScreen(
+                                                user: user,
+                                              )));
+                                }
+                              } on FirebaseAuthException catch (error) {
+                                print(error.message);
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(),
+                              width: 45.w,
+                              height: 44.h,
+                              child: ClipRRect(
+                                child: Image.asset("assets/images/facebook.png"),
+                              ),
+                            )),
+                        ElevatedButton(
+                            style: ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.zero),shape: WidgetStatePropertyAll(RoundedRectangleBorder()),fixedSize: WidgetStatePropertyAll(Size(45.w,
+                              44.h,)),
+                                backgroundColor:
+                                WidgetStatePropertyAll(Colors.transparent),
+                                elevation: WidgetStatePropertyAll(0)),
+                            onPressed: () async {
+                              try {
+                                final user = await UserCubit.get(context).googleSignin();
+                                if (user != null) {
+                                  print(user.email);
+                                  await cubit.doesEmailExist(user.email??"");
+                                  if (cubit.isExist == false) {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ContinueLoginScreen(
+                                                  user: user,
+                                                )));
+                                  }
+                                } else {
+                                  print('Sign in cancelled or failed');
+                                }
+                              } on FirebaseAuthException catch (error) {
+                                print(error.message);
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                            child: Container(
+                              width: 45.w,
+                              height: 44.h,
+                              child: ClipRRect(
+                                child: Image.asset("assets/images/google.png"),
+                              ),
+                            )),
+                      ],
+                    ),
                     SizedBox(
                       height: 16.h,
                     ),

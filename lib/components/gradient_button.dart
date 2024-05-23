@@ -34,14 +34,17 @@ class GradientButton extends StatelessWidget {
       ),
       child: ElevatedButton(
         style: ButtonStyle(
-            backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
-            shadowColor: const MaterialStatePropertyAll(Colors.transparent),
-            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+            backgroundColor: const WidgetStatePropertyAll(Colors.transparent),
+            shadowColor: const WidgetStatePropertyAll(Colors.transparent),
+            shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(border)))),
         onPressed: onpressed,
         child: Text(
           text,
-          style: GoogleFonts.nunito(color: const Color(0xfffafafa), fontSize: fontSize,fontWeight: FontWeight.w600),
+          style: GoogleFonts.nunito(
+              color: const Color(0xfffafafa),
+              fontSize: fontSize,
+              fontWeight: FontWeight.w600),
         ),
       ),
     );

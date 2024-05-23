@@ -438,15 +438,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     }
                                   } else if (index == 0 &&
                                       formKey1.currentState!.validate()) {
-                                    cubit.name = nameController.text;
-                                    cubit.email = emailController.text;
-                                    cubit.phoneNumber =
-                                        int.parse(phoneController.text);
-                                    print(
-                                        "name=${cubit.name}\nemail=${cubit.email}\nnumber=${cubit.phoneNumber}");
-                                    setState(() {
-                                      index++;
-                                    });
+                                    if (await cubit.doesEmailExist(emailController.text)) {
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Email Already Exists")));
+    }else{
+                                      cubit.name = nameController.text;
+                                      cubit.email = emailController.text;
+                                      cubit.phoneNumber =
+                                          int.parse(phoneController.text);
+                                      print(
+                                          "name=${cubit.name}\nemail=${cubit.email}\nnumber=${cubit.phoneNumber}");
+                                      setState(() {
+                                        index++;
+                                      });
+                                    }
                                   } else if (index == 1 &&
                                       formKey2.currentState!.validate() && cubit.pwValidate==true) {
                                     cubit.date = date;

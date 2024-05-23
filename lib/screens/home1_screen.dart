@@ -292,7 +292,7 @@ class _Home1ScreenState extends State<Home1Screen> {
                                             });
                                       }
                                     },
-                                    fontSize: Intl.getCurrentLocale()=='en'?13.sp:11.sp,
+                                    fontSize: 11.sp,
                                     border: 6.r,
                                   );
                                 },
