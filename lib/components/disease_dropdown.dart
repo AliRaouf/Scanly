@@ -18,7 +18,7 @@ class DiseaseDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<ValueItem> chronicIllness = [
-      const ValueItem(value: "none", label: "None"),
+      ValueItem(value: "none", label: S.of(context).non_MH),
       ValueItem(value: "HighBloodPressure", label: S.of(context).pressure),
       ValueItem(value: "Cholestrol", label:S.of(context).Cholestrol),
       ValueItem(value: "Arthritis", label: S.of(context).Arthritis),

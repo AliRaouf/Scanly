@@ -228,7 +228,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
         "no_tests_added": MessageLookupByLibrary.simpleMessage(
             "You have not added any tests yet\nStart Adding Now!"),
-        "non_MH": MessageLookupByLibrary.simpleMessage("non"),
+        "non_MH": MessageLookupByLibrary.simpleMessage("none"),
         "old_password": MessageLookupByLibrary.simpleMessage("Old Password"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_not_match":
