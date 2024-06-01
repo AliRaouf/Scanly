@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mlkit_document_scanner/google_mlkit_document_scanner.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,6 +37,12 @@ class UserCubit extends Cubit<UserState> {
   bool isConfirmNewPasswordObscured = true;
   Stream? testStream;
   String error = '';
+  DocumentScannerOptions options = DocumentScannerOptions(
+    documentFormat: DocumentFormat.jpeg,
+    mode: ScannerMode.full,
+    isGalleryImport: true,
+    pageLimit: 1,
+  );
   Future<String> uploadImage(Uint8List file, email) async {
     String imgName = email;
     Reference ref = FirebaseStorage.instance.ref('profile_image').child(
@@ -277,5 +284,23 @@ class UserCubit extends Cubit<UserState> {
     QuerySnapshot querySnapshot = await users.where('email', isEqualTo: email).get();
     return querySnapshot.docs.isNotEmpty;
 
+  }
+  void startScan(DocumentFormat format , DocumentScanner documentScanner) async {
+    try {
+      var _result = null;
+      documentScanner.close();
+      documentScanner = DocumentScanner(
+        options: DocumentScannerOptions(
+          documentFormat: DocumentFormat.jpeg,
+          mode: ScannerMode.full,
+          isGalleryImport: true,
+          pageLimit: 1,
+        ),
+      );
+      _result = await documentScanner.scanDocument();
+      print('result: $_result');
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 }

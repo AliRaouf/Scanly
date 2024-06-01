@@ -10,10 +10,9 @@ part 'api_state.dart';
 
 class ApiCubit extends Cubit<ApiState> {
   ApiCubit() : super(ApiInitial());
-  String? modelPath;
   static ApiCubit get(context) => BlocProvider.of(context);
   final openAi = OpenAI.instance.build(
-      token: "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",
+      token: "",
       baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 60)),enableLog: true);
   Future<Map<String, dynamic>> getJSONFromPrompt(String userTest,String testName,BuildContext context,String userTest_ar) async {
     final request = CompleteText(maxTokens: 2500,

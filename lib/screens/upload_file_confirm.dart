@@ -106,7 +106,7 @@ class _UploadFileConfirmState extends State<UploadFileConfirm> {
                             borderRadius: BorderRadius.circular(15),
                             child: Image(
                               image: MemoryImage(TextractCubit.get(context).image ?? Uint8List(0)),
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                             ),
                           )),
                 Padding(

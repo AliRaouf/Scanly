@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mlkit_document_scanner/google_mlkit_document_scanner.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:scanly/bloc/user/user_cubit.dart';
@@ -20,11 +22,25 @@ String testName_ar;
   @override
   State<ScanBottomSheetPopup> createState() => _ScanBottomSheetPopupState();
 }
-
 class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
+  late DocumentScanner documentScanner;
+  DocumentScannerOptions options = DocumentScannerOptions(
+    documentFormat: DocumentFormat.jpeg,
+    mode: ScannerMode.full,
+    isGalleryImport: true,
+    pageLimit: 1,
+  );
   late MemoryImage? _selectedImage;
-
   @override
+  void initState() {
+    documentScanner = DocumentScanner(options: options);
+    super.initState();
+  }
+  @override
+  void dispose() {
+    documentScanner.close();
+    super.dispose();
+  }
   Widget build(BuildContext context) {
     var cubit = UserCubit.get(context);
     return StatefulBuilder(
@@ -50,13 +66,18 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
               ),
               GestureDetector(
                 onTap: () async {
-                  await TextractCubit.get(context).pickFile();
-                  TextractCubit.get(context).fileToDisplay==null? null :
-                  pushScreen(
-                    context,
-                    screen: UploadFileConfirm(testName: widget.testName,testName_ar: widget.testName_ar,),
-                    withNavBar: false,
-                              );
+                  try {
+                    var documents = await documentScanner.scanDocument();
+                    print('documents: ${documents.images[0]}');
+                    TextractCubit.get(context).image= await FlutterImageCompress.compressWithFile(documents.images[0],quality: 90,);
+                    pushScreen(
+                      context,
+                      screen: UploadFileConfirm(testName: widget.testName,testName_ar: widget.testName_ar,),
+                      withNavBar: false,
+                    );
+                  } catch (e) {
+                    print('Error: $e');
+                  }
                 },
                 child: Container(
                   width: 310.w,
@@ -68,8 +89,8 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.file_upload_outlined,
+                      Icon(Icons.document_scanner_outlined
+                        ,
                         size: 50.w,
                         color: Color(0xff179BE8),
                       ),
@@ -94,16 +115,13 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                   children: [
                     GestureDetector(
                       onTap: () async {
-                        await cubit.selectImage().then((image) {
-                          setState(() {
-                            _selectedImage = image;
-                          });
-                          pushScreen(
-                            context,
-                            screen: UploadFileConfirm(testName: widget.testName,testName_ar: widget.testName_ar,),
-                            withNavBar: false,
-                          );
-                        });
+                        await TextractCubit.get(context).pickFile();
+                        TextractCubit.get(context).fileToDisplay==null? null :
+                        pushScreen(
+                          context,
+                          screen: UploadFileConfirm(testName: widget.testName,testName_ar: widget.testName_ar,),
+                          withNavBar: false,
+                        );
                       },
                       child: Container(
                         width: 144.w,
@@ -116,8 +134,8 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.camera_alt_outlined,
+                            Icon(Icons.file_upload_outlined
+                              ,
                               size: 50.w,
                               color: Color(0xff179BE8),
                             ),
@@ -125,7 +143,7 @@ class _ScanBottomSheetPopupState extends State<ScanBottomSheetPopup> {
                               padding: EdgeInsets.symmetric(
                                   vertical: 8.h),
                               child: Text(
-                                S.of(context).Use_Camera,
+                               Intl.getCurrentLocale()=='en'?"Upload a PDF":"قم تحميل ملف PDF",
                                 style: GoogleFonts.nunito(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w600,
