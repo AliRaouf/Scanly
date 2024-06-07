@@ -151,7 +151,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "choose_new_picture": MessageLookupByLibrary.simpleMessage(
             "Choose a new Profile Picture"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
-        "commen_tests": MessageLookupByLibrary.simpleMessage("Commen Tests"),
+        "commen_tests": MessageLookupByLibrary.simpleMessage("Common Tests"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "continue_message": MessageLookupByLibrary.simpleMessage("Continue"),
